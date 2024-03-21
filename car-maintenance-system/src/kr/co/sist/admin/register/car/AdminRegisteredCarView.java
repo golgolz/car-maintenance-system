@@ -57,8 +57,8 @@ public class AdminRegisteredCarView extends JFrame {
         jbtnAddCar.setBounds(540, 90, 60, 25);
         jbtnModify.setBounds(620, 90, 60, 25);
         jbtnRemove.setBounds(700, 90, 60, 25);
-        carTable.setBounds(50, 125, 730, 280);
-        jsp.setBounds(45, 180, 800, 240);
+        // carTable.setBounds(50, 125, 730, 280);
+        jsp.setBounds(50, 125, 730, 280);
 
         add(jlbRegisteredTitle);
         add(jlbCarIdTitle);
