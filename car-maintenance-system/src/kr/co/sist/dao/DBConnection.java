@@ -8,7 +8,6 @@ import java.sql.Statement;
 
 public class DBConnection {
     private static DBConnection dbConn;
-    private Connection conn;
 
     private DBConnection() {}
 
@@ -20,6 +19,19 @@ public class DBConnection {
         return dbConn;
     }
 
+    public Connection getLocalhostConnection(String id, String pw) throws SQLException {
+        try {
+            Class.forName("oracle.jdbc.OracleDriver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+
+        Connection conn = DriverManager.getConnection(url, id, pw);
+        return conn;
+    }
+
     public Connection getConnection(String id, String pw) throws SQLException {
         try {
             Class.forName("oracle.jdbc.OracleDriver");
@@ -29,7 +41,7 @@ public class DBConnection {
 
         String url = "jdbc:oracle:thin:@192.168.10.216:1521:orcl";
 
-        conn = DriverManager.getConnection(url, id, pw);
+        Connection conn = DriverManager.getConnection(url, id, pw);
         return conn;
     }
 
@@ -40,11 +52,11 @@ public class DBConnection {
             e.printStackTrace();
         }
 
-        conn = DriverManager.getConnection(url, id, pw);
+        Connection conn = DriverManager.getConnection(url, id, pw);
         return conn;
     }
 
-    public void dbClose(ResultSet rs, Statement stmt) throws SQLException {
+    public void dbClose(Connection conn, Statement stmt, ResultSet rs) throws SQLException {
         try {
             if (rs != null) {
                 rs.close();
