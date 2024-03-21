@@ -9,49 +9,139 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+@SuppressWarnings("serial")
 public class InventoryView extends JFrame {
-  private JLabel jlInventoryLabel;
-  private JButton jbtnSelectBtn;
-  private JButton jbtnAddBtn;
-  private JButton jbtnUpdateBtn;
 
-  private JTextField jtaSelectField;
+  private InventoryEvent inventoryEvent;
+
+
+
+  private JLabel jlInventory;
+  private JButton jbtnSelect;
+  private JButton jbtnAdd;
+  private JButton jbtnUpdate;
+
+  private JTextField jtaSelect;
 
   private DefaultTableModel dtmDefaultInventoryData;
   private JTable jtInventoryDataTable;
-  private JScrollPane jspInventoryDataScroll;
+  private JScrollPane jspInventoryData;
 
-  private JDialog jdlInventoryAddDialogView;
-  private JDialog jblInventoryModifyDialogView;
+  private JDialog jdInventoryAddDialogView;
+  private JDialog jdInventoryModifyDialogView;
+
+
 
   public InventoryView() {
     super("차량 정보 관리");
 
-    jlInventoryLabel = new JLabel("부품 재고 관리");
-    jbtnSelectBtn = new JButton("조회");
-    jbtnAddBtn = new JButton("추가");
-    jbtnUpdateBtn = new JButton("변경");
-    jtaSelectField = new JTextField("재고명을 입력하세요");
+    inventoryEvent = new InventoryEvent(this);
 
-    dtmDefaultInventoryData = new DefaultTableModel(new Object[][] {{}, {}, {}, {}, {}}, new String[] {});
-    jtInventoryDataTable = new JTable();
-    jspInventoryDataScroll = new JScrollPane();
+    jlInventory = new JLabel("부품 재고 관리");
+    jbtnSelect = new JButton("조회");
+    jbtnAdd = new JButton("추가");
+    jbtnUpdate = new JButton("변경");
+    jtaSelect = new JTextField(10);
 
-    jdlInventoryAddDialogView = new JDialog();
-    jblInventoryModifyDialogView = new JDialog();
+    String[] header = {"코드", "이름", "판매가격", "재고량", "입고 일자"};
+    String[][] contents =
+        {{"ENGO0321", "엔진오일", "20000", "15", "2024-03-10"}, {"AUTO0302", "오토미션오일", "30000", "14", "2024-02-10"}};
 
-    jtInventoryDataTable.setModel(dtmDefaultInventoryData);
-    jspInventoryDataScroll.setViewportView(jtInventoryDataTable); // 테이블 스크롤 형식 설정
+    dtmDefaultInventoryData = new DefaultTableModel(contents, header);
+    jtInventoryDataTable = new JTable(dtmDefaultInventoryData);
+    jspInventoryData = new JScrollPane(jtInventoryDataTable);
+    // jtInventoryDataTable.setModel(dtmDefaultInventoryData);
+    // jspInventoryDataScroll.setViewportView(jtInventoryDataTable); // 테이블 스크롤 형식 설정
 
-    jlInventoryLabel.setBounds(20, 20, 20, 10);
+    jdInventoryAddDialogView = new JDialog();
+    jdInventoryModifyDialogView = new JDialog();
 
-    add(jlInventoryLabel);
 
-    setBounds(100, 100, 840, 480);
+
+    setLayout(null);
+
+    jlInventory.setBounds(20, 10, 100, 30);
+    jtaSelect.setBounds(580, 15, 150, 30);
+    jbtnSelect.setBounds(740, 15, 80, 30);
+    jspInventoryData.setBounds(20, 80, 780, 300);
+    jbtnAdd.setBounds(600, 390, 80, 30);
+    jbtnUpdate.setBounds(700, 390, 80, 30);
+
+    add(jlInventory);
+    add(jtaSelect);
+    add(jbtnSelect);
+
+    add(jbtnAdd);
+    add(jbtnUpdate);
+
+    add(jspInventoryData);
+
+
+    jbtnAdd.addActionListener(inventoryEvent);
+    addWindowListener(inventoryEvent);
+
+    setBounds(200, 320, 840, 480);
 
 
     setVisible(true);
+    setResizable(false);
+  }// InventoryView
+
+
+  public InventoryEvent getInventoryEvent() {
+    return inventoryEvent;
   }
+
+
+  public JLabel getJlInventory() {
+    return jlInventory;
+  }
+
+
+  public JButton getJbtnSelect() {
+    return jbtnSelect;
+  }
+
+
+  public JButton getJbtnAdd() {
+    return jbtnAdd;
+  }
+
+
+  public JButton getJbtnUpdate() {
+    return jbtnUpdate;
+  }
+
+
+  public JTextField getJtaSelect() {
+    return jtaSelect;
+  }
+
+
+  public DefaultTableModel getDtmDefaultInventoryData() {
+    return dtmDefaultInventoryData;
+  }
+
+
+  public JTable getJtInventoryDataTable() {
+    return jtInventoryDataTable;
+  }
+
+
+  public JScrollPane getJspInventoryData() {
+    return jspInventoryData;
+  }
+
+
+  public JDialog getJdInventoryAddDialogView() {
+    return jdInventoryAddDialogView;
+  }
+
+
+  public JDialog getJdInventoryModifyDialogView() {
+    return jdInventoryModifyDialogView;
+  }
+
 
   public static void main(String[] args) {
     new InventoryView();
