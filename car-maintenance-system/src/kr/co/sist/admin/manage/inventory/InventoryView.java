@@ -14,8 +14,6 @@ public class InventoryView extends JFrame {
 
   private InventoryEvent inventoryEvent;
 
-
-
   private JLabel jlInventory;
   private JButton jbtnSelect;
   private JButton jbtnAdd;
