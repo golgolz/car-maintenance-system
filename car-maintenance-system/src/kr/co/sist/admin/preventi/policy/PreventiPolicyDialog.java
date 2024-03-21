@@ -20,11 +20,11 @@ public class PreventiPolicyDialog extends JDialog {
         String[] policyHeader = {"부품코드", "부품명", "주행거리 기준", "제조일 기준", "상세보기"};
         String[][] dumpData = null;
 
-        try {
-            dumpData = createPolicyData();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        // try {
+        // dumpData = createPolicyData();
+        // } catch (SQLException e) {
+        // e.printStackTrace();
+        // }
 
         DefaultTableModel dtmPolicies = new DefaultTableModel(dumpData, policyHeader);
         JTable jtblPolicies = new JTable(dtmPolicies);
