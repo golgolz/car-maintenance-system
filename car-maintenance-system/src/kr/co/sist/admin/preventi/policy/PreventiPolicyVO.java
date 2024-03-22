@@ -3,13 +3,13 @@ package kr.co.sist.admin.preventi.policy;
 public class PreventiPolicyVO {
     private String part;
     private int distancePeriod;
-    private int manufacturePeriod;
+    private int productionPeriod;
     private String content;
 
-    public PreventiPolicyVO(String part, int distancePeriod, int manufacturePeriod, String content) {
+    public PreventiPolicyVO(String part, int distancePeriod, int productionPeriod, String content) {
         this.part = part;
         this.distancePeriod = distancePeriod;
-        this.manufacturePeriod = manufacturePeriod;
+        this.productionPeriod = productionPeriod;
         this.content = content;
     }
 
@@ -21,8 +21,8 @@ public class PreventiPolicyVO {
         return distancePeriod;
     }
 
-    public int getManufacturePeriod() {
-        return manufacturePeriod;
+    public int getProductionPeriod() {
+        return productionPeriod;
     }
 
     public String getContent() {
