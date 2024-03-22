@@ -18,7 +18,7 @@ import javax.swing.table.TableCellRenderer;
 
 public class PreventiReservationView extends JFrame {
     private JTextField jtfOwnerId;
-    private DefaultTableModel preventiTargets;
+    private DefaultTableModel preventiReservations;
     private JTable preventiReservationTable;
 
     public PreventiReservationView() {
@@ -31,9 +31,9 @@ public class PreventiReservationView extends JFrame {
         jtfOwnerId = new JTextField(10);
         JButton jbtnSearch = new JButton("검색");
         JButton jbtnMaintenanceHistory = new JButton("보기");
-        preventiTargets = new DefaultTableModel();
-        createMaintenanceHistoryDialog();
-        preventiReservationTable = new JTable(preventiTargets);
+        preventiReservations = new DefaultTableModel();
+        createMaintenanceDialog();
+        preventiReservationTable = new JTable(preventiReservations);
         JScrollPane preventiTargetScroll = new JScrollPane(preventiReservationTable);
 
         jlblTitle.setFont(new Font("나눔고딕", Font.BOLD, 27));
@@ -67,12 +67,12 @@ public class PreventiReservationView extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    public void createMaintenanceHistoryDialog() {
+    public void createMaintenanceDialog() {
         String[] headerInfo = {"등록 번호", "고객명", "ID", "연락처", "차량 번호", "모델", "예약일", "예약 사유", "정비 상태"};
-        Object[][] preventiTargetData =
+        Object[][] preventiReservationData =
                 {{"1", "이명화", "lee", "010-1111-2222", "111가2222", "K5", "20-09-09", "엔진 오일", "정비대기"},
                         {"2", "이명화", "lee", "010-3333-4444", "333나4444", "K5", "20-09-09", "와이퍼", "정비완료"}};
-        preventiTargets = new DefaultTableModel(preventiTargetData, headerInfo);
+        preventiReservations = new DefaultTableModel(preventiReservationData, headerInfo);
     }
 
     static class ButtonRenderer extends JButton implements TableCellRenderer {
