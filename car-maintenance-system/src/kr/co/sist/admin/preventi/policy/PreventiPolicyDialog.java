@@ -165,7 +165,7 @@ public class PreventiPolicyDialog extends JDialog {
             policies[i][4] = "보기";
             policies[i][5] = tempVO.getContent();
 
-            tempInt = tempVO.getManufacturePeriod();
+            tempInt = tempVO.getProductionPeriod();
             if (tempInt == 0) {
                 policies[i][3] = "없음";
             } else {

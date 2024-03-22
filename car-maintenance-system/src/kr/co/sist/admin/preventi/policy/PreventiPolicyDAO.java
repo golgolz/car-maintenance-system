@@ -30,18 +30,16 @@ public class PreventiPolicyDAO {
         DBConnection dbConn = DBConnection.getInstance();
 
         try {
-            // conn = dbConn.getConnection("scott", "tiger");
             conn = dbConn.getLocalhostConnection("scott", "tiger");
             StringBuilder selectQuery =
-                    new StringBuilder("select part_code, manufacture_date, distance, content from preventi_policy");
+                    new StringBuilder("select part_code, distance, production_date, content from preventi_policy");
             pstmt = conn.prepareStatement(selectQuery.toString());
 
             resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
-                policies.add(
-                        new PreventiPolicyVO(resultSet.getString("part_code"), resultSet.getInt("manufacture_date"),
-                                resultSet.getInt("distance"), resultSet.getString("content")));
+                policies.add(new PreventiPolicyVO(resultSet.getString("part_code"), resultSet.getInt("distance"),
+                        resultSet.getInt("production_date"), resultSet.getString("content")));
             }
         } finally {
             dbConn.dbClose(conn, pstmt, resultSet);

@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PreventiPolicyEvent implements ActionListener {
-    @SuppressWarnings("unused")
     private PreventiPolicyDialog preventiPolicyDialog;
 
     public PreventiPolicyEvent(PreventiPolicyDialog preventiPolicyDialog) {
@@ -16,3 +15,4 @@ public class PreventiPolicyEvent implements ActionListener {
         preventiPolicyDialog.dispose();
     }
 }
+
