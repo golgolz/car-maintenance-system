@@ -30,7 +30,7 @@ public class PreventiPolicyDAO {
         DBConnection dbConn = DBConnection.getInstance();
 
         try {
-            conn = dbConn.getLocalhostConnection("scott", "tiger");
+            conn = dbConn.getConnection();
             StringBuilder selectQuery =
                     new StringBuilder("select part_code, distance, production_date, content from preventi_policy");
             pstmt = conn.prepareStatement(selectQuery.toString());
