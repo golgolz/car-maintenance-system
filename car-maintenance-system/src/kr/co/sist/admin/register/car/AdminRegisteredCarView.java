@@ -17,9 +17,7 @@ public class AdminRegisteredCarView extends JFrame {
     private JLabel jlbRegisteredTitle, jlbCarIdTitle, jlbIdTitle;
     private JTextField jtfCarId, jtfldId;
     private JButton jbtnSearch, jbtnAddCar, jbtnModify, jbtnRemove;
-    // private DefaultTableModel carModel;
-    // private JTable carTable;
-    // private JScrollPane jsp;
+
 
     public AdminRegisteredCarView() {
         super("차량 정비 관리 시스템");
@@ -57,7 +55,7 @@ public class AdminRegisteredCarView extends JFrame {
         jbtnAddCar.setBounds(540, 90, 60, 25);
         jbtnModify.setBounds(620, 90, 60, 25);
         jbtnRemove.setBounds(700, 90, 60, 25);
-        // carTable.setBounds(50, 125, 730, 280);
+
         jsp.setBounds(50, 125, 730, 280);
 
         add(jlbRegisteredTitle);
