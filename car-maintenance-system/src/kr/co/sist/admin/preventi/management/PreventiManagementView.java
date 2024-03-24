@@ -20,6 +20,7 @@ public class PreventiManagementView extends JFrame {
         super("예방 정비 대상 차량");
         setLayout(null);
         this.getContentPane().setBackground(Color.decode("#002347"));
+        PreventiManagementEvent preventiManagementEvent = new PreventiManagementEvent(this);
 
         JLabel jlblTitle = new JLabel("예방 정비 대상 차량");
         JLabel jlblCarId = new JLabel("차량 번호");
@@ -29,8 +30,10 @@ public class PreventiManagementView extends JFrame {
         JButton jbtnSearch = new JButton("검색");
         JButton jbtnPreventiPolicy = new JButton("예방 정비 지침 확인");
         JButton jbtnMaintenanceHistory = new JButton("보기");
-        preventiTargets = new DefaultTableModel();
-        createMaintenanceHistoryDialog();
+
+        String[] headerInfo = {"차량번호", "ID", "모델", "주행거리", "예약여부", "정비이력", "정비상태", "제조일", "예약일", "점검사유"};
+        preventiTargets = new DefaultTableModel(preventiManagementEvent.showAllPreventi(), headerInfo);
+        // createMaintenanceHistoryDialog();
         preventiTargetTable = new JTable(preventiTargets);
         JScrollPane preventiTargetScroll = new JScrollPane(preventiTargetTable);
 
@@ -58,7 +61,8 @@ public class PreventiManagementView extends JFrame {
         jbtnSearch.setBackground(Color.decode("#065535"));
         jbtnPreventiPolicy.setBackground(Color.decode("#065535"));
 
-        jbtnPreventiPolicy.addActionListener(new PreventiManagementEvent(this));
+        jbtnSearch.addActionListener(preventiManagementEvent);
+        jbtnPreventiPolicy.addActionListener(preventiManagementEvent);
 
         add(jlblTitle);
         add(jlblCarId);
@@ -74,11 +78,23 @@ public class PreventiManagementView extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    public JTextField getJtfCarId() {
+        return jtfCarId;
+    }
+
+    public JTextField getJtfOwnerId() {
+        return jtfOwnerId;
+    }
+
+    public DefaultTableModel getPreventiTargets() {
+        return preventiTargets;
+    }
+
+    public void setPreventiTargets(DefaultTableModel newTargets) {
+        this.preventiTargets = newTargets;
+    }
+
     public void createMaintenanceHistoryDialog() {
-        String[] headerInfo = {"차량번호", "ID", "모델", "주행거리", "예약여부", "정비이력", "정비상태", "제조일", "예약일", "점검사유"};
-        Object[][] preventiTargetData =
-                {{"111가4567", "lee", "K5", "29,193km", "N", "보기", "입고전", "20-09-09", "없음", "엔진오일"},
-                        {"111가4567", "lee", "K5", "29,193km", "N", "보기", "입고전", "20-09-09", "없음", "엔진오일"}};
-        preventiTargets = new DefaultTableModel(preventiTargetData, headerInfo);
+
     }
 }
