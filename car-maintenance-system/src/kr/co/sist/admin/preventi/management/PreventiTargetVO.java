@@ -5,6 +5,7 @@ import java.sql.Date;
 public class PreventiTargetVO {
     private String carId;
     private String ownerId;
+    private String ownerTel;
     private String carModel;
     private int driveDistance;
     private String reservationFlag;
@@ -14,11 +15,13 @@ public class PreventiTargetVO {
     private Date reservationDate;
     private String maintenanceReason;
 
-    public PreventiTargetVO(String carId, String ownerId, String carModel, int driveDistance, String reservationFlag,
-            String maintenanceStatus, Date productionDate, Date reservationDate, String maintenanceReason) {
+    public PreventiTargetVO(String carId, String ownerId, String ownerTel, String carModel, int driveDistance,
+            String reservationFlag, String maintenanceStatus, Date productionDate, Date reservationDate,
+            String maintenanceReason) {
         super();
         this.carId = carId;
         this.ownerId = ownerId;
+        this.ownerTel = ownerTel;
         this.carModel = carModel;
         this.driveDistance = driveDistance;
         this.reservationFlag = reservationFlag;
@@ -49,6 +52,10 @@ public class PreventiTargetVO {
 
     public String getOwnerId() {
         return ownerId;
+    }
+
+    public String getOwnerTel() {
+        return ownerTel;
     }
 
     public String getCarModel() {

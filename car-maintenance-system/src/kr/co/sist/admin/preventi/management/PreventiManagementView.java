@@ -1,15 +1,22 @@
 package kr.co.sist.admin.preventi.management;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
+@SuppressWarnings("serial")
 public class PreventiManagementView extends JFrame {
     private JTextField jtfCarId;
     private JTextField jtfOwnerId;
@@ -29,7 +36,6 @@ public class PreventiManagementView extends JFrame {
         jtfOwnerId = new JTextField(10);
         JButton jbtnSearch = new JButton("검색");
         JButton jbtnPreventiPolicy = new JButton("예방 정비 지침 확인");
-        JButton jbtnMaintenanceHistory = new JButton("보기");
 
         String[] headerInfo = {"차량번호", "ID", "모델", "주행거리", "예약여부", "정비이력", "정비상태", "제조일", "예약일", "점검사유"};
         preventiTargets = new DefaultTableModel(preventiManagementEvent.showAllPreventi(), headerInfo);
@@ -43,6 +49,8 @@ public class PreventiManagementView extends JFrame {
         jbtnSearch.setFont(new Font("나눔고딕", Font.PLAIN, 14));
         jbtnPreventiPolicy.setFont(new Font("나눔고딕", Font.PLAIN, 14));
         preventiTargetTable.setFont(new Font("나눔고딕", Font.PLAIN, 14));
+        preventiTargetTable.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
+        preventiTargetTable.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox()));
 
         jlblTitle.setBounds(17, 0, 250, 80);
         jlblCarId.setBounds(20, 87, 100, 30);
@@ -92,6 +100,59 @@ public class PreventiManagementView extends JFrame {
 
     public void setPreventiTargets(DefaultTableModel newTargets) {
         this.preventiTargets = newTargets;
+    }
+
+    static class ButtonRenderer extends JButton implements TableCellRenderer {
+
+        public ButtonRenderer() {
+            setOpaque(true);
+        }
+
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+                int row, int column) {
+            setText("보기");
+            return this;
+        }
+    }
+
+    static class ButtonEditor extends DefaultCellEditor {
+        private JButton button;
+
+        public ButtonEditor(JCheckBox checkBox) {
+            super(checkBox);
+            button = new JButton();
+            button.setOpaque(true);
+            button.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    fireEditingStopped();
+                }
+            });
+        }
+
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
+                int column) {
+            if (isSelected) {
+                button.setForeground(table.getSelectionForeground());
+                button.setBackground(table.getSelectionBackground());
+            } else {
+                button.setForeground(table.getForeground());
+                button.setBackground(table.getBackground());
+            }
+
+            button.setText("보기");
+            return button;
+        }
+
+        private String getRowData(JTable table, int row) {
+            StringBuilder rowData = new StringBuilder();
+            rowData.append(table.getModel().getValueAt(row, 1)).append("/");
+            rowData.append(table.getModel().getValueAt(row, 5));
+            return rowData.toString();
+        }
+
+        // public Object getCellEditorValue() {
+        // return "";
+        // }
     }
 
     public void createMaintenanceHistoryDialog() {

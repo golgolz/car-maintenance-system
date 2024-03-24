@@ -26,6 +26,7 @@ public class PreventiPolicyDialog extends JDialog {
     public PreventiPolicyDialog() {
         super();
         setLayout(null);
+        this.getContentPane().setBackground(Color.WHITE);
         JLabel jlblTitle = new JLabel("예방 정비 지침");
         JLabel jlblContent = new JLabel("예방 정비 지침에 대한 안내입니다.");
         JButton jbtnCancle = new JButton("취소");
@@ -44,8 +45,8 @@ public class PreventiPolicyDialog extends JDialog {
         jtblPolicies = new JTable(dtmPolicies);
         jsp = new JScrollPane(jtblPolicies);
 
-        jbtnCancle.setBounds(20, 310, 200, 40);
-        jbtnOk.setBounds(260, 310, 200, 40);
+        jbtnCancle.setBounds(20, 250, 200, 40);
+        jbtnOk.setBounds(330, 250, 200, 40);
         jbtnCancle.setBackground(Color.WHITE);
         jbtnOk.setBackground(Color.WHITE);
 
@@ -61,12 +62,12 @@ public class PreventiPolicyDialog extends JDialog {
         for (int i = 0; i < 6; i++) {
             jtbWidth += jtblPolicies.getColumnModel().getColumn(i).getWidth();
         }
-        jsp.setBounds(20, 110, jtbWidth, 120);
+        jsp.setBounds(20, 110, jtbWidth + 100, 120);
 
-        jlblTitle.setFont(new Font("굴림체", Font.BOLD, 25));
+        jlblTitle.setFont(new Font("나눔고딕", Font.BOLD, 27));
         jlblTitle.setBounds(20, 20, 260, 40);
-        jlblContent.setFont(new Font("굴림체", Font.PLAIN, 15));
-        jlblContent.setBounds(25, 60, 260, 40);
+        jlblContent.setFont(new Font("굴림체", Font.PLAIN, 16));
+        jlblContent.setBounds(25, 60, 300, 40);
 
         jbtnCancle.addActionListener(new PreventiPolicyEvent(this));
         jbtnOk.addActionListener(new PreventiPolicyEvent(this));
@@ -77,8 +78,9 @@ public class PreventiPolicyDialog extends JDialog {
         add(jbtnCancle);
         add(jbtnOk);
 
-        setSize(840, 480);
+        setSize(570, 350);
         setVisible(true);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
 

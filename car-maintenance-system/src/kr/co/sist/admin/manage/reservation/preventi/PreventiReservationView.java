@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+@SuppressWarnings("serial")
 public class PreventiReservationView extends JFrame {
     private JTextField jtfOwnerId;
     private DefaultTableModel preventiReservations;
@@ -30,7 +31,6 @@ public class PreventiReservationView extends JFrame {
         JLabel jlblOwnerId = new JLabel("사용자 ID");
         jtfOwnerId = new JTextField(10);
         JButton jbtnSearch = new JButton("검색");
-        JButton jbtnMaintenanceHistory = new JButton("보기");
         preventiReservations = new DefaultTableModel();
         createMaintenanceDialog();
         preventiReservationTable = new JTable(preventiReservations);
@@ -50,6 +50,8 @@ public class PreventiReservationView extends JFrame {
         jtfOwnerId.setBounds(100, 87, 100, 30);
         jbtnSearch.setBounds(220, 87, 60, 30);
         preventiTargetScroll.setBounds(20, 140, 770, 280);
+
+        jbtnSearch.addActionListener(new PreventiReservationEvent(this));
 
         jlblTitle.setForeground(Color.WHITE);
         jlblOwnerId.setForeground(Color.WHITE);

@@ -38,6 +38,7 @@ public class PreventiPolicyDetailDialog extends JDialog implements ActionListene
 
         setSize(500, 200);
         setVisible(true);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 

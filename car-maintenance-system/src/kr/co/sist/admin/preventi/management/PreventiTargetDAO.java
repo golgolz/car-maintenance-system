@@ -37,7 +37,7 @@ public class PreventiTargetDAO {
         StringBuilder selectQuery = new StringBuilder();
 
         selectQuery.append("select preventi_repair.car_id as car_id, ").append(" owner.owner_id as owner_id, ")
-                .append(" resisted_car.car_model as car_model, ")
+                .append(" resisted_car.car_model as car_model, ").append(" owner.tel,")
                 .append(" resisted_car.drive_distance as drive_distance, ")
                 .append(" case when reservation.car_id is null then ? else ? end as reservation_status, ")
                 .append(" case when reserved_car.car_id is null then ? ")
@@ -70,7 +70,8 @@ public class PreventiTargetDAO {
 
             while (resultSet.next()) {
                 preventiTargets.add(new PreventiTargetVO(resultSet.getString("car_id"), resultSet.getString("owner_id"),
-                        resultSet.getString("car_model"), resultSet.getInt("drive_distance"),
+                        resultSet.getString("tel"), resultSet.getString("car_model"),
+                        resultSet.getInt("drive_distance"),
                         resultSet.getString("reservation_status").equals("o") ? "Y" : "N",
                         resultSet.getString("maintenance_status"), resultSet.getDate("production_date"),
                         resultSet.getDate("reservation_date"), resultSet.getString("part_name")));
@@ -88,7 +89,7 @@ public class PreventiTargetDAO {
         StringBuilder selectQuery = new StringBuilder();
 
         selectQuery.append("select preventi_repair.car_id as car_id, ").append(" owner.owner_id as owner_id, ")
-                .append(" resisted_car.car_model as car_model, ")
+                .append(" resisted_car.car_model as car_model, ").append(" owner.tel,")
                 .append(" resisted_car.drive_distance as drive_distance, ")
                 .append(" case when reservation.car_id is null then ? else ? end as reservation_status, ")
                 .append(" case when reserved_car.car_id is null then ? ")
@@ -143,7 +144,8 @@ public class PreventiTargetDAO {
 
             while (resultSet.next()) {
                 preventiTargets.add(new PreventiTargetVO(resultSet.getString("car_id"), resultSet.getString("owner_id"),
-                        resultSet.getString("car_model"), resultSet.getInt("drive_distance"),
+                        resultSet.getString("tel"), resultSet.getString("car_model"),
+                        resultSet.getInt("drive_distance"),
                         resultSet.getString("reservation_status").equals("o") ? "Y" : "N",
                         resultSet.getString("maintenance_status"), resultSet.getDate("production_date"),
                         resultSet.getDate("reservation_date"), resultSet.getString("part_name")));
