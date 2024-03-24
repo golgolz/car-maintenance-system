@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import kr.co.sist.admin.register.car.RegisteredCarVO;
 import kr.co.sist.dao.DBConnection;
 
 public class PreventiTargetDAO {
@@ -25,9 +24,32 @@ public class PreventiTargetDAO {
         return preventiTargetDAO;
     }
 
-    public int insertAllPreventiTargets(List<RegisteredCarVO> registeredCars) {
+    public int insertAllPreventiTargets() {
         int cnt = 0;
 
+        // select resisted_car.car_id, resisted_car.registration_date,
+        // nvl2(reserved_car.drive_distance, reserved_car.drive_distance, resisted_car.drive_distance) as drive_distance
+        // from resisted_car
+        // ;
+        DBConnection dbConn = DBConnection.getInstance();
+        try {
+            conn = dbConn.getConnection();
+            StringBuilder selectQuery = new StringBuilder();
+            selectQuery.append("select resisted_car.car_id, resisted_car.registration_date,").append(
+                    " nvl2(reserved_car.drive_distance, reserved_car.drive_distance, resisted_car.drive_distance) as drive_distance ")
+                    .append(" from resisted_car ")
+                    .append(" join reserved_car on resisted_car.car_id = reserved_car.car_id ");
+            pstmt = conn.prepareStatement(selectQuery.toString());
+
+            resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                System.out.println(resultSet.getString("car_id"));
+                System.out.println(resultSet.getDate("registration_date"));
+                System.out.println(resultSet.getString("drive_distance"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return cnt;
     }
 

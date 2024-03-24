@@ -12,6 +12,7 @@ public class PreventiManagementEvent implements ActionListener {
 
     public PreventiManagementEvent(PreventiManagementView preventiManagementView) {
         this.preventiManagementView = preventiManagementView;
+        PreventiTargetDAO.getInstance().insertAllPreventiTargets();
     }
 
     @Override

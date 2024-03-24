@@ -1,20 +1,27 @@
 package kr.co.sist.admin.preventi.policy;
 
 public class PreventiPolicyVO {
-    private String part;
+    private String partCode;
+    private String partName;
     private int distancePeriod;
     private int productionPeriod;
     private String content;
 
-    public PreventiPolicyVO(String part, int distancePeriod, int productionPeriod, String content) {
-        this.part = part;
+    public PreventiPolicyVO(String partCode, String partName, int distancePeriod, int productionPeriod,
+            String content) {
+        this.partCode = partCode;
+        this.partName = partName;
         this.distancePeriod = distancePeriod;
         this.productionPeriod = productionPeriod;
         this.content = content;
     }
 
-    public String getPart() {
-        return part;
+    public String getPartCode() {
+        return partCode;
+    }
+
+    public String getPartName() {
+        return partName;
     }
 
     public int getDistancePeriod() {

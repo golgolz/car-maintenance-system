@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+@SuppressWarnings("serial")
 public class AdminRecallView extends JFrame {
     private JTextField jtfCarId;
     private JTextField jtfOwnerId;

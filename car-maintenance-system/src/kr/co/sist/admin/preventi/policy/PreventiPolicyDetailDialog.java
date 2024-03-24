@@ -20,7 +20,7 @@ public class PreventiPolicyDetailDialog extends JDialog implements ActionListene
         JButton jbtnOk = new JButton("확인");
 
         jlblTitle.setFont(new Font("굴림체", Font.BOLD, 25));
-        jlblTitle.setBounds(20, 20, 150, 30);
+        jlblTitle.setBounds(20, 20, 350, 30);
         jlblContent.setFont(new Font("굴림체", Font.BOLD, 17));
         jlblContent.setBounds(20, 60, 400, 30);
         jbtnCancle.setBounds(20, 110, 200, 40);

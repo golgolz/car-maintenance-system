@@ -62,7 +62,7 @@ public class PreventiPolicyDialog extends JDialog {
         for (int i = 0; i < 6; i++) {
             jtbWidth += jtblPolicies.getColumnModel().getColumn(i).getWidth();
         }
-        jsp.setBounds(20, 110, jtbWidth + 100, 120);
+        jsp.setBounds(20, 110, jtbWidth + 100, jtblPolicies.getPreferredSize().height + 23);
 
         jlblTitle.setFont(new Font("나눔고딕", Font.BOLD, 27));
         jlblTitle.setBounds(20, 20, 260, 40);
@@ -153,7 +153,7 @@ public class PreventiPolicyDialog extends JDialog {
     }
 
     public Object[][] createPolicyData() throws SQLException {
-        List<PreventiPolicyVO> tempPolicies = PreventiPolicyDAO.getInstance().selectAllPolicies();
+        List<PreventiPolicyVO> tempPolicies = PreventiPolicyDAO.getInstance().getPolicies();
         Object[][] policies = new String[tempPolicies.size()][6];
 
         PreventiPolicyVO tempVO = null;
@@ -161,8 +161,8 @@ public class PreventiPolicyDialog extends JDialog {
 
         for (int i = 0; i < policies.length; i++) {
             tempVO = tempPolicies.get(i);
-            policies[i][0] = tempVO.getPart();
-            policies[i][1] = "엔진오일";
+            policies[i][0] = tempVO.getPartCode();
+            policies[i][1] = tempVO.getPartName();
             policies[i][2] = "매 " + Integer.toString(tempVO.getDistancePeriod()) + "km";
             policies[i][4] = "보기";
             policies[i][5] = tempVO.getContent();
