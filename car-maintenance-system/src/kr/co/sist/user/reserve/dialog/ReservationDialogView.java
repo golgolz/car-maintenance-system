@@ -50,10 +50,11 @@ public class ReservationDialogView extends JPanel {
       addRecallView();
     } // end if
 
-
     // 이벤트 추가
     jbtnConfirm.addActionListener(rde);
     jbtnCancel.addActionListener(rde);
+    jrbAM.addActionListener(rde);
+    jrbPM.addActionListener(rde);
 
     setVisible(true);
 
@@ -67,8 +68,8 @@ public class ReservationDialogView extends JPanel {
     jlReservationDate.setBorder(new TitledBorder(new LineBorder(Color.BLACK, 1)));
 
     // 라디오 버튼
-    jrbAM = new JRadioButton();
-    jrbPM = new JRadioButton();
+    jrbAM = new JRadioButton("오전");
+    jrbPM = new JRadioButton("오후");
     ButtonGroup bg = new ButtonGroup();
     bg.add(jrbAM);
     bg.add(jrbPM);
@@ -83,7 +84,6 @@ public class ReservationDialogView extends JPanel {
     jlReservationReason.setFont(font);
     jtaReservationReason = new JTextArea("요청 내용을 입력해주세요");
 
-
     // 하단 버튼
     jbtnConfirm = new JButton("예약신청");
     jbtnCancel = new JButton("취소");
@@ -94,7 +94,6 @@ public class ReservationDialogView extends JPanel {
     rcdv.setSize(200, 200);
     rcdv.setBorder(new TitledBorder(new LineBorder(Color.BLACK)));
     jlReservationDate.add(rcdv);
-
 
     // 컴포넌트 배치
     jlReservationDate.setBounds(10, 20, 230, 220);
@@ -108,7 +107,6 @@ public class ReservationDialogView extends JPanel {
     jbtnConfirm.setBounds(200, 270, 90, 30);
     jbtnCancel.setBounds(300, 270, 90, 30);
 
-
     add(jlReservationDate);
     add(jrbAM);
     add(jlAM);
@@ -118,8 +116,6 @@ public class ReservationDialogView extends JPanel {
     add(jtaReservationReason);
     add(jbtnConfirm);
     add(jbtnCancel);
-
-
   }// addCommonView
 
 
@@ -142,7 +138,6 @@ public class ReservationDialogView extends JPanel {
     jlAM.setFont(new Font("맑은 고딕", Font.BOLD, 13));
     jlPM.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 
-
     // 하단 버튼
     jbtnConfirm = new JButton("예약확정");
     jbtnCancel = new JButton("취소");
@@ -154,7 +149,6 @@ public class ReservationDialogView extends JPanel {
     rcdv.setBorder(new TitledBorder(new LineBorder(Color.BLACK)));
     jlReservationDate.add(rcdv);
 
-
     // 컴포넌트 배치
     jlReservationDate.setBounds(10, 20, 230, 220);
     rcdv.setBounds(0, 0, 230, 220);
@@ -165,7 +159,6 @@ public class ReservationDialogView extends JPanel {
     jbtnConfirm.setBounds(200, 270, 90, 30);
     jbtnCancel.setBounds(300, 270, 90, 30);
 
-
     add(jlReservationDate);
     add(jrbAM);
     add(jlAM);
@@ -173,7 +166,6 @@ public class ReservationDialogView extends JPanel {
     add(jlPM);
     add(jbtnConfirm);
     add(jbtnCancel);
-
   }// addPreventiView
 
 
@@ -196,7 +188,6 @@ public class ReservationDialogView extends JPanel {
     jlAM.setFont(new Font("맑은 고딕", Font.BOLD, 13));
     jlPM.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 
-
     // 하단 버튼
     jbtnConfirm = new JButton("예약신청");
     jbtnCancel = new JButton("취소");
@@ -208,7 +199,6 @@ public class ReservationDialogView extends JPanel {
     rcdv.setBorder(new TitledBorder(new LineBorder(Color.BLACK)));
     jlReservationDate.add(rcdv);
 
-
     // 컴포넌트 배치
     jlReservationDate.setBounds(10, 20, 230, 220);
     rcdv.setBounds(0, 0, 230, 220);
@@ -219,7 +209,6 @@ public class ReservationDialogView extends JPanel {
     jbtnConfirm.setBounds(200, 270, 90, 30);
     jbtnCancel.setBounds(300, 270, 90, 30);
 
-
     add(jlReservationDate);
     add(jrbAM);
     add(jlAM);
@@ -228,7 +217,6 @@ public class ReservationDialogView extends JPanel {
     add(jbtnConfirm);
     add(jbtnCancel);
   }// addRecallView
-
 
 
   public JLabel getJlReservationDate() {
