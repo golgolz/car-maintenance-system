@@ -41,8 +41,8 @@ public class RegisteredCarDAO {
             while (resultSet.next()) {
 
                 rVO = new RegisteredCarVO(resultSet.getString("car_id"), "", resultSet.getString("owner_id"),
-                        resultSet.getString("car_model"), null, resultSet.getDate("registration_day"),
-                        resultSet.getInt("car_year"), resultSet.getInt("drive_distance"), false);
+                        resultSet.getString("car_model"), null, resultSet.getDate("registration_date"),
+                        resultSet.getInt("car_year"), resultSet.getInt("drive_distance"), "", "");
 
                 car.add(rVO);
             }
@@ -58,9 +58,7 @@ public class RegisteredCarDAO {
         Connection con = null;
         PreparedStatement pstmt = null;
         try {
-            String id = "car";
-            String pass = "golgol";
-            con = dbCon.getConnection(id, pass);
+            con = dbCon.getConnection();
             // 인서트하려면 차량번호, 모델f, 주행거리, 제조일자가 필요, 누구의 차인가 ownerid(F), 쿼리문이랑 똑같이 쓰기!!
             String insertCar =
                     "insert into resisted_car(car_Id, caridentity_number,owner_id,  car_Model, car_year, drive_Distance) "
@@ -90,9 +88,7 @@ public class RegisteredCarDAO {
         PreparedStatement pstmt = null;
 
         try {
-            String id = "car";
-            String pass = "golgol";
-            con = dbCon.getConnection(id, pass);
+            con = dbCon.getConnection();
 
             String deleteCar = "delete from resisted_car where car_id=?";
             pstmt = con.prepareStatement(deleteCar);

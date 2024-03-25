@@ -29,20 +29,25 @@ public class PreventiTargetDAO {
         int cnt = 0;
 
         DBConnection dbConn = DBConnection.getInstance();
+
         try {
             conn = dbConn.getConnection();
             StringBuilder selectQuery = new StringBuilder();
-            selectQuery.append("select resisted_car.car_id, resisted_car.production_date,").append(
-                    " nvl2(reserved_car.drive_distance, reserved_car.drive_distance, resisted_car.drive_distance) as drive_distance ")
-                    .append(" from resisted_car ")
+            selectQuery.append("select resisted_car.car_id, resisted_car.production_date,")
+                    .append(" case when reserved_car.drive_distance is null then resisted_car.drive_distance ")
+                    .append(" when reserved_car.drive_distance >= resisted_car.drive_distance then reserved_car.drive_distance ")
+                    .append(" else resisted_car.drive_distance end as drive_distance ").append(" from resisted_car ")
                     .append(" join reserved_car on resisted_car.car_id = reserved_car.car_id ");
             pstmt = conn.prepareStatement(selectQuery.toString());
 
             resultSet = pstmt.executeQuery();
+            String parts = "";
+
             while (resultSet.next()) {
                 System.out.println(resultSet.getString("car_id"));
                 System.out.println(resultSet.getDate("production_date"));
                 System.out.println(resultSet.getString("drive_distance"));
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
