@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import kr.co.sist.FontSingleton;
 
 @SuppressWarnings("serial")
 public class PreventiPolicyDialog extends JDialog {
@@ -64,9 +65,9 @@ public class PreventiPolicyDialog extends JDialog {
         }
         jsp.setBounds(20, 110, jtbWidth + 100, jtblPolicies.getPreferredSize().height + 23);
 
-        jlblTitle.setFont(new Font("나눔고딕", Font.BOLD, 27));
+        jlblTitle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 27f));
         jlblTitle.setBounds(20, 20, 260, 40);
-        jlblContent.setFont(new Font("굴림체", Font.PLAIN, 16));
+        jlblContent.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
         jlblContent.setBounds(25, 60, 300, 40);
 
         jbtnCancle.addActionListener(new PreventiPolicyEvent(this));
