@@ -7,23 +7,45 @@ public class RegisteredCarVO {
     private String carIdentityNumber;
     private String ownerId;
     private String carModel;
-    private Date productionDay;
-    private Date registrationDay;
+    private Date productionDate;
+    private Date registrationDate;
     private int carYear;
     private int driveDistance;
-    private boolean recallFlag;
+    private String recallFlag;
+    private String deleteFlag;
+
+
 
     public RegisteredCarVO(String carId, String carIdentityNumber, String ownerId, String carModel, Date productionDay,
-            Date registrationDay, int carYear, int driveDistance, boolean recallFlag) {
+            Date registrationDay, int carYear, int driveDistance, String recallFlag, String dedeteFlag) {
         this.carId = carId;
         this.carIdentityNumber = carIdentityNumber;
         this.ownerId = ownerId;
         this.carModel = carModel;
-        this.productionDay = productionDay;
-        this.registrationDay = registrationDay;
+        this.productionDate = productionDay;
+        this.registrationDate = registrationDay;
         this.carYear = carYear;
         this.driveDistance = driveDistance;
-        this.recallFlag = recallFlag;
+        this.recallFlag = "X";
+        this.deleteFlag = "X";
+    }
+
+
+
+    public RegisteredCarVO(String carId, String carIdentityNumber, String ownerId, String carModel, int carYear,
+            int driveDistance) {
+        super();
+        this.carId = carId;
+        this.carIdentityNumber = carIdentityNumber;
+        this.ownerId = ownerId;
+        this.carModel = carModel;
+        this.carYear = carYear;
+        this.driveDistance = driveDistance;
+    }
+
+
+    public RegisteredCarVO() {
+
     }
 
     public String getCarId() {
@@ -43,11 +65,11 @@ public class RegisteredCarVO {
     }
 
     public Date getProductionDay() {
-        return productionDay;
+        return productionDate;
     }
 
     public Date getRegistrationDay() {
-        return registrationDay;
+        return registrationDate;
     }
 
     public int getCarYear() {
@@ -58,15 +80,20 @@ public class RegisteredCarVO {
         return driveDistance;
     }
 
-    public boolean isRecallFlag() {
+    public String getRecallFlag() {
         return recallFlag;
+    }
+
+    public String getDeleteFlag() {
+        return deleteFlag;
     }
 
     @Override
     public String toString() {
         return "RegisteredCarVO [carId=" + carId + ", carIdentityNumber=" + carIdentityNumber + ", ownerId=" + ownerId
-                + ", carModel=" + carModel + ", productionDay=" + productionDay + ", registrationDay=" + registrationDay
-                + ", carYear=" + carYear + ", driveDistance=" + driveDistance + ", recallFlag=" + recallFlag + "]";
+                + ", carModel=" + carModel + ", productionDay=" + productionDate + ", registrationDay="
+                + registrationDate + ", carYear=" + carYear + ", driveDistance=" + driveDistance + ", recallFlag="
+                + recallFlag + ", deleteFlag=" + deleteFlag + "]";
     }
 
 
