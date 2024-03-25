@@ -12,55 +12,55 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBConnection {
-    private static DBConnection dbConn;
+  private static DBConnection dbConn;
 
-    private DBConnection() {}
+  private DBConnection() {}
 
-    public static DBConnection getInstance() {
-        if (dbConn == null) {
-            dbConn = new DBConnection();
-        }
-
-        return dbConn;
+  public static DBConnection getInstance() {
+    if (dbConn == null) {
+      dbConn = new DBConnection();
     }
 
-    public Connection getConnection() throws SQLException {
-        try {
-            Class.forName("oracle.jdbc.OracleDriver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    return dbConn;
+  }
 
-        File dbLogin = new File("./DB_login.txt");
-        BufferedReader bufReader = null;
-        String[] loginInfo = null;
-
-        try {
-            bufReader = new BufferedReader(new FileReader(dbLogin));
-            loginInfo = bufReader.readLine().split(",");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Connection conn = DriverManager.getConnection(loginInfo[0], loginInfo[1], loginInfo[2]);
-        return conn;
+  public Connection getConnection() throws SQLException {
+    try {
+      Class.forName("oracle.jdbc.OracleDriver");
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
     }
 
-    public void dbClose(Connection conn, Statement stmt, ResultSet rs) throws SQLException {
-        try {
-            if (rs != null) {
-                rs.close();
-            }
+    File dbLogin = new File("./DB_login.txt");
+    BufferedReader bufReader = null;
+    String[] loginInfo = null;
 
-            if (stmt != null) {
-                stmt.close();
-            }
-        } finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
+    try {
+      bufReader = new BufferedReader(new FileReader(dbLogin));
+      loginInfo = bufReader.readLine().split(",");
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+
+    Connection conn = DriverManager.getConnection(loginInfo[0], loginInfo[1], loginInfo[2]);
+    return conn;
+  }
+
+  public void dbClose(Connection conn, Statement stmt, ResultSet rs) throws SQLException {
+    try {
+      if (rs != null) {
+        rs.close();
+      }
+
+      if (stmt != null) {
+        stmt.close();
+      }
+    } finally {
+      if (conn != null) {
+        conn.close();
+      }
+    }
+  }
 }

@@ -30,8 +30,11 @@ public class MonthlyCarMaintenanceView extends JFrame {
   private JTable jtDetailedCarMaintenanceData;
   private JScrollPane jspDetailedCarMaintenanceData;
 
+
+
   public MonthlyCarMaintenanceView() {
-    this.monthlyCarMaintenanceEvent = monthlyCarMaintenanceEvent;
+    this.monthlyCarMaintenanceEvent = new MonthlyCarMaintenanceEvent(this);
+
     jlMonthlyCarMaintenanceLabel = new JLabel("차량 정비 정산:");
     jlUserName = new JLabel("김철수 고객님");
 
@@ -65,6 +68,8 @@ public class MonthlyCarMaintenanceView extends JFrame {
     add(jbtnDetailedSelect);
     add(jspMonthlyCarMaintenanceData);
     add(jspDetailedCarMaintenanceData);
+
+    jcbMonthlyMaintenanceList.addActionListener(monthlyCarMaintenanceEvent);
 
     setBounds(200, 320, 840, 480);
     setVisible(true);
