@@ -1,13 +1,17 @@
 package test.login;
 
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import kr.co.sist.admin.manage.user.ManageUserInfoView;
 
 class LoginTest {
 
   @Test
-  void test() {
-    fail("Not yet implemented");
+  void testLogin() {
+    ManageUserInfoView login = new ManageUserInfoView();
+    login.setVisible(true);
+
+    while (login.isVisible()) {
+    }
   }
 
 }
