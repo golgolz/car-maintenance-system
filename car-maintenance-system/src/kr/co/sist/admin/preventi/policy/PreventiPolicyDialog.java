@@ -63,11 +63,16 @@ public class PreventiPolicyDialog extends JDialog {
         for (int i = 0; i < 6; i++) {
             jtbWidth += jtblPolicies.getColumnModel().getColumn(i).getWidth();
         }
-        jsp.setBounds(20, 110, jtbWidth + 100, jtblPolicies.getPreferredSize().height + 23);
+        jsp.setBounds(20, 110, jtbWidth + 100, jtblPolicies.getPreferredSize().height + 25);
 
         jlblTitle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 27f));
-        jlblTitle.setBounds(20, 20, 260, 40);
         jlblContent.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
+        jbtnCancle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
+        jbtnOk.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
+        jtblPolicies.setFont(FontSingleton.getInstance().bonGodic.deriveFont(11f));
+        jtblPolicies.getTableHeader().setFont(FontSingleton.getInstance().bonGodic.deriveFont(12f));
+
+        jlblTitle.setBounds(20, 20, 260, 40);
         jlblContent.setBounds(25, 60, 300, 40);
 
         jbtnCancle.addActionListener(new PreventiPolicyEvent(this));

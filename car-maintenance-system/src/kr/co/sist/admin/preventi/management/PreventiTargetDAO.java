@@ -32,7 +32,7 @@ public class PreventiTargetDAO {
         try {
             conn = dbConn.getConnection();
             StringBuilder selectQuery = new StringBuilder();
-            selectQuery.append("select resisted_car.car_id, resisted_car.registration_date,").append(
+            selectQuery.append("select resisted_car.car_id, resisted_car.production_date,").append(
                     " nvl2(reserved_car.drive_distance, reserved_car.drive_distance, resisted_car.drive_distance) as drive_distance ")
                     .append(" from resisted_car ")
                     .append(" join reserved_car on resisted_car.car_id = reserved_car.car_id ");
@@ -41,7 +41,7 @@ public class PreventiTargetDAO {
             resultSet = pstmt.executeQuery();
             while (resultSet.next()) {
                 System.out.println(resultSet.getString("car_id"));
-                System.out.println(resultSet.getDate("registration_date"));
+                System.out.println(resultSet.getDate("production_date"));
                 System.out.println(resultSet.getString("drive_distance"));
             }
         } catch (SQLException e) {
@@ -60,9 +60,9 @@ public class PreventiTargetDAO {
                 .append(" resisted_car.drive_distance as drive_distance, ")
                 .append(" case when reservation.car_id is null then ? else ? end as reservation_status, ")
                 .append(" case when reserved_car.car_id is null then ? ")
-                .append(" when reserved_car.repair_car = ? then ? ").append(" when reserved_car.repair_car = ? then ? ")
-                .append(" when reserved_car.repair_car = ? then ? ")
-                .append(" else reserved_car.repair_car end as maintenance_status, ")
+                .append(" when reserved_car.maintenance_status = ? then ? ")
+                .append(" when reserved_car.maintenance_status = ? then ? ")
+                .append(" else reserved_car.maintenance_status end as maintenance_status, ")
                 .append(" preventi_repair.production_date as production_date, ")
                 .append(" reservation.reservation_date, ").append(" part_info.part_name ").append(" from owner owner ")
                 .append(" join resisted_car on resisted_car.owner_id = owner.owner_id ")
@@ -70,7 +70,7 @@ public class PreventiTargetDAO {
                 .append(" join reserved_car on resisted_car.car_id = reserved_car.car_id ")
                 .append(" join car_maintenance_settlement on car_maintenance_settlement.car_id = reserved_car.car_id ")
                 .append(" join reservation on reservation.car_id = preventi_repair.car_id ")
-                .append(" join part_info on car_maintenance_settlement.maintenance_classification = part_info.part_name ");
+                .append(" join part_info on preventi_repair.part_code = part_info.part_code ");
         try {
             conn = dbConn.getConnection();
             pstmt = conn.prepareStatement(selectQuery.toString());
@@ -78,12 +78,10 @@ public class PreventiTargetDAO {
             pstmt.setString(1, "x");
             pstmt.setString(2, "o");
             pstmt.setString(3, "입고전");
-            pstmt.setString(4, "0");
-            pstmt.setString(5, "입고전");
-            pstmt.setString(6, "1");
-            pstmt.setString(7, "정비대기");
-            pstmt.setString(8, "2");
-            pstmt.setString(9, "정비완료");
+            pstmt.setString(4, "x");
+            pstmt.setString(5, "정비대기");
+            pstmt.setString(6, "o");
+            pstmt.setString(7, "정비완료");
 
             resultSet = pstmt.executeQuery();
 
@@ -94,6 +92,7 @@ public class PreventiTargetDAO {
                         resultSet.getString("reservation_status").equals("o") ? "Y" : "N",
                         resultSet.getString("maintenance_status"), resultSet.getDate("production_date"),
                         resultSet.getDate("reservation_date"), resultSet.getString("part_name")));
+                System.out.println(resultSet.getString("car_id"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -112,9 +111,10 @@ public class PreventiTargetDAO {
                 .append(" resisted_car.drive_distance as drive_distance, ")
                 .append(" case when reservation.car_id is null then ? else ? end as reservation_status, ")
                 .append(" case when reserved_car.car_id is null then ? ")
-                .append(" when reserved_car.repair_car = ? then ? ").append(" when reserved_car.repair_car = ? then ? ")
-                .append(" when reserved_car.repair_car = ? then ? ")
-                .append(" else reserved_car.repair_car end as maintenance_status, ")
+                .append(" when reserved_car.maintenance_status = ? then ? ")
+                .append(" when reserved_car.maintenance_status = ? then ? ")
+                .append(" when reserved_car.maintenance_status = ? then ? ")
+                .append(" else reserved_car.maintenance_status end as maintenance_status, ")
                 .append(" preventi_repair.production_date as production_date, ")
                 .append(" reservation.reservation_date, ").append(" part_info.part_name ").append(" from owner owner ")
                 .append(" join resisted_car on resisted_car.owner_id = owner.owner_id ")
@@ -122,8 +122,7 @@ public class PreventiTargetDAO {
                 .append(" join reserved_car on resisted_car.car_id = reserved_car.car_id ")
                 .append(" join car_maintenance_settlement on car_maintenance_settlement.car_id = reserved_car.car_id ")
                 .append(" join reservation on reservation.car_id = preventi_repair.car_id ")
-                .append(" join part_info on car_maintenance_settlement.maintenance_classification = part_info.part_name ")
-                .append(" where 1=1 ");
+                .append(" join part_info on preventi_repair.part_code = part_info.part_code ").append(" where 1=1 ");
 
         boolean carExist = false;
         boolean ownerExist = false;

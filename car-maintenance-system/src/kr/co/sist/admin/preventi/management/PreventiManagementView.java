@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import kr.co.sist.FontSingleton;
 
 @SuppressWarnings("serial")
 public class PreventiManagementView extends JFrame {
@@ -43,12 +44,14 @@ public class PreventiManagementView extends JFrame {
         preventiTargetTable = new JTable(preventiTargets);
         JScrollPane preventiTargetScroll = new JScrollPane(preventiTargetTable);
 
-        jlblTitle.setFont(new Font("나눔고딕", Font.BOLD, 27));
-        jlblCarId.setFont(new Font("나눔고딕", Font.PLAIN, 17));
-        jlblOwnerId.setFont(new Font("나눔고딕", Font.PLAIN, 17));
-        jbtnSearch.setFont(new Font("나눔고딕", Font.PLAIN, 14));
-        jbtnPreventiPolicy.setFont(new Font("나눔고딕", Font.PLAIN, 14));
-        preventiTargetTable.setFont(new Font("나눔고딕", Font.PLAIN, 14));
+        jlblTitle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 27f));
+        jlblCarId.setFont(FontSingleton.getInstance().bonGodic.deriveFont(17f));
+        jlblOwnerId.setFont(FontSingleton.getInstance().bonGodic.deriveFont(17f));
+        jbtnSearch.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
+        jbtnPreventiPolicy.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
+        preventiTargetTable.getTableHeader().setFont(FontSingleton.getInstance().bonGodic.deriveFont(12f));
+
+        preventiTargetTable.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
         preventiTargetTable.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
         preventiTargetTable.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox()));
 
@@ -143,6 +146,7 @@ public class PreventiManagementView extends JFrame {
             return button;
         }
 
+        @SuppressWarnings("unused")
         private String getRowData(JTable table, int row) {
             StringBuilder rowData = new StringBuilder();
             rowData.append(table.getModel().getValueAt(row, 1)).append("/");

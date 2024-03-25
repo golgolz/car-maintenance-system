@@ -46,6 +46,7 @@ public class PreventiManagementEvent implements ActionListener {
             preventiTargetModel[cnt][7] = target.getProductionDate();
             preventiTargetModel[cnt][8] = target.getReservationDate();
             preventiTargetModel[cnt][9] = target.getMaintenanceReason();
+            cnt += 1;
         }
 
         return preventiTargetModel;
@@ -57,7 +58,6 @@ public class PreventiManagementEvent implements ActionListener {
         List<PreventiTargetVO> preventiTargets = PreventiTargetDAO.getInstance().selectPreventis(carId, ownerId);
 
         DefaultTableModel preventiTargetModel = preventiManagementView.getPreventiTargets();
-
 
         if (preventiTargets.size() == 0) {
             preventiTargets = PreventiTargetDAO.getInstance().selectAllPreventi();
@@ -81,5 +81,8 @@ public class PreventiManagementEvent implements ActionListener {
             }
             JOptionPane.showMessageDialog(preventiManagementView, "검색을 완료했습니다.");
         }
+
+        preventiManagementView.getJtfCarId().setText("");
+        preventiManagementView.getJtfOwnerId().setText("");
     }
 }
