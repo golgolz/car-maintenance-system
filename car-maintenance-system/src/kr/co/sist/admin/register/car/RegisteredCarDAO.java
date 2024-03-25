@@ -29,9 +29,9 @@ public class RegisteredCarDAO {
         DBConnection dbConn = DBConnection.getInstance();
 
         try {
-            conn = dbConn.getLocalhostConnection("scott", "tiger");
+            conn = dbConn.getConnection();
             StringBuilder selectCarQuery = new StringBuilder(
-                    "select carId, carYear, carModel, driveDistance, registration_Date, ownerId   from    registeredCar ");
+                    "select car_id, car_year, car_model, drive_distance, registration_day, owner_id   from    registeredCar ");
 
             pstmt = conn.prepareStatement(selectCarQuery.toString());
             resultSet = pstmt.executeQuery();
@@ -40,13 +40,11 @@ public class RegisteredCarDAO {
             RegisteredCarVO rVO = null;
             while (resultSet.next()) {
 
-                rVO = new RegisteredCarVO(resultSet.getString("carId"), "", resultSet.getString("ownerId"),
-                        resultSet.getString("carModel"), null, resultSet.getDate("registrationDate"),
-                        resultSet.getInt("carYear"), resultSet.getInt("driveDistance"),
-                        resultSet.getString("recallFlag"), resultSet.getString("deleteFlag"));
+                rVO = new RegisteredCarVO(resultSet.getString("car_id"), "", resultSet.getString("owner_id"),
+                        resultSet.getString("car_model"), null, resultSet.getDate("registration_day"),
+                        resultSet.getInt("car_year"), resultSet.getInt("drive_distance"), false);
 
                 car.add(rVO);
-
             }
         } finally {
             dbConn.dbClose(conn, pstmt, resultSet);

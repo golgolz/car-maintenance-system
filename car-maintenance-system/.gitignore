@@ -88,3 +88,5 @@ buildNumber.properties
 .classpath
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,maven
+DB_login.txt
+NotoSansKR-Regular.ttf

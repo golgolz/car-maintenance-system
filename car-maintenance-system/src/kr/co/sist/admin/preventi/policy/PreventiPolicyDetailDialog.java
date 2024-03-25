@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import kr.co.sist.FontSingleton;
 
 @SuppressWarnings("serial")
 public class PreventiPolicyDetailDialog extends JDialog implements ActionListener {
@@ -19,9 +20,12 @@ public class PreventiPolicyDetailDialog extends JDialog implements ActionListene
         JButton jbtnCancle = new JButton("취소");
         JButton jbtnOk = new JButton("확인");
 
-        jlblTitle.setFont(new Font("굴림체", Font.BOLD, 25));
-        jlblTitle.setBounds(20, 20, 150, 30);
-        jlblContent.setFont(new Font("굴림체", Font.BOLD, 17));
+        jlblTitle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 25f));
+        jlblContent.setFont(FontSingleton.getInstance().bonGodic.deriveFont(17f));
+        jbtnCancle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
+        jbtnOk.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
+
+        jlblTitle.setBounds(20, 20, 350, 30);
         jlblContent.setBounds(20, 60, 400, 30);
         jbtnCancle.setBounds(20, 110, 200, 40);
         jbtnOk.setBounds(260, 110, 200, 40);
@@ -38,6 +42,7 @@ public class PreventiPolicyDetailDialog extends JDialog implements ActionListene
 
         setSize(500, 200);
         setVisible(true);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 

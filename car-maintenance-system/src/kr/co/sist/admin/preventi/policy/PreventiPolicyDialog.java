@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import kr.co.sist.FontSingleton;
 
 @SuppressWarnings("serial")
 public class PreventiPolicyDialog extends JDialog {
@@ -26,6 +27,7 @@ public class PreventiPolicyDialog extends JDialog {
     public PreventiPolicyDialog() {
         super();
         setLayout(null);
+        this.getContentPane().setBackground(Color.WHITE);
         JLabel jlblTitle = new JLabel("예방 정비 지침");
         JLabel jlblContent = new JLabel("예방 정비 지침에 대한 안내입니다.");
         JButton jbtnCancle = new JButton("취소");
@@ -44,8 +46,8 @@ public class PreventiPolicyDialog extends JDialog {
         jtblPolicies = new JTable(dtmPolicies);
         jsp = new JScrollPane(jtblPolicies);
 
-        jbtnCancle.setBounds(20, 310, 200, 40);
-        jbtnOk.setBounds(260, 310, 200, 40);
+        jbtnCancle.setBounds(20, 250, 200, 40);
+        jbtnOk.setBounds(330, 250, 200, 40);
         jbtnCancle.setBackground(Color.WHITE);
         jbtnOk.setBackground(Color.WHITE);
 
@@ -61,12 +63,17 @@ public class PreventiPolicyDialog extends JDialog {
         for (int i = 0; i < 6; i++) {
             jtbWidth += jtblPolicies.getColumnModel().getColumn(i).getWidth();
         }
-        jsp.setBounds(20, 110, jtbWidth, 120);
+        jsp.setBounds(20, 110, jtbWidth + 100, jtblPolicies.getPreferredSize().height + 25);
 
-        jlblTitle.setFont(new Font("굴림체", Font.BOLD, 25));
+        jlblTitle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 27f));
+        jlblContent.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
+        jbtnCancle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
+        jbtnOk.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
+        jtblPolicies.setFont(FontSingleton.getInstance().bonGodic.deriveFont(11f));
+        jtblPolicies.getTableHeader().setFont(FontSingleton.getInstance().bonGodic.deriveFont(12f));
+
         jlblTitle.setBounds(20, 20, 260, 40);
-        jlblContent.setFont(new Font("굴림체", Font.PLAIN, 15));
-        jlblContent.setBounds(25, 60, 260, 40);
+        jlblContent.setBounds(25, 60, 300, 40);
 
         jbtnCancle.addActionListener(new PreventiPolicyEvent(this));
         jbtnOk.addActionListener(new PreventiPolicyEvent(this));
@@ -77,8 +84,9 @@ public class PreventiPolicyDialog extends JDialog {
         add(jbtnCancle);
         add(jbtnOk);
 
-        setSize(840, 480);
+        setSize(570, 350);
         setVisible(true);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
 
@@ -151,7 +159,7 @@ public class PreventiPolicyDialog extends JDialog {
     }
 
     public Object[][] createPolicyData() throws SQLException {
-        List<PreventiPolicyVO> tempPolicies = PreventiPolicyDAO.getInstance().selectAllPolicies();
+        List<PreventiPolicyVO> tempPolicies = PreventiPolicyDAO.getInstance().getPolicies();
         Object[][] policies = new String[tempPolicies.size()][6];
 
         PreventiPolicyVO tempVO = null;
@@ -159,8 +167,8 @@ public class PreventiPolicyDialog extends JDialog {
 
         for (int i = 0; i < policies.length; i++) {
             tempVO = tempPolicies.get(i);
-            policies[i][0] = tempVO.getPart();
-            policies[i][1] = "엔진오일";
+            policies[i][0] = tempVO.getPartCode();
+            policies[i][1] = tempVO.getPartName();
             policies[i][2] = "매 " + Integer.toString(tempVO.getDistancePeriod()) + "km";
             policies[i][4] = "보기";
             policies[i][5] = tempVO.getContent();
