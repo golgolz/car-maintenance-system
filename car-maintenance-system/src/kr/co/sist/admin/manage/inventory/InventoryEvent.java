@@ -9,6 +9,7 @@ public class InventoryEvent extends WindowAdapter implements ActionListener {
 
   private InventoryView inventoryView;
   private InventoryAddPanelView inventoryAddPanelView;
+  private InventoryModifyPanelView inventoryModifyPanelView;
 
   public InventoryEvent(InventoryView inventoryView) {
     this.inventoryView = inventoryView;
@@ -20,6 +21,11 @@ public class InventoryEvent extends WindowAdapter implements ActionListener {
     if (ae.getSource() == inventoryView.getJbtnAdd()) {
       new InventoryAddPanelView();
     }
+    else if (ae.getSource() == inventoryView.getJbtnUpdate()) {
+      new InventoryModifyPanelView();
+    }
+
+
   }
 
   @Override
