@@ -1,15 +1,21 @@
 package kr.co.sist.user.monthly;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
-public class MonthlyCarMaintenanceEvent {
+public class MonthlyCarMaintenanceEvent implements ActionListener {
+
+  private MonthlyCarMaintenanceView monthlyCarMaintenanceView;
+
+  public MonthlyCarMaintenanceEvent(MonthlyCarMaintenanceView monthlyCarMaintenanceView) {
+    this.monthlyCarMaintenanceView = monthlyCarMaintenanceView; // MonthlyCarMaintenanceView 객체 초기화
+  }
 
 
   public void searchMaintenanceData() {
+
     // DBMS에서 조회된 결과를 받아서 사용자에게 보여준다.
     MonthlyCarMaintenanceDAO mcmDAO = MonthlyCarMaintenanceDAO.getInstance();
     try {
@@ -24,12 +30,31 @@ public class MonthlyCarMaintenanceEvent {
         } // end for
       } // end else
 
-      JTextArea jta = new JTextArea(output.toString(), 10, 80);
-      JScrollPane jsp = new JScrollPane(jta);
-      JOptionPane.showMessageDialog(null, jsp);
+
     } catch (SQLException e) {
       e.printStackTrace();
     } // end catch
 
   }// searchAllEmp
+
+
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    // DBMS에서 조회된 결과를 받아서 JComboBox에 데이터를 설정한다.
+    MonthlyCarMaintenanceDAO mcmDAO = MonthlyCarMaintenanceDAO.getInstance();
+    try {
+      // 모든 날짜를 조회하여 리스트에 저장한다.
+      List<String> maintenanceDates = mcmDAO.getAllMaintenanceDates();
+
+      // JComboBox에 조회된 날짜를 설정한다.
+      for (String date : maintenanceDates) {
+        monthlyCarMaintenanceView.getJcbMonthlyMaintenanceList().addItem(date);
+      }
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+    }
+  }
+
+
 }

@@ -22,7 +22,7 @@ public class MonthlyCarMaintenanceDAO {
       mcmDAO = new MonthlyCarMaintenanceDAO();
     }
     return mcmDAO;
-  }
+  }// getInstance
 
   public List<MonthlyCarMaintenanceVO> selectAllData() throws SQLException {
 
@@ -65,6 +65,45 @@ public class MonthlyCarMaintenanceDAO {
       dbConn.dbClose(conn, pstmt, rs);
     }
     return allData;
+  }// selectAllData
+
+  public static List<String> getAllMaintenanceDates() throws SQLException {
+    List<String> maintenanceDates = new ArrayList<>();
+
+    // 1. 드라이버 로딩
+    DBConnection dbConn = DBConnection.getInstance();
+
+    // 2. 커넥션 객체 생성
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+
+    try {
+      // 3. 쿼리문 생성
+      String query = "SELECT DISTINCT car_maintenance_date FROM car_maintenance_settlement";
+
+      // 4. 커넥션 연결
+      conn = dbConn.getConnection();
+
+      // 5. PreparedStatement 객체 생성
+      pstmt = conn.prepareStatement(query);
+
+      // 6. 쿼리 실행
+      rs = pstmt.executeQuery();
+
+      // 7. 결과 처리
+      while (rs.next()) {
+        maintenanceDates.add(rs.getString("car_maintenance_date"));
+      }
+    } finally {
+      // 8. 연결 종료
+      dbConn.dbClose(conn, pstmt, rs);
+    }
+
+    return maintenanceDates;
   }
 
+  public static void main(String[] args) throws SQLException {
+    getAllMaintenanceDates();
+  }
 }
