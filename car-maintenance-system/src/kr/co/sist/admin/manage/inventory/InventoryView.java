@@ -48,13 +48,6 @@ public class InventoryView extends JFrame {
     dtmDefaultInventoryData = new DefaultTableModel(contents, header);
     jtInventoryDataTable = new JTable(dtmDefaultInventoryData);
     jspInventoryData = new JScrollPane(jtInventoryDataTable);
-    // jtInventoryDataTable.setModel(dtmDefaultInventoryData);
-    // jspInventoryDataScroll.setViewportView(jtInventoryDataTable); // 테이블 스크롤 형식 설정
-
-    jdInventoryAddDialogView = new JDialog();
-    jdInventoryModifyDialogView = new JDialog();
-
-
 
     setLayout(null);
 
@@ -76,14 +69,14 @@ public class InventoryView extends JFrame {
 
 
     jbtnAdd.addActionListener(inventoryEvent);
+    jbtnUpdate.addActionListener(inventoryEvent);
     addWindowListener(inventoryEvent);
 
     setBounds(200, 320, 840, 480);
-
-
     setVisible(true);
     setResizable(false);
   }// InventoryView
+
 
 
   public InventoryEvent getInventoryEvent() {
