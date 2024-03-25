@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 
 @SuppressWarnings("serial")
 public class AdminView extends JFrame {// oven 9
+  private AdminViewEvent adminViewEvent;
   private JLabel jlSelectFunctionMsg;// 원하시는 메뉴를 선택해주세요.
   private JButton jbtnReceivingManage;// 입고 차량 관리버튼
   private JButton jbtnReservationManage;// 예약 관리버튼
@@ -21,6 +22,8 @@ public class AdminView extends JFrame {// oven 9
     super("관리자 기능 선택");
     setLayout(null);
     this.getContentPane().setBackground(Color.decode("#002347"));
+
+    adminViewEvent = new AdminViewEvent(this);
 
     jlSelectFunctionMsg = new JLabel("원하시는 메뉴를 선택해주세요.");
     jbtnReceivingManage = new JButton("입고 차량 관리");
@@ -74,10 +77,53 @@ public class AdminView extends JFrame {// oven 9
     add(jbtnUserManage);
     add(jbtnLogout);
 
+    jbtnReceivingManage.addActionListener(adminViewEvent);
+    jbtnReservationManage.addActionListener(adminViewEvent);
+    jbtnPartsManage.addActionListener(adminViewEvent);
+    jbtnRecallManage.addActionListener(adminViewEvent);
+    jbtnRegisteredCarManage.addActionListener(adminViewEvent);
+    jbtnUserManage.addActionListener(adminViewEvent);
+    jbtnLogout.addActionListener(adminViewEvent);
+    // addWindowListener(adminViewEvent);
+
     setSize(840, 480);
     setVisible(true);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+
+
+  }
+
+  public JLabel getJlSelectFunctionMsg() {
+    return jlSelectFunctionMsg;
+  }
+
+  public JButton getJbtnReceivingManage() {
+    return jbtnReceivingManage;
+  }
+
+  public JButton getJbtnReservationManage() {
+    return jbtnReservationManage;
+  }
+
+  public JButton getJbtnPartsManage() {
+    return jbtnPartsManage;
+  }
+
+  public JButton getJbtnRecallManage() {
+    return jbtnRecallManage;
+  }
+
+  public JButton getJbtnRegisteredCarManage() {
+    return jbtnRegisteredCarManage;
+  }
+
+  public JButton getJbtnUserManage() {
+    return jbtnUserManage;
+  }
+
+  public JButton getJbtnLogout() {
+    return jbtnLogout;
   }
 
 
