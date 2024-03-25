@@ -9,7 +9,6 @@ public class PreventiTargetVO {
     private String carModel;
     private int driveDistance;
     private String reservationFlag;
-    // private List<MaintenanceVO> maintenanceHistory;
     private String maintenanceStatus;
     private Date productionDate;
     private Date reservationDate;
@@ -30,21 +29,6 @@ public class PreventiTargetVO {
         this.reservationDate = reservationDate;
         this.maintenanceReason = maintenanceReason;
     }
-
-    // public PreventiTargetVO(String carId, String ownerId, String carModel, int driveDistance, boolean reservationFlag,
-    // List<MaintenanceVO> maintenanceHistory, Date productionDate, Date reservationDate,
-    // String maintenanceReason) {
-    // super();
-    // this.carId = carId;
-    // this.ownerId = ownerId;
-    // this.carModel = carModel;
-    // this.driveDistance = driveDistance;
-    // this.reservationFlag = reservationFlag;
-    // this.maintenanceHistory = maintenanceHistory;
-    // this.productionDate = productionDate;
-    // this.reservationDate = reservationDate;
-    // this.maintenanceReason = maintenanceReason;
-    // }
 
     public String getCarId() {
         return carId;

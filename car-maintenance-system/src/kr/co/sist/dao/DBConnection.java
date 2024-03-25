@@ -24,27 +24,12 @@ public class DBConnection {
         return dbConn;
     }
 
-    public Connection getLocalhostConnection(String id, String pw) throws SQLException {
-        try {
-            Class.forName("oracle.jdbc.OracleDriver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        String url = "jdbc:oracle:thin:@localhost:1521:orcl";
-
-        Connection conn = DriverManager.getConnection(url, id, pw);
-        return conn;
-    }
-
     public Connection getConnection() throws SQLException {
         try {
             Class.forName("oracle.jdbc.OracleDriver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-        String url = "jdbc:oracle:thin:@192.168.10.216:1521:orcl";
 
         File dbLogin = new File("./DB_login.txt");
         BufferedReader bufReader = null;
@@ -59,31 +44,7 @@ public class DBConnection {
             e.printStackTrace();
         }
 
-        Connection conn = DriverManager.getConnection(url, loginInfo[0], loginInfo[1]);
-        return conn;
-    }
-
-    public Connection getConnection(String id, String pw) throws SQLException {
-        try {
-            Class.forName("oracle.jdbc.OracleDriver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        String url = "jdbc:oracle:thin:@192.168.10.216:1521:orcl";
-
-        Connection conn = DriverManager.getConnection(url, id, pw);
-        return conn;
-    }
-
-    public Connection getConnection(String url, String id, String pw) throws SQLException {
-        try {
-            Class.forName("orcle.jdbc.OracleDriver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        Connection conn = DriverManager.getConnection(url, id, pw);
+        Connection conn = DriverManager.getConnection(loginInfo[0], loginInfo[1], loginInfo[2]);
         return conn;
     }
 

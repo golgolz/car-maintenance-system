@@ -10,6 +10,7 @@ import kr.co.sist.dao.DBConnection;
 
 public class PreventiTargetDAO {
     static private PreventiTargetDAO preventiTargetDAO;
+    private List<PreventiTargetInsertVO> preventiTargets;
     private Connection conn;
     private PreparedStatement pstmt;
     private ResultSet resultSet;
@@ -27,10 +28,6 @@ public class PreventiTargetDAO {
     public int insertAllPreventiTargets() {
         int cnt = 0;
 
-        // select resisted_car.car_id, resisted_car.registration_date,
-        // nvl2(reserved_car.drive_distance, reserved_car.drive_distance, resisted_car.drive_distance) as drive_distance
-        // from resisted_car
-        // ;
         DBConnection dbConn = DBConnection.getInstance();
         try {
             conn = dbConn.getConnection();
