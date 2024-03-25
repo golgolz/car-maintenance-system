@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 public class AdminRegisteredCarView extends JFrame {
 
     private JLabel jlbRegisteredTitle, jlbCarIdTitle, jlbIdTitle;
-    private JTextField jtfCarId, jtfldId;
+    private JTextField jtfCarId, jtfId;
     private JButton jbtnSearch, jbtnAddCar, jbtnModify, jbtnRemove;
 
 
@@ -27,7 +27,7 @@ public class AdminRegisteredCarView extends JFrame {
         jlbIdTitle = new JLabel("ID");
 
         jtfCarId = new JTextField();
-        jtfldId = new JTextField();
+        jtfId = new JTextField();
 
         jbtnSearch = new JButton("조회");
         jbtnAddCar = new JButton("추가");
@@ -36,11 +36,11 @@ public class AdminRegisteredCarView extends JFrame {
 
         String[] CarTableHeader = {"차량번호", "연식", "모델", "주행거리", "등록일", "사용자ID"};
         String[][] dumpData = null;
-        DefaultTableModel carModel = new DefaultTableModel(dumpData, CarTableHeader);
-        JTable carTable = new JTable(carModel);
+        DefaultTableModel carRegist = new DefaultTableModel(dumpData, CarTableHeader);
+        JTable carTable = new JTable(carRegist);
         JScrollPane jsp = new JScrollPane(carTable);
 
-        carTable = new JTable(carModel);
+        carTable = new JTable(carRegist);
 
         setLayout(null);
 
@@ -49,7 +49,7 @@ public class AdminRegisteredCarView extends JFrame {
         jlbIdTitle.setBounds(230, 90, 100, 25);
 
         jtfCarId.setBounds(110, 90, 100, 25);
-        jtfldId.setBounds(250, 90, 100, 25);
+        jtfId.setBounds(250, 90, 100, 25);
 
         jbtnSearch.setBounds(380, 90, 60, 25);
         jbtnAddCar.setBounds(540, 90, 60, 25);
@@ -63,7 +63,7 @@ public class AdminRegisteredCarView extends JFrame {
         add(jlbIdTitle);
 
         add(jtfCarId);
-        add(jtfldId);
+        add(jtfId);
 
         add(jbtnSearch);
         add(jbtnAddCar);
