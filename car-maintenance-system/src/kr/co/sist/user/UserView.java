@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 
 @SuppressWarnings("serial")
 public class UserView extends JFrame {// oven 74
+  private UserViewEvent userViewEvent;
   private JLabel jlSelectFunctionMsg;// 원하시는 메뉴를 선택해주세요.
   private JLabel jlUserName;// 사용자명
   private JLabel jlReport;// 알림표시
@@ -23,6 +24,8 @@ public class UserView extends JFrame {// oven 74
     super("사용자 기능 선택");
     setLayout(null);
     this.getContentPane().setBackground(Color.decode("#002347"));
+
+    userViewEvent = new UserViewEvent(this);
 
     jlSelectFunctionMsg = new JLabel("원하시는 메뉴를 선택해주세요.");
     jlUserName = new JLabel("사용자명");
@@ -86,11 +89,61 @@ public class UserView extends JFrame {// oven 74
     add(jbtnMaintenanceSettlement);
     add(jbtnLogout);
 
+    jbtnMaintenance.addActionListener(userViewEvent);
+    jbtnReservation.addActionListener(userViewEvent);
+    jbtnResisteredCar.addActionListener(userViewEvent);
+    jbtnPreventi.addActionListener(userViewEvent);
+    jbtnUpdateUserInfo.addActionListener(userViewEvent);
+    jbtnMaintenanceSettlement.addActionListener(userViewEvent);
+    jbtnLogout.addActionListener(userViewEvent);
+
+
     setSize(840, 480);
     setVisible(true);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
 
   }
+
+  public JLabel getJlSelectFunctionMsg() {
+    return jlSelectFunctionMsg;
+  }
+
+  public JLabel getJlUserName() {
+    return jlUserName;
+  }
+
+  public JLabel getJlReport() {
+    return jlReport;
+  }
+
+  public JButton getJbtnMaintenance() {
+    return jbtnMaintenance;
+  }
+
+  public JButton getJbtnReservation() {
+    return jbtnReservation;
+  }
+
+  public JButton getJbtnResisteredCar() {
+    return jbtnResisteredCar;
+  }
+
+  public JButton getJbtnPreventi() {
+    return jbtnPreventi;
+  }
+
+  public JButton getJbtnUpdateUserInfo() {
+    return jbtnUpdateUserInfo;
+  }
+
+  public JButton getJbtnMaintenanceSettlement() {
+    return jbtnMaintenanceSettlement;
+  }
+
+  public JButton getJbtnLogout() {
+    return jbtnLogout;
+  }
+
 
 
 }

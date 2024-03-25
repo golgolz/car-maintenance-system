@@ -21,7 +21,7 @@ public class UserLoginView extends JFrame {
   private JLabel jlCarManagementSystem;// 차량정비관리시스템라벨
 
   public UserLoginView() {
-    super("관리자 로그인");
+    super("사용자 로그인");
     setLayout(null);
     this.getContentPane().setBackground(Color.decode("#002347"));
 
