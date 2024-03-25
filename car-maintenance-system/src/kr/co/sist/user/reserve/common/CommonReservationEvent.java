@@ -16,5 +16,4 @@ public class CommonReservationEvent extends WindowAdapter {
     commonReservationView.dispose();
   }
 
-
 }
