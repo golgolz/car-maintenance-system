@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import kr.co.sist.FontSingleton;
 
 @SuppressWarnings("serial")
 public class RegisterUserView extends JFrame {
@@ -74,10 +75,10 @@ public class RegisterUserView extends JFrame {
     jbtnRegisterCar.setBounds(30, 385, 160, 35);
     jbtnCancel.setBounds(200, 385, 160, 35);
 
-    jlRegisterUser.setFont(new Font("나눔고딕", Font.BOLD, 27));
-    jlID.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfID.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jlIDMsg.setFont(new Font("나눔고딕", Font.BOLD, 18));
+    jlRegisterUser.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 27f));
+    jlID.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jtfID.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jlIDMsg.setFont(FontSingleton.getInstance().bonGodic.deriveFont(18f));
     jbtnDoubleCheck.setFont(new Font("나눔고딕", Font.PLAIN, 18));
     jlPW.setFont(new Font("나눔고딕", Font.BOLD, 22));
     jtfPW.setFont(new Font("나눔고딕", Font.PLAIN, 22));
