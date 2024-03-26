@@ -29,8 +29,8 @@ public class UserView extends JFrame {// oven 74
     userViewEvent = new UserViewEvent(this);
 
     jlSelectFunctionMsg = new JLabel("원하시는 메뉴를 선택해주세요.");
-    jlUserName = new JLabel(getName());
-    jlReport = new JLabel("1");
+    jlUserName = new JLabel(getName());// 로그인한 사용자 이름을 받고싶음
+    jlReport = new JLabel("");// 알림을 받고싶음
     jbtnMaintenance = new JButton("정비 관리");
     jbtnReservation = new JButton("일반 정비 예약");
     jbtnResisteredCar = new JButton("등록 차량 관리");

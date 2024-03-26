@@ -22,6 +22,7 @@ public class UserInfoVO {
     this.registeredCar = registeredCar;
   }
 
+
   public String getId() {
     return id;
   }
