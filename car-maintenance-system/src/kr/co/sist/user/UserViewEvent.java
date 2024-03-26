@@ -4,12 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import javax.swing.JOptionPane;
+import kr.co.sist.admin.manage.reservation.common.CommonReservationView;
 import kr.co.sist.user.history.MaintenanceManagementView;
 import kr.co.sist.user.manage.user.UserManageView;
 import kr.co.sist.user.monthly.MonthlyCarMaintenanceView;
 import kr.co.sist.user.preventi.PreventiAlarmView;
 import kr.co.sist.user.register.car.UserRegisteredCarView;
-import kr.co.sist.user.reserve.common.CommonReservationView;
 
 public class UserViewEvent extends WindowAdapter implements ActionListener {
 

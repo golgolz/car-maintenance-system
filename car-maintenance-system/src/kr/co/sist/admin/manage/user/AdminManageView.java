@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import kr.co.sist.FontSingleton;
 
 @SuppressWarnings("serial")
 public class AdminManageView extends JFrame {
@@ -33,11 +34,11 @@ public class AdminManageView extends JFrame {
     jbtnSelectUser.setBounds(270, 70, 100, 30);
     jtSelectAllUser.setBounds(20, 110, 780, 300);
 
-    jlAdminManageUser.setFont(new Font("나눔고딕", Font.BOLD, 30));
-    jlUserID.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfUserID.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jbtnSelectUser.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtSelectAllUser.setFont(new Font("나눔고딕", Font.PLAIN, 22));
+    jlAdminManageUser.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 30f));
+    jlUserID.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfUserID.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jbtnSelectUser.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtSelectAllUser.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
 
     jlAdminManageUser.setForeground(Color.WHITE);
     jlUserID.setForeground(Color.WHITE);
@@ -53,7 +54,18 @@ public class AdminManageView extends JFrame {
     setSize(840, 480);
     setVisible(true);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
+  }
 
+  public JTextField getJtfUserID() {
+    return jtfUserID;
+  }
+
+  public JTable getJtSelectAllUser() {
+    return jtSelectAllUser;
+  }
+
+  public JButton getJbtnSelectUser() {
+    return jbtnSelectUser;
   }
 
 }

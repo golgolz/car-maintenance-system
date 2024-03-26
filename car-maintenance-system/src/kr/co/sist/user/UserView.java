@@ -5,6 +5,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import kr.co.sist.FontSingleton;
 
 @SuppressWarnings("serial")
 public class UserView extends JFrame {// oven 74
@@ -28,7 +29,7 @@ public class UserView extends JFrame {// oven 74
     userViewEvent = new UserViewEvent(this);
 
     jlSelectFunctionMsg = new JLabel("원하시는 메뉴를 선택해주세요.");
-    jlUserName = new JLabel("사용자명");
+    jlUserName = new JLabel(getName());
     jlReport = new JLabel("1");
     jbtnMaintenance = new JButton("정비 관리");
     jbtnReservation = new JButton("일반 정비 예약");
@@ -49,16 +50,16 @@ public class UserView extends JFrame {// oven 74
     jbtnMaintenanceSettlement.setBounds(450, 300, 210, 40);
     jbtnLogout.setBounds(700, 20, 90, 30);
 
-    jlSelectFunctionMsg.setFont(new Font("나눔고딕", Font.BOLD, 20));
-    jlUserName.setFont(new Font("나눔고딕", Font.BOLD, 15));
-    jlReport.setFont(new Font("나눔고딕", Font.BOLD, 20));
-    jbtnMaintenance.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jbtnReservation.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jbtnResisteredCar.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jbtnPreventi.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jbtnUpdateUserInfo.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jbtnMaintenanceSettlement.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jbtnLogout.setFont(new Font("나눔고딕", Font.PLAIN, 14));
+    jlSelectFunctionMsg.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 20f));
+    jlUserName.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 15f));
+    jlReport.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 20f));
+    jbtnMaintenance.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jbtnReservation.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jbtnResisteredCar.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jbtnPreventi.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jbtnUpdateUserInfo.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jbtnMaintenanceSettlement.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jbtnLogout.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
 
     jlSelectFunctionMsg.setForeground(Color.WHITE);
     jlUserName.setForeground(Color.WHITE);
