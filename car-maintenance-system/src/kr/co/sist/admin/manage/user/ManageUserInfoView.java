@@ -6,10 +6,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import kr.co.sist.FontSingleton;
 
 @SuppressWarnings("serial")
 public class ManageUserInfoView extends JFrame {
-  private JLabel ManageUserInfo;// 회원정보수정
+  private JLabel jlManageUserInfo;// 회원정보수정
   private JLabel jlID;// ID
   private JTextField jtfID;
   private JLabel jlPW;// 비밀번호
@@ -33,7 +34,7 @@ public class ManageUserInfoView extends JFrame {
     setLayout(null);
     this.getContentPane().setBackground(Color.decode("#002347"));
 
-    ManageUserInfo = new JLabel("회원 정보 수정");
+    jlManageUserInfo = new JLabel("회원 정보 수정");
     jlID = new JLabel("ID");
     jtfID = new JTextField("사용자ID");
     jlPW = new JLabel("비밀번호");
@@ -43,7 +44,7 @@ public class ManageUserInfoView extends JFrame {
     jtfPWConfirm = new JTextField();
     jlPWConfirmMsg = new JLabel("비밀번호가 일치하지 않습니다.");
     jlName = new JLabel("이름");
-    jtfName = new JTextField("우미연");
+    jtfName = new JTextField();
     jlTel = new JLabel("연락처");
     jtfTel = new JTextField("010-1111-2222");
     jlAddr = new JLabel("주소");
@@ -52,7 +53,7 @@ public class ManageUserInfoView extends JFrame {
     jbtnCancel = new JButton("취소");
     jbtnDelete = new JButton("삭제하기");
 
-    ManageUserInfo.setBounds(20, 20, 200, 30);
+    jlManageUserInfo.setBounds(20, 20, 200, 30);
     jlID.setBounds(20, 75, 160, 30);
     jtfID.setBounds(170, 75, 160, 30);
     jlPW.setBounds(20, 125, 160, 30);
@@ -71,26 +72,26 @@ public class ManageUserInfoView extends JFrame {
     jbtnCancel.setBounds(200, 385, 160, 35);
     jbtnDelete.setBounds(600, 385, 160, 35);
 
-    ManageUserInfo.setFont(new Font("나눔고딕", Font.BOLD, 27));
-    jlID.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfID.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jlPW.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfPW.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jlPWMsg.setFont(new Font("나눔고딕", Font.BOLD, 18));
-    jlPWConfirm.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfPWConfirm.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jlPWConfirmMsg.setFont(new Font("나눔고딕", Font.PLAIN, 17));
-    jlName.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfName.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jlTel.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfTel.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jlAddr.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfAddr.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jbtnUpdateConfirm.setFont(new Font("나눔고딕", Font.BOLD, 23));
-    jbtnCancel.setFont(new Font("나눔고딕", Font.BOLD, 23));
-    jbtnDelete.setFont(new Font("나눔고딕", Font.BOLD, 23));
+    jlManageUserInfo.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 27f));
+    jlID.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfID.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jlPW.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfPW.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jlPWMsg.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 18f));
+    jlPWConfirm.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfPWConfirm.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jlPWConfirmMsg.setFont(FontSingleton.getInstance().bonGodic.deriveFont(17f));
+    jlName.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfName.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jlTel.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfTel.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jlAddr.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfAddr.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jbtnUpdateConfirm.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+    jbtnCancel.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jbtnDelete.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
 
-    ManageUserInfo.setForeground(Color.WHITE);
+    jlManageUserInfo.setForeground(Color.WHITE);
     jlID.setForeground(Color.WHITE);
     jlPW.setForeground(Color.WHITE);
     jlPWMsg.setForeground(Color.WHITE);
@@ -106,7 +107,7 @@ public class ManageUserInfoView extends JFrame {
     jbtnDelete.setForeground(Color.WHITE);
     jbtnDelete.setBackground(Color.decode("#FF0000"));
 
-    add(ManageUserInfo);
+    add(jlManageUserInfo);
     add(jlID);
     add(jtfID);
     add(jlPW);
@@ -128,6 +129,66 @@ public class ManageUserInfoView extends JFrame {
     setSize(840, 480);
     setVisible(true);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
+  }
+
+  public JTextField getJtfID() {
+    return jtfID;
+  }
+
+  public void setJtfID(JTextField jtfID) {
+    this.jtfID = jtfID;
+  }
+
+  public void setJtfPW(JTextField jtfPW) {
+    this.jtfPW = jtfPW;
+  }
+
+  public void setJtfPWConfirm(JTextField jtfPWConfirm) {
+    this.jtfPWConfirm = jtfPWConfirm;
+  }
+
+  public void setJtfName(JTextField jtfName) {
+    this.jtfName = jtfName;
+  }
+
+  public void setJtfTel(JTextField jtfTel) {
+    this.jtfTel = jtfTel;
+  }
+
+  public void setJtfAddr(JTextField jtfAddr) {
+    this.jtfAddr = jtfAddr;
+  }
+
+  public JTextField getJtfPW() {
+    return jtfPW;
+  }
+
+  public JTextField getJtfPWConfirm() {
+    return jtfPWConfirm;
+  }
+
+  public JTextField getJtfName() {
+    return jtfName;
+  }
+
+  public JTextField getJtfTel() {
+    return jtfTel;
+  }
+
+  public JTextField getJtfAddr() {
+    return jtfAddr;
+  }
+
+  public JButton getJbtnUpdateConfirm() {
+    return jbtnUpdateConfirm;
+  }
+
+  public JButton getJbtnCancel() {
+    return jbtnCancel;
+  }
+
+  public JButton getJbtnDelete() {
+    return jbtnDelete;
   }
 
 
