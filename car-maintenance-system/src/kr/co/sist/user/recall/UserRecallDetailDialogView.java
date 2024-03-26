@@ -7,6 +7,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
+import kr.co.sist.FontSingleton;
 import kr.co.sist.admin.recall.RecallInfoVO;
 
 @SuppressWarnings("serial")
@@ -25,8 +26,8 @@ public class UserRecallDetailDialogView extends JDialog {
         JButton jbtnOk = new JButton("확인");
 
         jtaContent.setEditable(false);
-        jlblTitle.setFont(new Font("나눔고딕", Font.BOLD, 20));
-        jtaContent.setFont(new Font("나눔고딕", Font.PLAIN, 12));
+        jlblTitle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 20f));
+        jtaContent.setFont(FontSingleton.getInstance().bonGodic.deriveFont(12f));
         jlblImage.setBorder(new TitledBorder("발생일"));
 
         jbtnReserve.setForeground(Color.WHITE);
@@ -35,7 +36,7 @@ public class UserRecallDetailDialogView extends JDialog {
         jbtnOk.setBackground(Color.decode("#4ba5e9"));
 
         jlblTitle.setBounds(130, 10, 200, 30);
-        jtaContent.setBounds(20, 50, 300, 30);
+        jtaContent.setBounds(20, 50, 300, 50);
         jlblImage.setBounds(285, 10, 130, 100);
         jbtnReserve.setBounds(250, 115, 100, 30);
         jbtnOk.setBounds(85, 115, 100, 30);

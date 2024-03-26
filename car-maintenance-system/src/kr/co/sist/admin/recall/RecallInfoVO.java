@@ -3,23 +3,22 @@ package kr.co.sist.admin.recall;
 import java.sql.Date;
 
 public class RecallInfoVO {
+    private String partCode;
     private String partName;
     private String carModel;
-    // private Date recallDate;
+    private Date recallDate;
     private String imgFile;
 
-    public RecallInfoVO(String partName, String carModel, String imgFile) {
+    public RecallInfoVO(String partCode, String partName, String carModel, Date recallDate, String imgFile) {
+        this.partCode = partCode;
         this.partName = partName;
         this.carModel = carModel;
-        // this.recallDate = recallDate;
+        this.recallDate = recallDate;
         this.imgFile = imgFile;
     }
 
-    public RecallInfoVO(String partName, String carModel, Date recallDate, String imgFile) {
-        this.partName = partName;
-        this.carModel = carModel;
-        // this.recallDate = recallDate;
-        this.imgFile = imgFile;
+    public String getPartCode() {
+        return partCode;
     }
 
     public String getPartName() {
@@ -30,9 +29,9 @@ public class RecallInfoVO {
         return carModel;
     }
 
-    // public Date getRecallDate() {
-    // return recallDate;
-    // }
+    public Date getRecallDate() {
+        return recallDate;
+    }
 
     public String getImgFile() {
         return imgFile;
