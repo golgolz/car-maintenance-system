@@ -23,17 +23,21 @@ public class RegisteredCarDAO {
         return registeredCarDAO;
     }// getInstance
 
-    public List<RegisteredCarVO> selectAllCar() throws SQLException {
+    public List<RegisteredCarVO> selectAllCar(String carId, String ownerId) throws SQLException {
         List<RegisteredCarVO> car = new ArrayList<RegisteredCarVO>();
 
         DBConnection dbConn = DBConnection.getInstance();
 
         try {
             conn = dbConn.getConnection();
-            StringBuilder selectCarQuery = new StringBuilder(
-                    "select car_id, car_year, car_model, drive_distance, registration_day, owner_id   from    registeredCar ");
+            StringBuilder selectCarQuery =
+                    new StringBuilder("select * from resisted_car where car_id=? and owner_id=? ");
 
             pstmt = conn.prepareStatement(selectCarQuery.toString());
+
+            pstmt.setString(1, carId);
+            pstmt.setString(2, ownerId);
+
             resultSet = pstmt.executeQuery();
 
 
@@ -79,6 +83,33 @@ public class RegisteredCarDAO {
             dbCon.dbClose(con, pstmt, resultSet);
         } // end finally
     }// insertCar
+
+    public void updateCar(RegisteredCarVO rVO) throws SQLException {
+        DBConnection dbCon = DBConnection.getInstance();
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        try {
+            String id = "car";
+            String pass = "golgol";
+            con = dbCon.getConnection();
+
+            StringBuilder updateCar = new StringBuilder();
+            updateCar.append("update    resisted_car")
+                    .append(" set car_id=?, car_model=?, drive_distance=?, production_date=?").append("where car_id=?");
+
+            pstmt = con.prepareStatement(updateCar.toString());
+
+            pstmt.setString(1, rVO.getCarId());
+            pstmt.setString(2, rVO.getCarModel());
+            pstmt.setInt(3, rVO.getDriveDistance());
+            pstmt.setDate(4, rVO.getProductionDate());
+
+            pstmt.executeUpdate();
+        } finally {
+            dbCon.dbClose(con, pstmt, resultSet);
+        } // end finally
+    }// updateCar
 
     public boolean deleteCar(String carId) throws SQLException {
         int cnt = 0;
