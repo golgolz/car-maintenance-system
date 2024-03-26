@@ -1,21 +1,29 @@
 package kr.co.sist.admin.preventi.management;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import kr.co.sist.admin.preventi.policy.PreventiPolicyDAO;
+import kr.co.sist.admin.preventi.policy.PreventiPolicyVO;
 import kr.co.sist.dao.DBConnection;
 
 public class PreventiTargetDAO {
     static private PreventiTargetDAO preventiTargetDAO;
-    private List<PreventiTargetInsertVO> preventiTargets;
+    // private HashMap<String, Integer> preventiTargetMap;
+    private List<PreventiTargetInsertVO> preventiTargetsInsert;
     private Connection conn;
     private PreparedStatement pstmt;
     private ResultSet resultSet;
 
-    private PreventiTargetDAO() {}
+    private PreventiTargetDAO() {
+        // preventiTargetMap = new HashMap<String, Integer>();
+    }
 
     static public PreventiTargetDAO getInstance() {
         if (preventiTargetDAO == null) {
@@ -25,10 +33,9 @@ public class PreventiTargetDAO {
         return preventiTargetDAO;
     }
 
-    public int insertAllPreventiTargets() {
-        int cnt = 0;
-
+    public void createPreventiTargetsData() throws SQLException {
         DBConnection dbConn = DBConnection.getInstance();
+        preventiTargetsInsert = new ArrayList<PreventiTargetInsertVO>();
 
         try {
             conn = dbConn.getConnection();
@@ -36,29 +43,96 @@ public class PreventiTargetDAO {
             selectQuery.append("select resisted_car.car_id, resisted_car.production_date,")
                     .append(" case when reserved_car.drive_distance is null then resisted_car.drive_distance ")
                     .append(" when reserved_car.drive_distance >= resisted_car.drive_distance then reserved_car.drive_distance ")
-                    .append(" else resisted_car.drive_distance end as drive_distance ").append(" from resisted_car ")
-                    .append(" join reserved_car on resisted_car.car_id = reserved_car.car_id ");
+                    .append(" else resisted_car.drive_distance end as drive_distance ").append(" from reserved_car ")
+                    .append(" right outer join resisted_car on resisted_car.car_id = reserved_car.car_id ");
             pstmt = conn.prepareStatement(selectQuery.toString());
 
             resultSet = pstmt.executeQuery();
-            String parts = "";
+            StringBuilder parts = new StringBuilder();
+            int driveDistance = 0;
+            List<PreventiPolicyVO> policies = PreventiPolicyDAO.getInstance().getPolicies();
+
+            Date productionDate = null;
+            LocalDate productionLocalDate = null;
+            LocalDate currentDate = LocalDate.now();
+            LocalDate elevenMonthsAfter = null;
+            LocalDate twelveMonthsAfter = null;
 
             while (resultSet.next()) {
-                System.out.println(resultSet.getString("car_id"));
-                System.out.println(resultSet.getDate("production_date"));
-                System.out.println(resultSet.getString("drive_distance"));
+                driveDistance = resultSet.getInt("drive_distance");
+                productionDate = resultSet.getDate("production_date");
+                productionLocalDate = productionDate.toLocalDate();
 
+                // 예방 정비 지침 주행거리 및 제조일 연산
+                for (PreventiPolicyVO policy : policies) {
+                    if ((driveDistance % policy.getDistancePeriod()) <= 2000) {
+                        parts.append(policy.getPartCode());
+                    } else if (policy.getProductionPeriod() != 0) {
+                        elevenMonthsAfter = productionLocalDate.plusMonths(11);
+                        twelveMonthsAfter = productionLocalDate.plusMonths(12);
+
+                        if (currentDate.isBefore(twelveMonthsAfter) && currentDate.isAfter(elevenMonthsAfter)) {
+                            // System.out.println("현재 날짜가 주어진 날짜로부터 11개월 이내에 포함됩니다.");
+                            parts.append(policy.getPartCode());
+                        }
+                    }
+
+                    if (!parts.toString().isBlank()) {
+                        preventiTargetsInsert.add(new PreventiTargetInsertVO(resultSet.getString("car_id"),
+                                productionDate, parts.toString(), driveDistance));
+                    }
+                    parts.setLength(0);
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConn.dbClose(conn, pstmt, resultSet);
         }
+
+        insertAllPreventiTargets();
+        // System.out.println("===============");
+        // for (int i = 0; i < preventiTargetsInsert.size(); i++) {
+        // System.out.println(
+        // preventiTargetsInsert.get(i).getCarId() + " " + preventiTargetsInsert.get(i).getProductionDate()
+        // + " " + preventiTargetsInsert.get(i).getPartCode() + " "
+        // + preventiTargetsInsert.get(i).getDriveDistance());
+        // }
+    }
+
+    public int insertAllPreventiTargets() throws SQLException {
+        int cnt = 0;
+
+        DBConnection dbConn = DBConnection.getInstance();
+        try {
+            conn = dbConn.getConnection();
+            StringBuilder insertQuery = new StringBuilder();
+            for (int i = 0; i < preventiTargetsInsert.size(); i++) {
+                insertQuery.append(
+                        " insert into preventi_repair(car_id, production_date, part_code, drive_distance) values(?, ?, ?, ?) ");
+                pstmt = conn.prepareStatement(insertQuery.toString());
+                pstmt.setString(1, preventiTargetsInsert.get(i).getCarId());
+                pstmt.setDate(2, preventiTargetsInsert.get(i).getProductionDate());
+                pstmt.setString(3, preventiTargetsInsert.get(i).getPartCode());
+                pstmt.setInt(4, preventiTargetsInsert.get(i).getDriveDistance());
+                pstmt.execute();
+                insertQuery.setLength(0);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            dbConn.dbClose(conn, pstmt, resultSet);
+        }
+
         return cnt;
     }
 
-    public List<PreventiTargetVO> selectAllPreventi() {
+    public List<PreventiTargetVO> selectAllPreventi() throws SQLException {
         List<PreventiTargetVO> preventiTargets = new ArrayList<PreventiTargetVO>();
+        HashMap<String, Integer> preventiTargetMap = new HashMap<String, Integer>();
         DBConnection dbConn = DBConnection.getInstance();
         StringBuilder selectQuery = new StringBuilder();
+        int cnt = 0;
 
         selectQuery.append("select preventi_repair.car_id as car_id, ").append(" owner.owner_id as owner_id, ")
                 .append(" resisted_car.car_model as car_model, ").append(" owner.tel,")
@@ -72,9 +146,9 @@ public class PreventiTargetDAO {
                 .append(" reservation.reservation_date, ").append(" part_info.part_name ").append(" from owner owner ")
                 .append(" join resisted_car on resisted_car.owner_id = owner.owner_id ")
                 .append(" join preventi_repair on preventi_repair.car_id = resisted_car.car_id ")
-                .append(" join reserved_car on resisted_car.car_id = reserved_car.car_id ")
-                .append(" join car_maintenance_settlement on car_maintenance_settlement.car_id = reserved_car.car_id ")
-                .append(" join reservation on reservation.car_id = preventi_repair.car_id ")
+                .append(" left outer join reserved_car on resisted_car.car_id = reserved_car.car_id ")
+                .append(" left outer join car_maintenance_settlement on car_maintenance_settlement.car_id = resisted_car.car_id ")
+                .append(" left outer join reservation on reservation.car_id = preventi_repair.car_id ")
                 .append(" join part_info on preventi_repair.part_code = part_info.part_code ");
         try {
             conn = dbConn.getConnection();
@@ -91,25 +165,35 @@ public class PreventiTargetDAO {
             resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
-                preventiTargets.add(new PreventiTargetVO(resultSet.getString("car_id"), resultSet.getString("owner_id"),
-                        resultSet.getString("tel"), resultSet.getString("car_model"),
-                        resultSet.getInt("drive_distance"),
-                        resultSet.getString("reservation_status").equals("o") ? "Y" : "N",
-                        resultSet.getString("maintenance_status"), resultSet.getDate("production_date"),
-                        resultSet.getDate("reservation_date"), resultSet.getString("part_name")));
-                System.out.println(resultSet.getString("car_id"));
+                if (!preventiTargetMap.containsKey(resultSet.getString("car_id"))) {
+                    preventiTargetMap.put(resultSet.getString("car_id"), cnt);
+                    cnt++;
+                    preventiTargets.add(new PreventiTargetVO(resultSet.getString("car_id"),
+                            resultSet.getString("owner_id"), resultSet.getString("tel"),
+                            resultSet.getString("car_model"), resultSet.getInt("drive_distance"),
+                            resultSet.getString("reservation_status").equals("o") ? "Y" : "N",
+                            resultSet.getString("maintenance_status"), resultSet.getDate("production_date"),
+                            resultSet.getString("reservation_date"), resultSet.getString("part_name")));
+                } else {
+                    preventiTargets.get(preventiTargetMap.get(resultSet.getString("car_id")))
+                            .addPart(resultSet.getString("part_name"));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConn.dbClose(conn, pstmt, resultSet);
         }
 
         return preventiTargets;
     }
 
-    public List<PreventiTargetVO> selectPreventis(String carId, String ownerId) {
+    public List<PreventiTargetVO> selectPreventis(String carId, String ownerId) throws SQLException {
         List<PreventiTargetVO> preventiTargets = new ArrayList<PreventiTargetVO>();
+        HashMap<String, Integer> preventiTargetMap = new HashMap<String, Integer>();
         DBConnection dbConn = DBConnection.getInstance();
         StringBuilder selectQuery = new StringBuilder();
+        int cnt = 0;
 
         selectQuery.append("select preventi_repair.car_id as car_id, ").append(" owner.owner_id as owner_id, ")
                 .append(" resisted_car.car_model as car_model, ").append(" owner.tel,")
@@ -123,7 +207,7 @@ public class PreventiTargetDAO {
                 .append(" preventi_repair.production_date as production_date, ")
                 .append(" reservation.reservation_date, ").append(" part_info.part_name ").append(" from owner owner ")
                 .append(" join resisted_car on resisted_car.owner_id = owner.owner_id ")
-                .append(" join preventi_repair on preventi_repair.car_id = resisted_car.car_id ")
+                .append(" left join preventi_repair on preventi_repair.car_id = resisted_car.car_id ")
                 .append(" join reserved_car on resisted_car.car_id = reserved_car.car_id ")
                 .append(" join car_maintenance_settlement on car_maintenance_settlement.car_id = reserved_car.car_id ")
                 .append(" join reservation on reservation.car_id = preventi_repair.car_id ")
@@ -166,22 +250,44 @@ public class PreventiTargetDAO {
             resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
-                preventiTargets.add(new PreventiTargetVO(resultSet.getString("car_id"), resultSet.getString("owner_id"),
-                        resultSet.getString("tel"), resultSet.getString("car_model"),
-                        resultSet.getInt("drive_distance"),
-                        resultSet.getString("reservation_status").equals("o") ? "Y" : "N",
-                        resultSet.getString("maintenance_status"), resultSet.getDate("production_date"),
-                        resultSet.getDate("reservation_date"), resultSet.getString("part_name")));
+                if (!preventiTargetMap.containsKey(resultSet.getString("car_id"))) {
+                    preventiTargetMap.put(resultSet.getString("car_id"), cnt);
+                    cnt++;
+                    preventiTargets.add(new PreventiTargetVO(resultSet.getString("car_id"),
+                            resultSet.getString("owner_id"), resultSet.getString("tel"),
+                            resultSet.getString("car_model"), resultSet.getInt("drive_distance"),
+                            resultSet.getString("reservation_status").equals("o") ? "Y" : "N",
+                            resultSet.getString("maintenance_status"), resultSet.getDate("production_date"),
+                            resultSet.getString("reservation_date"), resultSet.getString("part_name")));
+                } else {
+                    preventiTargets.get(preventiTargetMap.get(resultSet.getString("car_id")))
+                            .addPart(resultSet.getString("part_name"));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            dbConn.dbClose(conn, pstmt, resultSet);
         }
+
         return preventiTargets;
     }
 
-    public int deleteAllPreventiTargets() {
-        int cnt = 0;
-
-        return cnt;
+    public void deleteAllPreventiTargets() {
+        DBConnection dbConn = DBConnection.getInstance();
+        try {
+            conn = dbConn.getConnection();
+            StringBuilder deleteQuery = new StringBuilder("delete from preventi_repair");
+            pstmt = conn.prepareStatement(deleteQuery.toString());
+            pstmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                dbConn.dbClose(conn, pstmt, resultSet);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

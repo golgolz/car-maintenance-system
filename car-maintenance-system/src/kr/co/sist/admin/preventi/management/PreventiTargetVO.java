@@ -11,12 +11,13 @@ public class PreventiTargetVO {
     private String reservationFlag;
     private String maintenanceStatus;
     private Date productionDate;
-    private Date reservationDate;
-    private String maintenanceReason;
+    private String reservationDate;
+    private String[] maintenanceReason;
+    private int numParts;
 
     public PreventiTargetVO(String carId, String ownerId, String ownerTel, String carModel, int driveDistance,
-            String reservationFlag, String maintenanceStatus, Date productionDate, Date reservationDate,
-            String maintenanceReason) {
+            String reservationFlag, String maintenanceStatus, Date productionDate, String reservationDate,
+            String partName) {
         super();
         this.carId = carId;
         this.ownerId = ownerId;
@@ -27,7 +28,9 @@ public class PreventiTargetVO {
         this.maintenanceStatus = maintenanceStatus;
         this.productionDate = productionDate;
         this.reservationDate = reservationDate;
-        this.maintenanceReason = maintenanceReason;
+        maintenanceReason = new String[6];
+        numParts = 0;
+        addPart(partName);
     }
 
     public String getCarId() {
@@ -62,11 +65,33 @@ public class PreventiTargetVO {
         return productionDate;
     }
 
-    public Date getReservationDate() {
+    public String getReservationDate() {
         return reservationDate;
     }
 
-    public String getMaintenanceReason() {
+    public String[] getMaintenanceReason() {
         return maintenanceReason;
+    }
+
+    public void addPart(String part) {
+        maintenanceReason[numParts] = part;
+        for (int i = 0; i < numParts; i++) {
+            System.out.println(maintenanceReason[i]);
+        }
+        numParts += 1;
+    }
+
+    public String partToString() {
+        StringBuilder partStr = new StringBuilder();
+        int i = 0;
+
+        while (maintenanceReason[i] != null) {
+            partStr.append(maintenanceReason[i]).append(",");
+            i += 1;
+        }
+
+        partStr.deleteCharAt(partStr.length() - 1);
+
+        return partStr.toString();
     }
 }
