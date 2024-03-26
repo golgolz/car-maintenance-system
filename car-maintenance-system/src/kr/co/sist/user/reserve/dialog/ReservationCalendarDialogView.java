@@ -18,9 +18,10 @@ public class ReservationCalendarDialogView extends JPanel {
   private JLabel jlMonth;
   private JPanel jpCalendar;
   private LocalDate currentDate;
+  private JButton dayButton;
+
 
   public ReservationCalendarDialogView() {
-
     currentDate = LocalDate.now(); // 현재 시간
 
     jlMonth = new JLabel("", SwingConstants.CENTER);
@@ -69,7 +70,6 @@ public class ReservationCalendarDialogView extends JPanel {
     String[] daysOfWeek = {"일", "월", "화", "수", "목", "금", "토"};
     for (String dayOfWeek : daysOfWeek) {
       JLabel label = new JLabel(dayOfWeek, SwingConstants.CENTER);
-      // label.setForeground(Color.BLUE);
       label.setBorder(new TitledBorder(new LineBorder(Color.GRAY)));
       jpCalendar.add(label);
     }
@@ -81,23 +81,20 @@ public class ReservationCalendarDialogView extends JPanel {
       jpCalendar.add(jlLine);
     }
 
-
     int daysInMonth = yearMonth.lengthOfMonth();
     for (int day = 1; day <= daysInMonth; day++) {
-      JButton dayButton = new JButton(String.valueOf(day));
-      dayButton.setFocusPainted(false);
+      dayButton = new JButton(String.valueOf(day));
+      dayButton.setFocusPainted(true);
       dayButton.setBorder(new TitledBorder(new LineBorder(Color.GRAY)));
       // 각 날짜 버튼에 ActionListener 추가
-      ReservationCalendarDialogEvent rcde = new ReservationCalendarDialogEvent(this);
-      dayButton.addActionListener(rcde);
+      ReservationCalendarDialogEvent rcde = new ReservationCalendarDialogEvent(this, dayButton);
       jpCalendar.add(dayButton);
-    }
-
+      dayButton.addActionListener(rcde);
+    } // end for
 
     revalidate();
     repaint();
-  }
-
+  }// updateCalender
 
 
   public JLabel getJlMonth() {
@@ -112,12 +109,8 @@ public class ReservationCalendarDialogView extends JPanel {
     return currentDate;
   }
 
-
-
-  // public static void main(String[] args) {
-  // new ReservationCalendarDialogView();
-  // }
-
-
+  public JButton getDayButton() {
+    return dayButton;
+  }
 
 }

@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -39,7 +40,11 @@ public class PreventiManagementView extends JFrame {
         JButton jbtnPreventiPolicy = new JButton("예방 정비 지침 확인");
 
         String[] headerInfo = {"차량번호", "ID", "모델", "주행거리", "예약여부", "정비이력", "정비상태", "제조일", "예약일", "점검사유"};
-        preventiTargets = new DefaultTableModel(preventiManagementEvent.showAllPreventi(), headerInfo);
+        try {
+            preventiTargets = new DefaultTableModel(preventiManagementEvent.showAllPreventi(), headerInfo);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         // createMaintenanceHistoryDialog();
         preventiTargetTable = new JTable(preventiTargets);
         JScrollPane preventiTargetScroll = new JScrollPane(preventiTargetTable);

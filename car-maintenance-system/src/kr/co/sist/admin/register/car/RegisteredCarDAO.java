@@ -62,8 +62,6 @@ public class RegisteredCarDAO {
         Connection con = null;
         PreparedStatement pstmt = null;
         try {
-            String id = "car";
-            String pass = "golgol";
             con = dbCon.getConnection();
             // 인서트하려면 차량번호, 모델f, 주행거리, 제조일자가 필요, 누구의 차인가 ownerid(F), 쿼리문이랑 똑같이 쓰기!!
             String insertCar =
@@ -121,8 +119,6 @@ public class RegisteredCarDAO {
         PreparedStatement pstmt = null;
 
         try {
-            String id = "car";
-            String pass = "golgol";
             con = dbCon.getConnection();
 
             String deleteCar = "delete from resisted_car where car_id=?";
