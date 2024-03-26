@@ -2,6 +2,7 @@ package kr.co.sist.admin.preventi.management;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -12,7 +13,12 @@ public class PreventiManagementEvent implements ActionListener {
 
     public PreventiManagementEvent(PreventiManagementView preventiManagementView) {
         this.preventiManagementView = preventiManagementView;
-        PreventiTargetDAO.getInstance().insertAllPreventiTargets();
+        try {
+            PreventiTargetDAO.getInstance().deleteAllPreventiTargets();
+            PreventiTargetDAO.getInstance().createPreventiTargetsData();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -22,7 +28,11 @@ public class PreventiManagementEvent implements ActionListener {
                 System.out.println("보기");
                 break;
             case "검색":
-                showSearchResult();
+                try {
+                    showSearchResult();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
                 break;
             case "예방 정비 지침 확인":
                 new PreventiPolicyDialog();
@@ -31,7 +41,7 @@ public class PreventiManagementEvent implements ActionListener {
         }
     }
 
-    public Object[][] showAllPreventi() {
+    public Object[][] showAllPreventi() throws SQLException {
         List<PreventiTargetVO> preventiTargets = PreventiTargetDAO.getInstance().selectAllPreventi();
         Object[][] preventiTargetModel = new Object[preventiTargets.size()][10];
         int cnt = 0;
@@ -45,14 +55,14 @@ public class PreventiManagementEvent implements ActionListener {
             preventiTargetModel[cnt][6] = target.getMaintenanceStatus();
             preventiTargetModel[cnt][7] = target.getProductionDate();
             preventiTargetModel[cnt][8] = target.getReservationDate();
-            preventiTargetModel[cnt][9] = target.getMaintenanceReason();
+            preventiTargetModel[cnt][9] = target.partToString();
             cnt += 1;
         }
 
         return preventiTargetModel;
     }
 
-    public void showSearchResult() {
+    public void showSearchResult() throws SQLException {
         String carId = preventiManagementView.getJtfCarId().getText();
         String ownerId = preventiManagementView.getJtfOwnerId().getText();
         List<PreventiTargetVO> preventiTargets = PreventiTargetDAO.getInstance().selectPreventis(carId, ownerId);
@@ -62,25 +72,26 @@ public class PreventiManagementEvent implements ActionListener {
         if (preventiTargets.size() == 0) {
             preventiTargets = PreventiTargetDAO.getInstance().selectAllPreventi();
             JOptionPane.showMessageDialog(preventiManagementView, "검색 결과가 없습니다.\n전체 목록을 출력합니다.");
-        } else {
-            preventiTargetModel.setRowCount(0);
-            Object[] preventiTargetData = new Object[10];
-
-            for (PreventiTargetVO target : preventiTargets) {
-                preventiTargetData[0] = target.getCarId();
-                preventiTargetData[1] = target.getOwnerId();
-                preventiTargetData[2] = target.getCarModel();
-                preventiTargetData[3] = target.getDriveDistance();
-                preventiTargetData[4] = target.getReservationFlag();
-                preventiTargetData[5] = "";
-                preventiTargetData[6] = target.getMaintenanceStatus();
-                preventiTargetData[7] = target.getProductionDate();
-                preventiTargetData[8] = target.getReservationDate();
-                preventiTargetData[9] = target.getMaintenanceReason();
-                preventiTargetModel.addRow(preventiTargetData);
-            }
-            JOptionPane.showMessageDialog(preventiManagementView, "검색을 완료했습니다.");
         }
+
+        preventiTargetModel.setRowCount(0);
+        Object[] preventiTargetData = new Object[10];
+
+        for (PreventiTargetVO target : preventiTargets) {
+            preventiTargetData[0] = target.getCarId();
+            preventiTargetData[1] = target.getOwnerId();
+            preventiTargetData[2] = target.getCarModel();
+            preventiTargetData[3] = target.getDriveDistance();
+            preventiTargetData[4] = target.getReservationFlag();
+            preventiTargetData[5] = "";
+            preventiTargetData[6] = target.getMaintenanceStatus();
+            preventiTargetData[7] = target.getProductionDate();
+            preventiTargetData[8] = target.getReservationDate();
+            preventiTargetData[9] = target.partToString();
+            preventiTargetModel.addRow(preventiTargetData);
+        }
+        JOptionPane.showMessageDialog(preventiManagementView, "검색을 완료했습니다.");
+
 
         preventiManagementView.getJtfCarId().setText("");
         preventiManagementView.getJtfOwnerId().setText("");
