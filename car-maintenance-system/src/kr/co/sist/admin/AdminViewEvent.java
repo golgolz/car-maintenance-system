@@ -3,6 +3,7 @@ package kr.co.sist.admin;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import kr.co.sist.admin.manage.inventory.InventoryView;
 import kr.co.sist.admin.manage.reservation.preventi.PreventiReservationView;
@@ -34,7 +35,11 @@ public class AdminViewEvent extends WindowAdapter implements ActionListener {
       new AdminRecallView();
     }
     if (ae.getSource() == adminView.getJbtnRegisteredCarManage()) {
-      new AdminRegisteredCarView();
+      try {
+        new AdminRegisteredCarView();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
     }
     if (ae.getSource() == adminView.getJbtnUserManage()) {
       new AdminManageView();
