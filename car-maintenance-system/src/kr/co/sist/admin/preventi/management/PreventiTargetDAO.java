@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import kr.co.sist.admin.preventi.policy.PreventiPolicyDAO;
@@ -15,7 +16,8 @@ import kr.co.sist.dao.DBConnection;
 
 public class PreventiTargetDAO {
     static private PreventiTargetDAO preventiTargetDAO;
-    // private HashMap<String, Integer> preventiTargetMap;
+    private HashMap<String, List<Integer>> preventiTargetOwnerIdMap;
+    private List<PreventiTargetVO> totalPreventiTarget;
     private List<PreventiTargetInsertVO> preventiTargetsInsert;
     private Connection conn;
     private PreparedStatement pstmt;
@@ -129,6 +131,8 @@ public class PreventiTargetDAO {
 
     public List<PreventiTargetVO> selectAllPreventi() throws SQLException {
         List<PreventiTargetVO> preventiTargets = new ArrayList<PreventiTargetVO>();
+        totalPreventiTarget = new ArrayList<PreventiTargetVO>();
+        preventiTargetOwnerIdMap = new HashMap<String, List<Integer>>();
         HashMap<String, Integer> preventiTargetMap = new HashMap<String, Integer>();
         DBConnection dbConn = DBConnection.getInstance();
         StringBuilder selectQuery = new StringBuilder();
@@ -164,19 +168,44 @@ public class PreventiTargetDAO {
 
             resultSet = pstmt.executeQuery();
 
+            PreventiTargetVO tempVO = null;
+            List<Integer> tempInts = null;
+            PreventiTargetVO totalTempVO = null;
+            String ownerId = null;
+            String carId = null;
+            String partName = null;
+
             while (resultSet.next()) {
-                if (!preventiTargetMap.containsKey(resultSet.getString("car_id"))) {
-                    preventiTargetMap.put(resultSet.getString("car_id"), cnt);
+                ownerId = resultSet.getString("owner_id");
+                carId = resultSet.getString("car_id");
+                partName = resultSet.getString("part_name");
+
+                tempVO = new PreventiTargetVO(carId, ownerId, resultSet.getString("tel"),
+                        resultSet.getString("car_model"), resultSet.getInt("drive_distance"),
+                        resultSet.getString("reservation_status").equals("o") ? "Y" : "N",
+                        resultSet.getString("maintenance_status"), resultSet.getDate("production_date"),
+                        resultSet.getString("reservation_date"), partName);
+
+                if (!preventiTargetMap.containsKey(carId)) {
+                    preventiTargetMap.put(carId, cnt);
                     cnt++;
-                    preventiTargets.add(new PreventiTargetVO(resultSet.getString("car_id"),
-                            resultSet.getString("owner_id"), resultSet.getString("tel"),
-                            resultSet.getString("car_model"), resultSet.getInt("drive_distance"),
-                            resultSet.getString("reservation_status").equals("o") ? "Y" : "N",
-                            resultSet.getString("maintenance_status"), resultSet.getDate("production_date"),
-                            resultSet.getString("reservation_date"), resultSet.getString("part_name")));
+                    preventiTargets.add(tempVO);
                 } else {
-                    preventiTargets.get(preventiTargetMap.get(resultSet.getString("car_id")))
-                            .addPart(resultSet.getString("part_name"));
+                    preventiTargets.get(preventiTargetMap.get(carId)).addPart(partName);
+                }
+
+                if (!preventiTargetOwnerIdMap.containsKey(ownerId)) {
+                    preventiTargetOwnerIdMap.put(ownerId,
+                            new ArrayList<Integer>(Arrays.asList(totalPreventiTarget.size())));
+                    totalPreventiTarget.add(tempVO);
+                } else {
+                    tempInts = preventiTargetOwnerIdMap.get(ownerId);
+                    for (int i = 0; i < tempInts.size(); i++) {
+                        totalTempVO = totalPreventiTarget.get(tempInts.get(i));
+                        if (carId.equals(totalTempVO.getCarId())) {
+                            totalPreventiTarget.get(tempInts.get(i)).addPart(partName);
+                        }
+                    }
                 }
             }
         } catch (SQLException e) {
@@ -190,7 +219,7 @@ public class PreventiTargetDAO {
 
     public List<PreventiTargetVO> selectPreventis(String carId, String ownerId) throws SQLException {
         List<PreventiTargetVO> preventiTargets = new ArrayList<PreventiTargetVO>();
-        HashMap<String, Integer> preventiTargetMap = new HashMap<String, Integer>();
+        HashMap<String, Integer> preventiTargetCarIdMap = new HashMap<String, Integer>();
         DBConnection dbConn = DBConnection.getInstance();
         StringBuilder selectQuery = new StringBuilder();
         int cnt = 0;
@@ -250,8 +279,8 @@ public class PreventiTargetDAO {
             resultSet = pstmt.executeQuery();
 
             while (resultSet.next()) {
-                if (!preventiTargetMap.containsKey(resultSet.getString("car_id"))) {
-                    preventiTargetMap.put(resultSet.getString("car_id"), cnt);
+                if (!preventiTargetCarIdMap.containsKey(resultSet.getString("car_id"))) {
+                    preventiTargetCarIdMap.put(resultSet.getString("car_id"), cnt);
                     cnt++;
                     preventiTargets.add(new PreventiTargetVO(resultSet.getString("car_id"),
                             resultSet.getString("owner_id"), resultSet.getString("tel"),
@@ -260,7 +289,7 @@ public class PreventiTargetDAO {
                             resultSet.getString("maintenance_status"), resultSet.getDate("production_date"),
                             resultSet.getString("reservation_date"), resultSet.getString("part_name")));
                 } else {
-                    preventiTargets.get(preventiTargetMap.get(resultSet.getString("car_id")))
+                    preventiTargets.get(preventiTargetCarIdMap.get(resultSet.getString("car_id")))
                             .addPart(resultSet.getString("part_name"));
                 }
             }
@@ -271,6 +300,24 @@ public class PreventiTargetDAO {
         }
 
         return preventiTargets;
+    }
+
+    public List<PreventiTargetVO> selectPersonalPreventi(String ownerId) {
+        if (totalPreventiTarget == null) {
+            try {
+                selectAllPreventi();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        List<PreventiTargetVO> searchResult = new ArrayList<PreventiTargetVO>();
+        List<Integer> ownCars = preventiTargetOwnerIdMap.get(ownerId);
+
+        for (Integer ownNum : ownCars) {
+            searchResult.add(totalPreventiTarget.get(ownNum));
+        }
+
+        return searchResult;
     }
 
     public void deleteAllPreventiTargets() {
