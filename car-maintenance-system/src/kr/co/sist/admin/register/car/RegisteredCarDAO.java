@@ -23,17 +23,21 @@ public class RegisteredCarDAO {
         return registeredCarDAO;
     }// getInstance
 
-    public List<RegisteredCarVO> selectAllCar() throws SQLException {
+    public List<RegisteredCarVO> selectAllCar(String carId, String ownerId) throws SQLException {
         List<RegisteredCarVO> car = new ArrayList<RegisteredCarVO>();
 
         DBConnection dbConn = DBConnection.getInstance();
 
         try {
             conn = dbConn.getConnection();
-            StringBuilder selectCarQuery = new StringBuilder(
-                    "select car_id, car_year, car_model, drive_distance, registration_day, owner_id   from    registeredCar ");
+            StringBuilder selectCarQuery =
+                    new StringBuilder("select * from resisted_car where car_id=? and owner_id=? ");
 
             pstmt = conn.prepareStatement(selectCarQuery.toString());
+
+            pstmt.setString(1, carId);
+            pstmt.setString(2, ownerId);
+
             resultSet = pstmt.executeQuery();
 
 
@@ -41,8 +45,8 @@ public class RegisteredCarDAO {
             while (resultSet.next()) {
 
                 rVO = new RegisteredCarVO(resultSet.getString("car_id"), "", resultSet.getString("owner_id"),
-                        resultSet.getString("car_model"), null, resultSet.getDate("registration_day"),
-                        resultSet.getInt("car_year"), resultSet.getInt("drive_distance"), false);
+                        resultSet.getString("car_model"), null, resultSet.getDate("registration_date"),
+                        resultSet.getInt("car_year"), resultSet.getInt("drive_distance"), "", "");
 
                 car.add(rVO);
             }
@@ -60,7 +64,7 @@ public class RegisteredCarDAO {
         try {
             String id = "car";
             String pass = "golgol";
-            con = dbCon.getConnection(id, pass);
+            con = dbCon.getConnection();
             // 인서트하려면 차량번호, 모델f, 주행거리, 제조일자가 필요, 누구의 차인가 ownerid(F), 쿼리문이랑 똑같이 쓰기!!
             String insertCar =
                     "insert into resisted_car(car_Id, caridentity_number,owner_id,  car_Model, car_year, drive_Distance) "
@@ -82,6 +86,33 @@ public class RegisteredCarDAO {
         } // end finally
     }// insertCar
 
+    public void updateCar(RegisteredCarVO rVO) throws SQLException {
+        DBConnection dbCon = DBConnection.getInstance();
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        try {
+            String id = "car";
+            String pass = "golgol";
+            con = dbCon.getConnection();
+
+            StringBuilder updateCar = new StringBuilder();
+            updateCar.append("update    resisted_car")
+                    .append(" set car_id=?, car_model=?, drive_distance=?, production_date=?").append("where car_id=?");
+
+            pstmt = con.prepareStatement(updateCar.toString());
+
+            pstmt.setString(1, rVO.getCarId());
+            pstmt.setString(2, rVO.getCarModel());
+            pstmt.setInt(3, rVO.getDriveDistance());
+            pstmt.setDate(4, rVO.getProductionDate());
+
+            pstmt.executeUpdate();
+        } finally {
+            dbCon.dbClose(con, pstmt, resultSet);
+        } // end finally
+    }// updateCar
+
     public boolean deleteCar(String carId) throws SQLException {
         int cnt = 0;
         DBConnection dbCon = DBConnection.getInstance();
@@ -92,7 +123,7 @@ public class RegisteredCarDAO {
         try {
             String id = "car";
             String pass = "golgol";
-            con = dbCon.getConnection(id, pass);
+            con = dbCon.getConnection();
 
             String deleteCar = "delete from resisted_car where car_id=?";
             pstmt = con.prepareStatement(deleteCar);

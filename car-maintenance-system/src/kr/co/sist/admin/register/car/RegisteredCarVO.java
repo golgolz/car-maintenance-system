@@ -64,11 +64,11 @@ public class RegisteredCarVO {
         return carModel;
     }
 
-    public Date getProductionDay() {
+    public Date getProductionDate() {
         return productionDate;
     }
 
-    public Date getRegistrationDay() {
+    public Date getRegistrationDate() {
         return registrationDate;
     }
 

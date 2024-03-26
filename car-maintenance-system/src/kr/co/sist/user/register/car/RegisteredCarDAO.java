@@ -30,7 +30,7 @@ public class RegisteredCarDAO {
         try {
             String id = "car";
             String pass = "golgol";
-            con = dbCon.getConnection(id, pass);
+            con = dbCon.getConnection();
 
             String insertCar =
                     "insert into resisted_car(car_Id, car_model, drive_Distance, car_year, production_date, registration_date ) "
@@ -41,8 +41,8 @@ public class RegisteredCarDAO {
             pstmt.setString(2, rVO.getCarModel());
             pstmt.setInt(3, rVO.getDriveDistance());
             pstmt.setInt(4, rVO.getCarYear());
-            pstmt.setDate(5, rVO.getProductionDay());
-            pstmt.setDate(6, rVO.getRegistrationDay());
+            pstmt.setDate(5, rVO.getProductionDate());
+            pstmt.setDate(6, rVO.getRegistrationDate());
 
             pstmt.executeUpdate();
         } finally {
@@ -60,7 +60,7 @@ public class RegisteredCarDAO {
         try {
             String id = "car";
             String pass = "golgol";
-            con = dbCon.getConnection(id, pass);
+            con = dbCon.getConnection();
 
             String deleteCar = "delete from resisted_car where car_id=?";
             pstmt = con.prepareStatement(deleteCar);

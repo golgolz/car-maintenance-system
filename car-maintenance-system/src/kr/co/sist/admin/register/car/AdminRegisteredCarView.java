@@ -1,7 +1,6 @@
 package kr.co.sist.admin.register.car;
 
 import java.sql.SQLException;
-import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,11 +16,11 @@ public class AdminRegisteredCarView extends JFrame {
     private JLabel jlbRegisteredTitle, jlbCarIdTitle, jlbIdTitle;
     private JTextField jtfCarId, jtfId;
     private JButton jbtnSearch, jbtnAddCar, jbtnModify, jbtnRemove;
+    private DefaultTableModel carRegist;
+    private JTable carTable;
 
-
-    public AdminRegisteredCarView() {
+    public AdminRegisteredCarView() throws SQLException {
         super("차량 정비 관리 시스템");
-
         jlbRegisteredTitle = new JLabel("등록 차량관리");
         jlbCarIdTitle = new JLabel("차량번호");
         jlbIdTitle = new JLabel("ID");
@@ -34,13 +33,22 @@ public class AdminRegisteredCarView extends JFrame {
         jbtnModify = new JButton("수정");
         jbtnRemove = new JButton("삭제");
 
-        String[] CarTableHeader = {"차량번호", "연식", "모델", "주행거리", "등록일", "사용자ID"};
+        String[] CarTableHeader = {"차량번호", "사용자ID", "모델", "연식", "등록일", "주행거리"};
         String[][] dumpData = null;
-        DefaultTableModel carRegist = new DefaultTableModel(dumpData, CarTableHeader);
-        JTable carTable = new JTable(carRegist);
+        carRegist = new DefaultTableModel(dumpData, CarTableHeader);
+        carTable = new JTable(carRegist);
         JScrollPane jsp = new JScrollPane(carTable);
 
-        carTable = new JTable(carRegist);
+        // carTable = new JTable(carRegist);
+
+        AdminRegisteredCarEvent adminRegisteredCarEvent = new AdminRegisteredCarEvent(this);
+
+        carTable.addMouseListener(adminRegisteredCarEvent);
+        jbtnAddCar.addActionListener(adminRegisteredCarEvent);
+        jbtnModify.addActionListener(adminRegisteredCarEvent);
+        jbtnSearch.addActionListener(adminRegisteredCarEvent);
+        // jbtnRemove.addMouseListener(adminRegisteredCarEvent);
+        jbtnRemove.addActionListener(adminRegisteredCarEvent);
 
         setLayout(null);
 
@@ -70,32 +78,76 @@ public class AdminRegisteredCarView extends JFrame {
         add(jbtnModify);
         add(jbtnRemove);
 
-        add(carTable);
+        // add(carTable);
         add(jsp);
+
+
 
         setSize(840, 480);
         setVisible(true);
 
     }// RegisteredCarView
 
-    public String[][] createCarModelData() throws SQLException {
-        List<RegisteredCarVO> tempRegisetedCar = RegisteredCarDAO.getInstance().selectAllCar();
-        String[][] carList = new String[tempRegisetedCar.size()][6];
 
-        RegisteredCarVO tempRVO = null;
 
-        for (int i = 0; i < carList.length; i++) {
-            tempRVO = tempRegisetedCar.get(i);
-            carList[i][0] = tempRVO.getCarId();
-            carList[i][1] = tempRVO.getOwnerId();
-            carList[i][2] = tempRVO.getCarModel();
-            carList[i][3] = String.valueOf(tempRVO.getRegistrationDay());
-            carList[i][4] = String.valueOf(tempRVO.getCarYear());
-            carList[i][5] = String.valueOf(tempRVO.getDriveDistance());
-
-        }
-        return carList;
+    public JTable getCarTable() {
+        return carTable;
     }
+
+
+
+    public JButton getJbtnSearch() {
+        return jbtnSearch;
+    }
+
+    public JButton getJbtnAddCar() {
+        return jbtnAddCar;
+    }
+
+    public JButton getJbtnModify() {
+        return jbtnModify;
+    }
+
+    public JButton getJbtnRemove() {
+        return jbtnRemove;
+    }
+
+
+
+    public JLabel getJlbRegisteredTitle() {
+        return jlbRegisteredTitle;
+    }
+
+
+
+    public JLabel getJlbCarIdTitle() {
+        return jlbCarIdTitle;
+    }
+
+
+
+    public JLabel getJlbIdTitle() {
+        return jlbIdTitle;
+    }
+
+
+
+    public JTextField getJtfCarId() {
+        return jtfCarId;
+    }
+
+
+
+    public JTextField getJtfId() {
+        return jtfId;
+    }
+
+
+
+    public DefaultTableModel getCarRegist() {
+        return carRegist;
+    }
+
 
 }// class
 
