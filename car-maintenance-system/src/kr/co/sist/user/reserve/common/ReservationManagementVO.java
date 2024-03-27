@@ -1,29 +1,47 @@
 package kr.co.sist.user.reserve.common;
 
+import java.sql.Date;
 import kr.co.sist.admin.register.car.RegisteredCarVO;
 
 public class ReservationManagementVO {
 
   private RegisteredCarVO registeredCarVO;
-  private String ownerId, tel, carId, carModel, reserveDate, reserveTime, reserveReason, maintenanceClassification;
+  private String ownerId, name, tel, carId, carModel, reservationDate, reserveTime, reserveReason,
+      maintenanceClassification;
+  private int driveDistance;
+  private Date productDate, reserveDate;
 
   public ReservationManagementVO() {}
 
-
-  public ReservationManagementVO(RegisteredCarVO registeredCarVO, String ownerId, String tel, String carId,
-      String carModel, String reserveReason, String reserveDate, String reserveTime, String maintenanceClassification) {
+  // 예약 차량 리스트 추가
+  public ReservationManagementVO(String ownerId, String tel, String carId, String carModel, String reserveReason,
+      String reservationDate, String reserveTime, String maintenanceClassification) {
     super();
-    this.registeredCarVO = registeredCarVO;
     this.ownerId = ownerId;
     this.tel = tel;
     this.carId = carId;
     this.carModel = carModel;
     this.reserveTime = reserveTime;
     this.reserveReason = reserveReason;
-    this.reserveDate = reserveDate;
+    this.reservationDate = reservationDate;
     this.maintenanceClassification = maintenanceClassification;
+    // System.out.println( reservationDate+ " " +_);
   }
 
+  // 일반 정비 예약 차량 조회
+  public ReservationManagementVO(String carId, String name, String ownerId, String carModel, int driveDistance,
+      String maintenanceClassification, Date productDate, String reservationDate, String reserveReason) {
+    super();
+    this.carId = carId;
+    this.name = name;
+    this.ownerId = ownerId;
+    this.carModel = carModel;
+    this.driveDistance = driveDistance;
+    this.maintenanceClassification = maintenanceClassification;
+    this.productDate = productDate;
+    this.reservationDate = reservationDate;
+    this.reserveReason = reserveReason;
+  }
 
 
   public RegisteredCarVO getRegisteredCarVO() {
@@ -54,24 +72,38 @@ public class ReservationManagementVO {
     return reserveReason;
   }
 
-  public String getReserveDate() {
-    return reserveDate;
+  public String getName() {
+    return name;
   }
 
+  public String getReservationDate() {
+    return reservationDate;
+  }
+
+  public int getDriveDistance() {
+    return driveDistance;
+  }
+
+  public Date getProductDate() {
+    return productDate;
+  }
+
+  public Date getReserveDate() {
+    return reserveDate;
+  }
 
   public String getMaintenanceClassification() {
     return maintenanceClassification;
   }
 
-
   @Override
   public String toString() {
-    return "ReservationManagementVO [registeredCarVO=" + registeredCarVO + ", ownerId=" + ownerId + ", tel=" + tel
-        + ", carId=" + carId + ", carModel=" + carModel + ", reserveTime=" + reserveTime + ", reserveReason="
-        + reserveReason + ", reserveDate=" + reserveDate + ", maintenanceClassification=" + maintenanceClassification
-        + "]";
+    return "ReservationManagementVO [registeredCarVO=" + registeredCarVO + ", ownerId=" + ownerId + ", name=" + name
+        + ", tel=" + tel + ", carId=" + carId + ", carModel=" + carModel + ", reservationDate=" + reservationDate
+        + ", reserveTime=" + reserveTime + ", reserveReason=" + reserveReason + ", maintenanceClassification="
+        + maintenanceClassification + ", driveDistance=" + driveDistance + ", productDate=" + productDate
+        + ", reserveDate=" + reserveDate + "]";
   }
-
 
 
 }

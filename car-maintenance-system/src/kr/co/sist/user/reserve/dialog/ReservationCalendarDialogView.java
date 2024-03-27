@@ -19,7 +19,8 @@ public class ReservationCalendarDialogView extends JPanel {
   private JPanel jpCalendar;
   private LocalDate currentDate;
   private JButton dayButton;
-
+  private int selectYear;
+  private String selectMonth;
 
   public ReservationCalendarDialogView() {
     currentDate = LocalDate.now(); // 현재 시간
@@ -59,6 +60,9 @@ public class ReservationCalendarDialogView extends JPanel {
 
   private void updateCalendar() {
     YearMonth yearMonth = YearMonth.from(currentDate);
+    selectYear = yearMonth.getYear();
+    selectMonth = yearMonth.format(DateTimeFormatter.ofPattern("MM"));
+
     jlMonth.setText(yearMonth.format(DateTimeFormatter.ofPattern("MMMM")));
 
     jpCalendar.removeAll();
@@ -112,5 +116,19 @@ public class ReservationCalendarDialogView extends JPanel {
   public JButton getDayButton() {
     return dayButton;
   }
+
+  public int getSelectYear() {
+    return selectYear;
+  }
+
+  public String getSelectMonth() {
+    return selectMonth;
+  }
+
+
+  // public static void main(String[] args) {
+  // new ReservationCalendarDialogView();
+  // }
+
 
 }

@@ -24,12 +24,11 @@ public class ReservationDialogEvent implements ActionListener {
 
     if (e.getSource() == rdv.getJrbAM() || e.getSource() == rdv.getJrbPM()) {
       selectTime = e.getActionCommand();
-      // rdv.getJtaReservationReason().setText(selectTime);
     }
 
     if (e.getSource() == rdv.getJbtnConfirm()) { // 예약 요청 버튼
       if (rdv.getViewNum() == rdv.COMMON) {
-        // insertCommonReservation();
+        insertCommonReservation();
         JOptionPane.showMessageDialog(rdv, "일반 정비 예약이 신청 되었습니다.");
         rdv.getJtaReservationReason().setText("");
       } // end if
@@ -48,20 +47,24 @@ public class ReservationDialogEvent implements ActionListener {
 
 
   public void insertCommonReservation() {
-
-    ReservationManagementDAO rmDAO = null;
-    rmDAO = rmDAO.getInstance();
     rcdv = new ReservationCalendarDialogView();
-    RegisteredCarVO rVO = new RegisteredCarVO();
-    ReservationManagementVO rmVO = null;
+    ReservationManagementDAO rmDAO = ReservationManagementDAO.getInstance();
+    rcde = new ReservationCalendarDialogEvent(rcdv, rcdv.getDayButton());
+    ReservationManagementVO rmVO = new ReservationManagementVO();
+    RegisteredCarVO rVO = rmVO.getRegisteredCarVO();
 
-    String ownerId = rVO.getOwnerId();
-    String tel = null;
-    String carId = rVO.getCarId();
-    String carModel = rVO.getCarModel();
+    // String ownerId = rVO.getOwnerId();
+    String ownerId = "jmh";
+    // String tel = null;
+    String tel = "01040178212";
+    // String carId = rVO.getCarId();
+    String carId = "369십1523";
+    // String carModel = rVO.getCarModel();
+    String carModel = "K7";
     String reserveTime = selectTime;
     String reserveReason = rdv.getJtaReservationReason().getText(); // 사유
-    String reserveDate = rcdv.getDayButton().getText(); // 날짜
+    String reserveDate = rcdv.getSelectYear() + "-" + rcdv.getSelectMonth() + "-" + rcde.getDayButton().getText(); // 날짜
+    // CommDate.day
     String maintenanceClassification = null; // 정비 분류
     if (rdv.getViewNum() == rdv.COMMON) {
       maintenanceClassification = "일반";
@@ -73,16 +76,22 @@ public class ReservationDialogEvent implements ActionListener {
       maintenanceClassification = "리콜";
     }
 
-    rmVO = new ReservationManagementVO(rVO, ownerId, tel, carId, carModel, reserveReason, reserveDate, reserveTime,
+
+    rmVO = new ReservationManagementVO(ownerId, tel, carId, carModel, reserveReason, reserveDate, reserveTime,
         maintenanceClassification);
+
+
 
     try {
       rmDAO.insertReservationManagement(rmVO);
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }// insertCommonReservation
 
-  }
+  public void searchReservationByOwnerId() { // 성강님 view 구현 필요
+    ReservationManagementDAO rmDAO = ReservationManagementDAO.getInstance();
+  }// searchReservationByOwnerId
 
   public ReservationDialogView getRdv() {
     return rdv;

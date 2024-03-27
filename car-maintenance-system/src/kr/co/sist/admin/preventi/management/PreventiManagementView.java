@@ -14,6 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import kr.co.sist.FontSingleton;
@@ -55,10 +57,21 @@ public class PreventiManagementView extends JFrame {
         jbtnSearch.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
         jbtnPreventiPolicy.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
         preventiTargetTable.getTableHeader().setFont(FontSingleton.getInstance().bonGodic.deriveFont(12f));
-
         preventiTargetTable.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        preventiTargetTable.setDefaultRenderer(Object.class, centerRenderer);
         preventiTargetTable.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
         preventiTargetTable.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox()));
+
+        preventiTargetTable.getColumnModel().getColumn(1).setPreferredWidth(30);
+        preventiTargetTable.getColumnModel().getColumn(2).setPreferredWidth(30);
+        preventiTargetTable.getColumnModel().getColumn(3).setPreferredWidth(50);
+        preventiTargetTable.getColumnModel().getColumn(4).setPreferredWidth(50);
+        preventiTargetTable.getColumnModel().getColumn(5).setPreferredWidth(50);
+        preventiTargetTable.getColumnModel().getColumn(6).setPreferredWidth(50);
+        preventiTargetTable.getColumnModel().getColumn(9).setPreferredWidth(150);
 
         jlblTitle.setBounds(17, 0, 250, 80);
         jlblCarId.setBounds(20, 87, 100, 30);
@@ -91,6 +104,7 @@ public class PreventiManagementView extends JFrame {
 
         setSize(840, 480);
         setVisible(true);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
@@ -111,7 +125,6 @@ public class PreventiManagementView extends JFrame {
     }
 
     static class ButtonRenderer extends JButton implements TableCellRenderer {
-
         public ButtonRenderer() {
             setOpaque(true);
         }
@@ -129,6 +142,7 @@ public class PreventiManagementView extends JFrame {
         public ButtonEditor(JCheckBox checkBox) {
             super(checkBox);
             button = new JButton();
+            button.setBackground(Color.decode("#385da6"));
             button.setOpaque(true);
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
