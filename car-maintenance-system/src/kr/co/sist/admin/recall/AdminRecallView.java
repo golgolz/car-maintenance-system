@@ -95,7 +95,7 @@ public class AdminRecallView extends JFrame {
         setSize(840, 480);
         setVisible(true);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     public JTextField getJtfCarId() {
@@ -162,7 +162,7 @@ public class AdminRecallView extends JFrame {
                         return;
                     }
 
-                    new UserRecallDetailDialogView(currentInfo);
+                    new UserRecallDetailDialogView(currentInfo, true);
                 }
             });
         }

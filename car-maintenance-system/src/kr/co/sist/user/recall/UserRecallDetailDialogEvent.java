@@ -2,6 +2,8 @@ package kr.co.sist.user.recall;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import kr.co.sist.user.reserve.common.CommonReservationView;
+import kr.co.sist.user.reserve.dialog.ReservationDialogView;
 
 public class UserRecallDetailDialogEvent implements ActionListener {
     private UserRecallDetailDialogView userRecallDetailDialogView;
@@ -14,7 +16,8 @@ public class UserRecallDetailDialogEvent implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "예약하기":
-                // [TODO] 예약 다이얼로그 객체화 추가
+                new CommonReservationView("리콜 예약", ReservationDialogView.RECALL,
+                        userRecallDetailDialogView.getCurrentRecallInfo().getPartName());
                 break;
             case "확인":
                 userRecallDetailDialogView.dispose();

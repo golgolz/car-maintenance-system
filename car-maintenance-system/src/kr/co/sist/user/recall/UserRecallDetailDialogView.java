@@ -13,8 +13,11 @@ import kr.co.sist.admin.recall.RecallInfoVO;
 
 @SuppressWarnings("serial")
 public class UserRecallDetailDialogView extends JDialog {
-    public UserRecallDetailDialogView(RecallInfoVO recallInfo) {
+    private RecallInfoVO currentRecallInfo;
+
+    public UserRecallDetailDialogView(RecallInfoVO recallInfo, boolean isAdmin) {
         super();
+        currentRecallInfo = recallInfo;
         setLayout(null);
         setBackground(Color.WHITE);
         this.getContentPane().setBackground(Color.WHITE);
@@ -39,8 +42,15 @@ public class UserRecallDetailDialogView extends JDialog {
         jlblTitle.setBounds(130, 10, 200, 30);
         jtaContent.setBounds(20, 50, 250, 50);
         jlblImage.setBounds(285, 10, 130, 100);
-        jbtnReserve.setBounds(250, 115, 100, 30);
-        jbtnOk.setBounds(85, 115, 100, 30);
+        if (isAdmin) {
+            jbtnOk.setBounds(160, 115, 100, 30);
+            add(jbtnOk);
+        } else {
+            jbtnReserve.setBounds(250, 115, 100, 30);
+            jbtnOk.setBounds(85, 115, 100, 30);
+            add(jbtnReserve);
+            add(jbtnOk);
+        }
 
         UserRecallDetailDialogEvent userRecallDetailDialogEvent = new UserRecallDetailDialogEvent(this);
         jbtnReserve.addActionListener(userRecallDetailDialogEvent);
@@ -49,12 +59,14 @@ public class UserRecallDetailDialogView extends JDialog {
         add(jlblTitle);
         add(jtaContent);
         add(jlblImage);
-        add(jbtnReserve);
-        add(jbtnOk);
 
         setSize(450, 200);
         setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+
+    public RecallInfoVO getCurrentRecallInfo() {
+        return currentRecallInfo;
     }
 }
