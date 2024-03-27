@@ -57,8 +57,8 @@ public class PreventiManagementView extends JFrame {
         jbtnSearch.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
         jbtnPreventiPolicy.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
         preventiTargetTable.getTableHeader().setFont(FontSingleton.getInstance().bonGodic.deriveFont(12f));
-
         preventiTargetTable.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
+
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         preventiTargetTable.setDefaultRenderer(Object.class, centerRenderer);
@@ -104,6 +104,7 @@ public class PreventiManagementView extends JFrame {
 
         setSize(840, 480);
         setVisible(true);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 

@@ -13,8 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import kr.co.sist.FontSingleton;
 
 @SuppressWarnings("serial")
 public class AdminRecallView extends JFrame {
@@ -39,12 +42,20 @@ public class AdminRecallView extends JFrame {
         recallInfoTable = new JTable(recallInfoModel);
         JScrollPane preventiTargetScroll = new JScrollPane(recallInfoTable);
 
-        jlblTitle.setFont(new Font("나눔고딕", Font.BOLD, 27));
-        jlblCarId.setFont(new Font("나눔고딕", Font.PLAIN, 17));
-        jlblOwnerId.setFont(new Font("나눔고딕", Font.PLAIN, 17));
-        jlblOwnerId.setFont(new Font("나눔고딕", Font.PLAIN, 17));
-        jbtnSearch.setFont(new Font("나눔고딕", Font.PLAIN, 14));
-        recallInfoTable.setFont(new Font("나눔고딕", Font.PLAIN, 14));
+        jlblTitle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 27f));
+        jlblTitle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 27f));
+        jlblCarId.setFont(FontSingleton.getInstance().bonGodic.deriveFont(17f));
+        jlblOwnerId.setFont(FontSingleton.getInstance().bonGodic.deriveFont(17f));
+        jbtnSearch.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
+        recallInfoTable.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        recallInfoTable.setDefaultRenderer(Object.class, centerRenderer);
+        recallInfoTable.getTableHeader().setFont(FontSingleton.getInstance().bonGodic.deriveFont(12f));
+        recallInfoTable.getColumnModel().getColumn(0).setMaxWidth(70);
+        recallInfoTable.getColumnModel().getColumn(1).setMaxWidth(70);
+        recallInfoTable.getColumnModel().getColumn(2).setMaxWidth(70);
 
         recallInfoTable.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
         recallInfoTable.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox()));
@@ -73,6 +84,7 @@ public class AdminRecallView extends JFrame {
 
         setSize(840, 480);
         setVisible(true);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
