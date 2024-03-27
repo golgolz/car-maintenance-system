@@ -1,5 +1,6 @@
 package kr.co.sist.user.reserve.dialog;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -14,13 +15,15 @@ public class ReservationCalendarDialogEvent implements ActionListener {
     this.dayButton = dayButton;
   }
 
+
   @Override
   public void actionPerformed(ActionEvent e) {
     // 클릭된 버튼의 텍스트(날짜)를 가져와서 출력
-    // if (e.getSource() == dayButton) {
-    // System.out.print(rcdv.getJlMonth().getText() + " ");
-    // System.out.println(dayButton.getText() + "일 ");
-    // }
+    if (e.getSource() == dayButton) {
+      dayButton.setEnabled(false); // 버튼을 비활성화
+      dayButton.setBackground(Color.GRAY);
+      // CommDate.day = dayButton.getText();
+    }
   }
 
   public ReservationCalendarDialogView getRcdv() {
@@ -30,5 +33,6 @@ public class ReservationCalendarDialogEvent implements ActionListener {
   public JButton getDayButton() {
     return dayButton;
   }
+
 
 }

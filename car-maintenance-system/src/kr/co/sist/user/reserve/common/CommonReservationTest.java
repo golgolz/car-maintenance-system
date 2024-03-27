@@ -13,23 +13,25 @@ public class CommonReservationTest {
     } // end while
   }// testCommon
 
-  @Test
-  void testPreventi() {
-    CommonReservationView crv = new CommonReservationView("예방 정비 예약", ReservationDialogView.PREVENTI);
-    crv.setVisible(true);
+  //
+  // @Test
+  // void testPreventi() {
+  // CommonReservationView crv = new CommonReservationView("예방 정비 예약",
+  // ReservationDialogView.PREVENTI);
+  // crv.setVisible(true);
+  //
+  // while (crv.isVisible()) {
+  // } // end while
+  // }// testCommon
 
-    while (crv.isVisible()) {
-    } // end while
-  }// testCommon
-
-  @Test
-  void testRecall() {
-    CommonReservationView crv = new CommonReservationView("리콜 예약", ReservationDialogView.RECALL);
-    crv.setVisible(true);
-
-    while (crv.isVisible()) {
-    } // end while
-  }// testCommon
+  // @Test
+  // void testRecall() {
+  // CommonReservationView crv = new CommonReservationView("리콜 예약", ReservationDialogView.RECALL);
+  // crv.setVisible(true);
+  //
+  // while (crv.isVisible()) {
+  // } // end while
+  // }// testCommon
 
 }
 

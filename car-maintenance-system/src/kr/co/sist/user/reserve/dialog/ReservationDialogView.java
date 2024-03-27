@@ -37,7 +37,6 @@ public class ReservationDialogView extends JPanel {
 
     this.crv = crv;
     this.viewNum = viewNum;
-
     ReservationDialogEvent rde = new ReservationDialogEvent(this);
 
     if (viewNum == COMMON) { // 일반 정비 예약
