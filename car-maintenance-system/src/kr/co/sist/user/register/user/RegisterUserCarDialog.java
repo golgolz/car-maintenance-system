@@ -91,7 +91,7 @@ public class RegisterUserCarDialog extends JDialog {// oven 69
 
     setSize(300, 450);
     setVisible(true);
-    setDefaultCloseOperation(EXIT_ON_CLOSE);
+    setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
   }
 

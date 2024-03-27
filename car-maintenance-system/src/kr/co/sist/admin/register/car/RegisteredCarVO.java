@@ -32,7 +32,13 @@ public class RegisteredCarVO {
     this.deleteFlag = "X";
   }
 
-
+  public RegisteredCarVO(String carId, String carModel, Date productionDate, int driveDistance) {
+    super();
+    this.carId = carId;
+    this.carModel = carModel;
+    this.productionDate = productionDate;
+    this.driveDistance = driveDistance;
+  }
 
   public RegisteredCarVO(String carId, String carIdentityNumber, String ownerId, String carModel, int carYear,
       int driveDistance) {
