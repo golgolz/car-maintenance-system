@@ -9,7 +9,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import kr.co.sist.FontSingleton;
 import kr.co.sist.user.reserve.dialog.ReservationDialogView;
 
 
@@ -32,12 +31,12 @@ public class CommonReservationView extends JFrame {
 
 
     jlReservationManagement = new JLabel(label);
-    jlReservationManagement.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 27f));
+    // jlReservationManagement.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 27f));
     ReservationDialogView rdv = new ReservationDialogView(viewNum, this); // 1은 일반 정비 예약
 
 
     Font font = new Font("맑은 고딕", Font.BOLD, 24);
-    // jlReservationManagement.setFont(font);
+    jlReservationManagement.setFont(font);
     jlReservationManagement.setForeground(Color.WHITE);
 
     setLayout(null);
@@ -63,11 +62,14 @@ public class CommonReservationView extends JFrame {
     setVisible(true);
   }// CommonReservationView
 
-  // public static void main(String[] args) {
-  // new CommonReservationView("일반 정비 예약", ReservationDialogView.COMMON);
-  // // new CommonReservationView("예방 정비 예약",ReservationDialogView.PREVENTI);
-  // // new CommonReservationView("리콜 예약",ReservationDialogView.RECALL);
-  //
-  // }
+
+
+  public static void main(String[] args) {
+    new CommonReservationView("일반 정비 예약", ReservationDialogView.COMMON);
+    // new CommonReservationView("예방 정비 예약",ReservationDialogView.PREVENTI);
+    // new CommonReservationView("리콜 예약",ReservationDialogView.RECALL);
+
+  }
+
 
 }
