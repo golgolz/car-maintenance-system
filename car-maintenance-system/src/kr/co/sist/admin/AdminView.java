@@ -5,6 +5,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import kr.co.sist.FontSingleton;
 
 @SuppressWarnings("serial")
 public class AdminView extends JFrame {// oven 9
@@ -43,14 +44,14 @@ public class AdminView extends JFrame {// oven 9
     jbtnUserManage.setBounds(450, 300, 200, 40);
     jbtnLogout.setBounds(700, 20, 90, 30);
 
-    jlSelectFunctionMsg.setFont(new Font("나눔고딕", Font.BOLD, 20));
-    jbtnReceivingManage.setFont(new Font("나눔고딕", Font.BOLD, 23));
-    jbtnReservationManage.setFont(new Font("나눔고딕", Font.BOLD, 23));
-    jbtnPartsManage.setFont(new Font("나눔고딕", Font.BOLD, 23));
-    jbtnRecallManage.setFont(new Font("나눔고딕", Font.BOLD, 23));
-    jbtnRegisteredCarManage.setFont(new Font("나눔고딕", Font.BOLD, 23));
-    jbtnUserManage.setFont(new Font("나눔고딕", Font.BOLD, 23));
-    jbtnLogout.setFont(new Font("나눔고딕", Font.PLAIN, 14));
+    jlSelectFunctionMsg.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 20f));
+    jbtnReceivingManage.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+    jbtnReservationManage.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+    jbtnPartsManage.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+    jbtnRecallManage.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+    jbtnRegisteredCarManage.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+    jbtnUserManage.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+    jbtnLogout.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
 
     jlSelectFunctionMsg.setForeground(Color.WHITE);
     jbtnReceivingManage.setForeground(Color.WHITE);

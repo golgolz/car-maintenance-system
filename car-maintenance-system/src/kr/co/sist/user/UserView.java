@@ -5,9 +5,11 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import kr.co.sist.FontSingleton;
 
 @SuppressWarnings("serial")
 public class UserView extends JFrame {// oven 74
+  private UserViewEvent userViewEvent;
   private JLabel jlSelectFunctionMsg;// 원하시는 메뉴를 선택해주세요.
   private JLabel jlUserName;// 사용자명
   private JLabel jlReport;// 알림표시
@@ -24,9 +26,11 @@ public class UserView extends JFrame {// oven 74
     setLayout(null);
     this.getContentPane().setBackground(Color.decode("#002347"));
 
+    userViewEvent = new UserViewEvent(this);
+
     jlSelectFunctionMsg = new JLabel("원하시는 메뉴를 선택해주세요.");
-    jlUserName = new JLabel("사용자명");
-    jlReport = new JLabel("1");
+    jlUserName = new JLabel(getName());// 로그인한 사용자 이름을 받고싶음
+    jlReport = new JLabel("");// 알림을 받고싶음
     jbtnMaintenance = new JButton("정비 관리");
     jbtnReservation = new JButton("일반 정비 예약");
     jbtnResisteredCar = new JButton("등록 차량 관리");
@@ -46,16 +50,16 @@ public class UserView extends JFrame {// oven 74
     jbtnMaintenanceSettlement.setBounds(450, 300, 210, 40);
     jbtnLogout.setBounds(700, 20, 90, 30);
 
-    jlSelectFunctionMsg.setFont(new Font("나눔고딕", Font.BOLD, 20));
-    jlUserName.setFont(new Font("나눔고딕", Font.BOLD, 15));
-    jlReport.setFont(new Font("나눔고딕", Font.BOLD, 20));
-    jbtnMaintenance.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jbtnReservation.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jbtnResisteredCar.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jbtnPreventi.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jbtnUpdateUserInfo.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jbtnMaintenanceSettlement.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jbtnLogout.setFont(new Font("나눔고딕", Font.PLAIN, 14));
+    jlSelectFunctionMsg.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 20f));
+    jlUserName.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 15f));
+    jlReport.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 20f));
+    jbtnMaintenance.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jbtnReservation.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jbtnResisteredCar.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jbtnPreventi.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jbtnUpdateUserInfo.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jbtnMaintenanceSettlement.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jbtnLogout.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
 
     jlSelectFunctionMsg.setForeground(Color.WHITE);
     jlUserName.setForeground(Color.WHITE);
@@ -86,11 +90,61 @@ public class UserView extends JFrame {// oven 74
     add(jbtnMaintenanceSettlement);
     add(jbtnLogout);
 
+    jbtnMaintenance.addActionListener(userViewEvent);
+    jbtnReservation.addActionListener(userViewEvent);
+    jbtnResisteredCar.addActionListener(userViewEvent);
+    jbtnPreventi.addActionListener(userViewEvent);
+    jbtnUpdateUserInfo.addActionListener(userViewEvent);
+    jbtnMaintenanceSettlement.addActionListener(userViewEvent);
+    jbtnLogout.addActionListener(userViewEvent);
+
+
     setSize(840, 480);
     setVisible(true);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
 
   }
+
+  public JLabel getJlSelectFunctionMsg() {
+    return jlSelectFunctionMsg;
+  }
+
+  public JLabel getJlUserName() {
+    return jlUserName;
+  }
+
+  public JLabel getJlReport() {
+    return jlReport;
+  }
+
+  public JButton getJbtnMaintenance() {
+    return jbtnMaintenance;
+  }
+
+  public JButton getJbtnReservation() {
+    return jbtnReservation;
+  }
+
+  public JButton getJbtnResisteredCar() {
+    return jbtnResisteredCar;
+  }
+
+  public JButton getJbtnPreventi() {
+    return jbtnPreventi;
+  }
+
+  public JButton getJbtnUpdateUserInfo() {
+    return jbtnUpdateUserInfo;
+  }
+
+  public JButton getJbtnMaintenanceSettlement() {
+    return jbtnMaintenanceSettlement;
+  }
+
+  public JButton getJbtnLogout() {
+    return jbtnLogout;
+  }
+
 
 
 }

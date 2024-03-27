@@ -3,98 +3,100 @@ package kr.co.sist.admin.register.car;
 import java.sql.Date;
 
 public class RegisteredCarVO {
-    private String carId;
-    private String carIdentityNumber;
-    private String ownerId;
-    private String carModel;
-    private Date productionDate;
-    private Date registrationDate;
-    private int carYear;
-    private int driveDistance;
-    private String recallFlag;
-    private String deleteFlag;
+  private String carId;
+  private String carIdentityNumber;
+  private String ownerId;
+  private String carModel;
+  private Date productionDate;
+  private Date registrationDate;
+  private int carYear;
+  private int driveDistance;
+  private String recallFlag;
+  private String deleteFlag;
+
+  public RegisteredCarVO(String carId) {// UserManageDAO에서 사용
+    this.carId = carId;
+  }
+
+  public RegisteredCarVO(String carId, String carIdentityNumber, String ownerId, String carModel, Date productionDay,
+      Date registrationDay, int carYear, int driveDistance, String recallFlag, String dedeteFlag) {
+    this.carId = carId;
+    this.carIdentityNumber = carIdentityNumber;
+    this.ownerId = ownerId;
+    this.carModel = carModel;
+    this.productionDate = productionDay;
+    this.registrationDate = registrationDay;
+    this.carYear = carYear;
+    this.driveDistance = driveDistance;
+    this.recallFlag = "X";
+    this.deleteFlag = "X";
+  }
 
 
 
-    public RegisteredCarVO(String carId, String carIdentityNumber, String ownerId, String carModel, Date productionDay,
-            Date registrationDay, int carYear, int driveDistance, String recallFlag, String dedeteFlag) {
-        this.carId = carId;
-        this.carIdentityNumber = carIdentityNumber;
-        this.ownerId = ownerId;
-        this.carModel = carModel;
-        this.productionDate = productionDay;
-        this.registrationDate = registrationDay;
-        this.carYear = carYear;
-        this.driveDistance = driveDistance;
-        this.recallFlag = "X";
-        this.deleteFlag = "X";
-    }
+  public RegisteredCarVO(String carId, String carIdentityNumber, String ownerId, String carModel, int carYear,
+      int driveDistance) {
+    super();
+    this.carId = carId;
+    this.carIdentityNumber = carIdentityNumber;
+    this.ownerId = ownerId;
+    this.carModel = carModel;
+    this.carYear = carYear;
+    this.driveDistance = driveDistance;
+  }
 
 
+  public RegisteredCarVO() {
 
-    public RegisteredCarVO(String carId, String carIdentityNumber, String ownerId, String carModel, int carYear,
-            int driveDistance) {
-        super();
-        this.carId = carId;
-        this.carIdentityNumber = carIdentityNumber;
-        this.ownerId = ownerId;
-        this.carModel = carModel;
-        this.carYear = carYear;
-        this.driveDistance = driveDistance;
-    }
+  }
 
+  public String getCarId() {
+    return carId;
+  }
 
-    public RegisteredCarVO() {
+  public String getCarIdentityNumber() {
+    return carIdentityNumber;
+  }
 
-    }
+  public String getOwnerId() {
+    return ownerId;
+  }
 
-    public String getCarId() {
-        return carId;
-    }
+  public String getCarModel() {
+    return carModel;
+  }
 
-    public String getCarIdentityNumber() {
-        return carIdentityNumber;
-    }
+  public Date getProductionDate() {
+    return productionDate;
+  }
 
-    public String getOwnerId() {
-        return ownerId;
-    }
+  public Date getRegistrationDate() {
+    return registrationDate;
+  }
 
-    public String getCarModel() {
-        return carModel;
-    }
+  public int getCarYear() {
+    return carYear;
+  }
 
-    public Date getProductionDay() {
-        return productionDate;
-    }
+  public int getDriveDistance() {
+    return driveDistance;
+  }
 
-    public Date getRegistrationDay() {
-        return registrationDate;
-    }
+  public String getRecallFlag() {
+    return recallFlag;
+  }
 
-    public int getCarYear() {
-        return carYear;
-    }
+  public String getDeleteFlag() {
+    return deleteFlag;
+  }
 
-    public int getDriveDistance() {
-        return driveDistance;
-    }
-
-    public String getRecallFlag() {
-        return recallFlag;
-    }
-
-    public String getDeleteFlag() {
-        return deleteFlag;
-    }
-
-    @Override
-    public String toString() {
-        return "RegisteredCarVO [carId=" + carId + ", carIdentityNumber=" + carIdentityNumber + ", ownerId=" + ownerId
-                + ", carModel=" + carModel + ", productionDay=" + productionDate + ", registrationDay="
-                + registrationDate + ", carYear=" + carYear + ", driveDistance=" + driveDistance + ", recallFlag="
-                + recallFlag + ", deleteFlag=" + deleteFlag + "]";
-    }
+  @Override
+  public String toString() {
+    return "RegisteredCarVO [carId=" + carId + ", carIdentityNumber=" + carIdentityNumber + ", ownerId=" + ownerId
+        + ", carModel=" + carModel + ", productionDay=" + productionDate + ", registrationDay=" + registrationDate
+        + ", carYear=" + carYear + ", driveDistance=" + driveDistance + ", recallFlag=" + recallFlag + ", deleteFlag="
+        + deleteFlag + "]";
+  }
 
 
 }
