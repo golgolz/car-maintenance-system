@@ -14,7 +14,6 @@ public class UserRecallDetailDialogEvent implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "예약하기":
-                System.out.println("예약 버튼");
                 // [TODO] 예약 다이얼로그 객체화 추가
                 break;
             case "확인":
