@@ -73,6 +73,7 @@ public class RegisterUserEvent extends WindowAdapter implements ActionListener {
       try {
         userManageDAO.addUser(owner_id, pw, tel, name, addr);
         JOptionPane.showMessageDialog(registerUserView, "회원가입이 완료되었습니다.");
+        registerUserView.dispose();
       } catch (SQLException e) {
         e.printStackTrace();
       }
