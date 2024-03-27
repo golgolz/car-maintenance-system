@@ -1,38 +1,30 @@
 package kr.co.sist.user.reserve.dialog;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class ReservationCalendarDialogEvent implements ActionListener {
 
-  private ReservationCalendarDialogView rcdv;
-  private JButton dayButton;
+    private ReservationCalendarDialogView rcdv;
+    private JButton dayButton;
 
-  public ReservationCalendarDialogEvent(ReservationCalendarDialogView rcdv, JButton dayButton) {
-    this.rcdv = rcdv;
-    this.dayButton = dayButton;
-  }
-
-
-  @Override
-  public void actionPerformed(ActionEvent e) {
-    // 클릭된 버튼의 텍스트(날짜)를 가져와서 출력
-    if (e.getSource() == dayButton) {
-      dayButton.setEnabled(false); // 버튼을 비활성화
-      dayButton.setBackground(Color.GRAY);
-      // CommDate.day = dayButton.getText();
+    public ReservationCalendarDialogEvent(ReservationCalendarDialogView rcdv, JButton dayButton) {
+        this.rcdv = rcdv;
+        this.dayButton = dayButton;
     }
-  }
 
-  public ReservationCalendarDialogView getRcdv() {
-    return rcdv;
-  }
+    @Override
+    public void actionPerformed(ActionEvent e) {}
 
-  public JButton getDayButton() {
-    return dayButton;
-  }
+
+    public ReservationCalendarDialogView getRcdv() {
+        return rcdv;
+    }
+
+    public JButton getDayButton() {
+        return dayButton;
+    }
 
 
 }

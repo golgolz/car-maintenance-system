@@ -11,260 +11,262 @@ import kr.co.sist.user.reserve.common.ReservationManagementVO;
 
 public class ReservationManagementDAO {
 
-  private static ReservationManagementDAO rmDAO;
+    private static ReservationManagementDAO rmDAO;
 
-  private ReservationManagementDAO() {}// ReservationManagementDAO
+    private ReservationManagementDAO() {}// ReservationManagementDAO
 
-  public static ReservationManagementDAO getInstance() {
-    if (rmDAO == null) {
-      rmDAO = new ReservationManagementDAO();
-    } // end if
-    return rmDAO;
-  }
-
-  /**
-   * 정비 분류를 매개변수로 받아 해당 정비의 예약 차량 리스트 전체를 조회하는 method
-   * 
-   * @param maintenanceClassification
-   * @return
-   * @throws SQLException
-   */
-  public List<ReservationManagementVO> selectReservation(String maintenanceClassification) throws SQLException {
-    ReservationManagementVO rmVO = null;
-    List<ReservationManagementVO> reservationCarList = new ArrayList<ReservationManagementVO>();
-
-    // 1.드라이버 로딩
-    DBConnection dbCon = DBConnection.getInstance();
-
-    Connection con = null;
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
-    // 2.Connection 얻기
-    try {
-      con = dbCon.getConnection();
-
-      // 3. 쿼리문 생성 객체 얻기
-      StringBuilder selectReservationAll = new StringBuilder();
-
-      selectReservationAll.append(
-          "select rs.car_id,ow.name,rs.owner_id,rsi_car.car_model,rsi_car.drive_distance,rser_car.maintenance_status,rsi_car.production_date,rs.reservation_date,rs.reservation_reason")
-          .append("from reservation rs, owner ow , resisted_car rsi_car , reserved_car rser_car").append(
-              "where (rs.owner_id = ow.owner_id and rs.car_id = rsi_car.car_id and rs.car_id = rser_car.car_id) and rs.maintenance_classification=?");
-
-      pstmt = con.prepareStatement(selectReservationAll.toString());
-      // 4.바인드 변수 값 설정
-      pstmt.setString(1, maintenanceClassification);
-
-      // 5. 쿼리문 수행 후 결과 얻기
-      rs = pstmt.executeQuery();
-
-      while (rs.next()) {
-        rmVO = new ReservationManagementVO(rs.getString("car_id"), rs.getString("name"), rs.getString("owner_id"),
-            rs.getString("car_model"), rs.getInt("drive_distance"), rs.getString("maintenance_status"),
-            rs.getDate("production_date"), rs.getString("reservation_date"), rs.getString("reservation_reason"));
-        reservationCarList.add(rmVO);
-      }
-
-    } finally {
-      // 6. 연결 끊기
-      dbCon.dbClose(con, pstmt, rs);
+    public static ReservationManagementDAO getInstance() {
+        if (rmDAO == null) {
+            rmDAO = new ReservationManagementDAO();
+        } // end if
+        return rmDAO;
     }
 
-    return reservationCarList;
-  }// selectReservation
+    /**
+     * 정비 분류를 매개변수로 받아 해당 정비의 예약 차량 리스트 전체를 조회하는 method
+     * 
+     * @param maintenanceClassification
+     * @return
+     * @throws SQLException
+     */
+    public List<ReservationManagementVO> selectReservation(String maintenanceClassification) throws SQLException {
+        ReservationManagementVO rmVO = null;
+        List<ReservationManagementVO> reservationCarList = new ArrayList<ReservationManagementVO>();
+
+        // 1.드라이버 로딩
+        DBConnection dbCon = DBConnection.getInstance();
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        // 2.Connection 얻기
+        try {
+            con = dbCon.getConnection();
+
+            // 3. 쿼리문 생성 객체 얻기
+            StringBuilder selectReservationAll = new StringBuilder();
+
+            selectReservationAll.append(
+                    "select rs.car_id,ow.name,ow.tel,rs.owner_id,rsi_car.car_model,rsi_car.drive_distance,rser_car.maintenance_status,rsi_car.production_date,rs.reservation_date,rs.reservation_reason")
+                    .append("from reservation rs, owner ow , resisted_car rsi_car , reserved_car rser_car")
+                    .append("where (rs.owner_id = ow.owner_id and rs.car_id = rsi_car.car_id and rs.car_id = rser_car.car_id) and rs.maintenance_classification=?");
+
+            pstmt = con.prepareStatement(selectReservationAll.toString());
+            // 4.바인드 변수 값 설정
+            pstmt.setString(1, maintenanceClassification);
+
+            // 5. 쿼리문 수행 후 결과 얻기
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                rmVO = new ReservationManagementVO(rs.getString("car_id"), rs.getString("name"), rs.getString("tel"),
+                        rs.getString("owner_id"), rs.getString("car_model"), rs.getInt("drive_distance"),
+                        rs.getString("maintenance_status"), rs.getDate("production_date"),
+                        rs.getString("reservation_date"), rs.getString("reservation_reason"));
+                reservationCarList.add(rmVO);
+            }
+
+        } finally {
+            // 6. 연결 끊기
+            dbCon.dbClose(con, pstmt, rs);
+        }
+
+        return reservationCarList;
+    }// selectReservation
 
 
-  /**
-   * 사용자 ID를 입력받아 해당 ID의 정비 분류가 '일반'인 차량의 리스트를 조회하는 method
-   * 
-   * @param ownerId
-   * @return
-   * @throws SQLException
-   */
-  public List<ReservationManagementVO> selectComReservationByOwnerId(String ownerId) throws SQLException {
-    ReservationManagementVO rmVO = null;
-    List<ReservationManagementVO> reservationCarList = new ArrayList<ReservationManagementVO>();
+    /**
+     * 사용자 ID를 입력받아 해당 ID의 정비 분류가 '일반'인 차량의 리스트를 조회하는 method
+     * 
+     * @param ownerId
+     * @return
+     * @throws SQLException
+     */
+    public List<ReservationManagementVO> selectComReservationByOwnerId(String ownerId) throws SQLException {
+        ReservationManagementVO rmVO = null;
+        List<ReservationManagementVO> reservationCarList = new ArrayList<ReservationManagementVO>();
 
-    DBConnection dbCon = DBConnection.getInstance();
+        DBConnection dbCon = DBConnection.getInstance();
 
-    Connection con = null;
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
 
-    try {
-      con = dbCon.getConnection();
+        try {
+            con = dbCon.getConnection();
 
-      StringBuilder selectResrvationId = new StringBuilder();
-      selectResrvationId.append(
-          "select rs.car_id,ow.name,rs.owner_id,rsi_car.car_model,rsi_car.drive_distance,rser_car.maintenance_status,rsi_car.production_date,rs.reservation_date,rs.reservation_reason")
-          .append("from reservation rs, owner ow , resisted_car rsi_car , reserved_car rser_car").append(
-              "where (rs.owner_id = ow.owner_id and rs.car_id = rsi_car.car_id and rs.car_id = rser_car.car_id) and rs.maintenance_classification='일반' and rs.owner_id=?");
+            StringBuilder selectResrvationId = new StringBuilder();
+            selectResrvationId.append(
+                    "select rs.car_id,ow.name,ow.tel,rs.owner_id,rsi_car.car_model,rsi_car.drive_distance,rser_car.maintenance_status,rsi_car.production_date,rs.reservation_date,rs.reservation_reason")
+                    .append("from reservation rs, owner ow , resisted_car rsi_car , reserved_car rser_car")
+                    .append("where (rs.owner_id = ow.owner_id and rs.car_id = rsi_car.car_id and rs.car_id = rser_car.car_id) and rs.maintenance_classification='일반' and rs.owner_id=?");
 
-      pstmt = con.prepareStatement(selectResrvationId.toString());
+            pstmt = con.prepareStatement(selectResrvationId.toString());
 
-      pstmt.setString(1, ownerId);
+            pstmt.setString(1, ownerId);
 
-      rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery();
 
-      while (rs.next()) {
-        rmVO = new ReservationManagementVO(rs.getString("car_id"), rs.getString("name"), rs.getString("owner_id"),
-            rs.getString("car_model"), rs.getInt("drive_distance"), rs.getString("maintenance_status"),
-            rs.getDate("production_date"), rs.getString("reservation_date"), rs.getString("reservation_reason"));
-        reservationCarList.add(rmVO);
-      } // end while
+            while (rs.next()) {
+                rmVO = new ReservationManagementVO(rs.getString("car_id"), rs.getString("name"), rs.getString("tel"),
+                        rs.getString("owner_id"), rs.getString("car_model"), rs.getInt("drive_distance"),
+                        rs.getString("maintenance_status"), rs.getDate("production_date"),
+                        rs.getString("reservation_date"), rs.getString("reservation_reason"));
+                reservationCarList.add(rmVO);
+            } // end while
 
-    } finally {
-      dbCon.dbClose(con, pstmt, rs);
-    } // end finally
+        } finally {
+            dbCon.dbClose(con, pstmt, rs);
+        } // end finally
 
-    return reservationCarList;
-  }// selectReservationByOwnerId
+        return reservationCarList;
+    }// selectReservationByOwnerId
 
-  /**
-   * 사용자 ID를 입력받아 해당 ID의 정비 분류가 '정기(예방)'인 차량의 리스트를 조회하는 method(진행중)
-   * 
-   * @param ownerId
-   * @return
-   * @throws SQLException
-   */
-  public List<ReservationManagementVO> selectPreReservationByOwnerId(String ownerId) throws SQLException {
-    ReservationManagementVO rmVO = null;
-    List<ReservationManagementVO> reservationCarList = new ArrayList<ReservationManagementVO>();
+    /**
+     * 사용자 ID를 입력받아 해당 ID의 정비 분류가 '정기(예방)'인 차량의 리스트를 조회하는 method(진행중)
+     * 
+     * @param ownerId
+     * @return
+     * @throws SQLException
+     */
+    public List<ReservationManagementVO> selectPreReservationByOwnerId(String ownerId) throws SQLException {
+        ReservationManagementVO rmVO = null;
+        List<ReservationManagementVO> reservationCarList = new ArrayList<ReservationManagementVO>();
 
-    DBConnection dbCon = DBConnection.getInstance();
+        DBConnection dbCon = DBConnection.getInstance();
 
-    Connection con = null;
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
 
-    try {
-      con = dbCon.getConnection();
+        try {
+            con = dbCon.getConnection();
 
-      StringBuilder selectResrvationId = new StringBuilder();
-      selectResrvationId.append(
-          "select ow.name,rs.owner_id,ow.tel,rs.car_id,rsi_car.car_model,rs.reservation_date,rs.reservation_reason,rser_car.maintenance_status")
-          .append("from reservation rs, owner ow , resisted_car rsi_car , reserved_car rser_car").append(
-              "where (rs.owner_id = ow.owner_id and rs.car_id = rsi_car.car_id and rs.car_id = rser_car.car_id) and rs.maintenance_classification='정기' and rs.owner_id=?");
+            StringBuilder selectResrvationId = new StringBuilder();
+            selectResrvationId.append(
+                    "select ow.name,rs.owner_id,ow.tel,rs.car_id,rsi_car.car_model,rs.reservation_date,rs.reservation_reason,rser_car.maintenance_status")
+                    .append("from reservation rs, owner ow , resisted_car rsi_car , reserved_car rser_car")
+                    .append("where (rs.owner_id = ow.owner_id and rs.car_id = rsi_car.car_id and rs.car_id = rser_car.car_id) and rs.maintenance_classification='정기' and rs.owner_id=?");
 
-      pstmt = con.prepareStatement(selectResrvationId.toString());
+            pstmt = con.prepareStatement(selectResrvationId.toString());
 
-      pstmt.setString(1, ownerId);
+            pstmt.setString(1, ownerId);
 
-      rs = pstmt.executeQuery();
+            rs = pstmt.executeQuery();
 
-      while (rs.next()) {
-        rmVO = new ReservationManagementVO(rs.getString("name"), rs.getString("owner_id"), rs.getString("tel"),
-            rs.getString("car_id"), rs.getString("car_model"), rs.getString("reservation_date"),
-            rs.getString("reservation_reason"), rs.getString("maintenance_status"));
-        reservationCarList.add(rmVO);
-      } // end while
+            while (rs.next()) {
+                rmVO = new ReservationManagementVO(rs.getString("name"), rs.getString("owner_id"), rs.getString("tel"),
+                        rs.getString("car_id"), rs.getString("car_model"), rs.getString("reservation_date"),
+                        rs.getString("reservation_reason"), rs.getString("maintenance_status"));
+                reservationCarList.add(rmVO);
+            } // end while
 
-    } finally {
-      dbCon.dbClose(con, pstmt, rs);
-    } // end finally
+        } finally {
+            dbCon.dbClose(con, pstmt, rs);
+        } // end finally
 
-    return reservationCarList;
-  }// selectPreReservationByOwnerId
-
-
-  /**
-   * 예약 상태를 변경하는 method
-   * 
-   * @param rmVO
-   * @return
-   * @throws SQLException
-   */
-  public int updateReservationManagement(ReservationManagementVO rmVO) throws SQLException {
-    return 0;
-  }// updateReservationManagement
+        return reservationCarList;
+    }// selectPreReservationByOwnerId
 
 
-  /**
-   * 예약 테이블에 예약을 추가하는 method
-   * 
-   * @param rmVO
-   * @throws SQLException
-   */
-  public void insertReservationManagement(ReservationManagementVO rmVO) throws SQLException {
-
-    // 0.Instance 얻기
-    DBConnection dbCon = DBConnection.getInstance();
-    // 1.드라이버 로딩
-    Connection con = null;
-    PreparedStatement pstmt = null;
-
-    try {
-      // 2.Connection 얻기
-      // String id = "car";
-      // String pass = "golgol";
-      con = dbCon.getConnection();
-      // 3.쿼리문 생성 객체 얻기 (값이 들어가는 위치는 바인드 변수 (?)를 사용한다.
-      String insertResrvation =
-          "insert into Reservation(owner_id,car_id,reservation_date,reservation_reason,maintenance_classification) values(?,?,?,?,?)";
-      pstmt = con.prepareStatement(insertResrvation);
-      // 4.바인드 변수 값 설정
-      pstmt.setString(1, rmVO.getOwnerId());
-      pstmt.setString(2, rmVO.getCarId());
-      pstmt.setString(3, rmVO.getReservationDate() + " " + rmVO.getReserveTime());
-      pstmt.setString(4, rmVO.getReserveReason());
-      pstmt.setString(5, rmVO.getMaintenanceClassification());
-      // 5.쿼리문 수행 후 결과 얻기
-      pstmt.executeUpdate();
-    } finally {
-      // 6.연결 끊기
-      dbCon.dbClose(con, pstmt, null);
-    } // end finally
-
-  }// insertReservationManagement
+    /**
+     * 예약 상태를 변경하는 method
+     * 
+     * @param rmVO
+     * @return
+     * @throws SQLException
+     */
+    public int updateReservationManagement(ReservationManagementVO rmVO) throws SQLException {
+        return 0;
+    }// updateReservationManagement
 
 
+    /**
+     * 예약 테이블에 예약을 추가하는 method
+     * 
+     * @param rmVO
+     * @throws SQLException
+     */
+    public void insertReservationManagement(ReservationManagementVO rmVO) throws SQLException {
 
-  /**
-   * 입고 차량을 insert 하는 method => 입고 차량 VO 필요
-   * 
-   * @throws SQLException
-   */
-  // public void insertReservedCar(/* 입고차량VO */) throws SQLException {
-  // DBConnection dbCon = DBConnection.getInstance();
-  //
-  // Connection con = null;
-  // PreparedStatement pstmt = null;
-  //
-  // try {
-  // con = dbCon.getConnection();
-  //
-  // String insertReservedCar = "insert into
-  // reserved_car(car_id,owner_id,car_model,reserved_date,released_date,car_year,drive_distance,maintenance_status,delete_flag)
-  // values(?,?,?,?,?,?,?,?,?)";
-  // pstmt=con.prepareStatement(insertReservedCar);
-  //
-  // pstmt.setString(1,);
-  // pstmt.setString(2,);
-  // pstmt.setString(3,);
-  // pstmt.setDate(4,);
-  // pstmt.setString(5,);
-  //
-  // }finally {
-  // dbCon.dbClose(con, pstmt, null);
-  // }
-  // }
+        // 0.Instance 얻기
+        DBConnection dbCon = DBConnection.getInstance();
+        // 1.드라이버 로딩
+        Connection con = null;
+        PreparedStatement pstmt = null;
 
-  /**
-   * 정비 이력을 insert 하는 method (부품 관리 / 성강님과 논의 필요)
-   */
-  public void insertCarMaintenamceSettlement() {
+        try {
+            // 2.Connection 얻기
+            // String id = "car";
+            // String pass = "golgol";
+            con = dbCon.getConnection();
+            // 3.쿼리문 생성 객체 얻기 (값이 들어가는 위치는 바인드 변수 (?)를 사용한다.
+            String insertResrvation =
+                    "insert into Reservation(owner_id,car_id,reservation_date,reservation_reason,maintenance_classification) values(?,?,?,?,?)";
+            pstmt = con.prepareStatement(insertResrvation);
+            // 4.바인드 변수 값 설정
+            pstmt.setString(1, rmVO.getOwnerId());
+            pstmt.setString(2, rmVO.getCarId());
+            pstmt.setString(3, rmVO.getReservationDate() + " " + rmVO.getReserveTime());
+            pstmt.setString(4, rmVO.getReserveReason());
+            pstmt.setString(5, rmVO.getMaintenanceClassification());
+            // 5.쿼리문 수행 후 결과 얻기
+            pstmt.executeUpdate();
+        } finally {
+            // 6.연결 끊기
+            dbCon.dbClose(con, pstmt, null);
+        } // end finally
 
-  }// insertCarMaintenamceSettlement
-
-  /**
-   * 조건을 충족해 예약 테이블에서 예약 정보를 삭제하는 method
-   * 
-   * @param rmVO
-   */
-  public void deleteOneCommonMaintenance(ReservationManagementVO rmVO) {
+    }// insertReservationManagement
 
 
-  }// deleteOneCommonMaintenance
+
+    /**
+     * 입고 차량을 insert 하는 method => 입고 차량 VO 필요
+     * 
+     * @throws SQLException
+     */
+    // public void insertReservedCar(ReservedCarVO) throws SQLException {
+    // DBConnection dbCon = DBConnection.getInstance();
+    //
+    // Connection con = null;
+    // PreparedStatement pstmt = null;
+    //
+    // try {
+    // con = dbCon.getConnection();
+    //
+    // String insertReservedCar = "insert into
+    // reserved_car(car_id,owner_id,car_model,reserved_date,released_date,car_year,drive_distance,maintenance_status,delete_flag)
+    // values(?,?,?,?,?,?,?,?,?)";
+    // pstmt=con.prepareStatement(insertReservedCar);
+    //
+    // pstmt.setString(1,);
+    // pstmt.setString(2,);
+    // pstmt.setString(3,);
+    // pstmt.setDate(4,);
+    // pstmt.setString(5,);
+    //
+    // }finally {
+    // dbCon.dbClose(con, pstmt, null);
+    // }
+    // }
+
+    /**
+     * 정비 이력을 insert 하는 method (부품 관리 / 성강님과 논의 필요)
+     */
+    public void insertCarMaintenamceSettlement() {
+
+    }// insertCarMaintenamceSettlement
+
+    /**
+     * 조건을 충족해 예약 테이블에서 예약 정보를 삭제하는 method
+     * 
+     * @param rmVO
+     */
+    public void deleteOneCommonMaintenance(ReservationManagementVO rmVO) {
+
+
+    }// deleteOneCommonMaintenance
 
 
 
