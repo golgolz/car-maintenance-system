@@ -9,6 +9,7 @@ import kr.co.sist.user.history.MaintenanceManagementView;
 import kr.co.sist.user.manage.user.UserManageView;
 import kr.co.sist.user.monthly.MonthlyCarMaintenanceView;
 import kr.co.sist.user.preventi.PreventiAlarmView;
+import kr.co.sist.user.recall.UserRecallView;
 import kr.co.sist.user.register.car.UserRegisteredCarView;
 
 public class UserViewEvent extends WindowAdapter implements ActionListener {
@@ -36,8 +37,11 @@ public class UserViewEvent extends WindowAdapter implements ActionListener {
     if (ae.getSource() == userView.getJbtnUpdateUserInfo()) {
       new UserManageView();
     }
-    if (ae.getSource() == userView.getJbtnMaintenanceSettlement()) {
+    if (ae.getSource() == userView.getJbtnMonthlyCarMaintenance()) {
       new MonthlyCarMaintenanceView();
+    }
+    if (ae.getSource() == userView.getJbtnUserRecallManage()) {
+      new UserRecallView();
     }
     if (ae.getSource() == userView.getJbtnLogout()) {
       int flag = JOptionPane.showConfirmDialog(userView, "로그아웃 하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);

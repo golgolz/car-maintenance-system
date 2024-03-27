@@ -17,8 +17,9 @@ public class UserView extends JFrame {// oven 74
   private JButton jbtnReservation;// 일반정비예약버튼
   private JButton jbtnResisteredCar;// 등록차량관리버튼
   private JButton jbtnPreventi;// 예방정비관리버튼
-  private JButton jbtnUpdateUserInfo;// 사용자정보관리
-  private JButton jbtnMaintenanceSettlement;// 차량별 정비 정산버튼
+  private JButton jbtnUserRecallManage;// 리콜 정보 관리버튼
+  private JButton jbtnMonthlyCarMaintenance;// 정비 정산버튼
+  private JButton jbtnUpdateUserInfo;// 회원정보수정버튼
   private JButton jbtnLogout;// 로그아웃버튼
 
   public UserView() {
@@ -34,9 +35,10 @@ public class UserView extends JFrame {// oven 74
     jbtnMaintenance = new JButton("정비 관리");
     jbtnReservation = new JButton("일반 정비 예약");
     jbtnResisteredCar = new JButton("등록 차량 관리");
+    jbtnUserRecallManage = new JButton("리콜 정보 관리");
     jbtnPreventi = new JButton("예방 정비 관리");
-    jbtnUpdateUserInfo = new JButton("사용자 정보 변경");
-    jbtnMaintenanceSettlement = new JButton("차량별 정비 정산");
+    jbtnUpdateUserInfo = new JButton("회원 정보 수정");
+    jbtnMonthlyCarMaintenance = new JButton("차량별 정비 정산");
     jbtnLogout = new JButton("로그아웃");
 
     jlSelectFunctionMsg.setBounds(270, 10, 300, 50);
@@ -45,9 +47,10 @@ public class UserView extends JFrame {// oven 74
     jbtnMaintenance.setBounds(150, 100, 210, 40);
     jbtnReservation.setBounds(450, 100, 210, 40);
     jbtnResisteredCar.setBounds(150, 200, 210, 40);
-    jbtnPreventi.setBounds(450, 200, 210, 40);
+    jbtnPreventi.setBounds(450, 167, 210, 40);
+    jbtnUserRecallManage.setBounds(450, 233, 210, 40);
     jbtnUpdateUserInfo.setBounds(150, 300, 210, 40);
-    jbtnMaintenanceSettlement.setBounds(450, 300, 210, 40);
+    jbtnMonthlyCarMaintenance.setBounds(450, 300, 210, 40);
     jbtnLogout.setBounds(700, 20, 90, 30);
 
     jlSelectFunctionMsg.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 20f));
@@ -57,8 +60,9 @@ public class UserView extends JFrame {// oven 74
     jbtnReservation.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
     jbtnResisteredCar.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
     jbtnPreventi.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jbtnUserRecallManage.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
     jbtnUpdateUserInfo.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
-    jbtnMaintenanceSettlement.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jbtnMonthlyCarMaintenance.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
     jbtnLogout.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
 
     jlSelectFunctionMsg.setForeground(Color.WHITE);
@@ -72,10 +76,12 @@ public class UserView extends JFrame {// oven 74
     jbtnResisteredCar.setBackground(Color.decode("#5586EB"));
     jbtnPreventi.setForeground(Color.WHITE);
     jbtnPreventi.setBackground(Color.decode("#47C83E"));
+    jbtnUserRecallManage.setForeground(Color.WHITE);
+    jbtnUserRecallManage.setBackground(Color.decode("#47C83E"));
     jbtnUpdateUserInfo.setForeground(Color.WHITE);
     jbtnUpdateUserInfo.setBackground(Color.decode("#5586EB"));
-    jbtnMaintenanceSettlement.setForeground(Color.WHITE);
-    jbtnMaintenanceSettlement.setBackground(Color.decode("#47C83E"));
+    jbtnMonthlyCarMaintenance.setForeground(Color.WHITE);
+    jbtnMonthlyCarMaintenance.setBackground(Color.decode("#47C83E"));
     jbtnLogout.setForeground(Color.WHITE);
     jbtnLogout.setBackground(Color.decode("#002347"));
 
@@ -86,16 +92,18 @@ public class UserView extends JFrame {// oven 74
     add(jbtnReservation);
     add(jbtnResisteredCar);
     add(jbtnPreventi);
+    add(jbtnUserRecallManage);
     add(jbtnUpdateUserInfo);
-    add(jbtnMaintenanceSettlement);
+    add(jbtnMonthlyCarMaintenance);
     add(jbtnLogout);
 
     jbtnMaintenance.addActionListener(userViewEvent);
     jbtnReservation.addActionListener(userViewEvent);
     jbtnResisteredCar.addActionListener(userViewEvent);
     jbtnPreventi.addActionListener(userViewEvent);
+    jbtnUserRecallManage.addActionListener(userViewEvent);
     jbtnUpdateUserInfo.addActionListener(userViewEvent);
-    jbtnMaintenanceSettlement.addActionListener(userViewEvent);
+    jbtnMonthlyCarMaintenance.addActionListener(userViewEvent);
     jbtnLogout.addActionListener(userViewEvent);
 
 
@@ -137,12 +145,16 @@ public class UserView extends JFrame {// oven 74
     return jbtnUpdateUserInfo;
   }
 
-  public JButton getJbtnMaintenanceSettlement() {
-    return jbtnMaintenanceSettlement;
+  public JButton getJbtnMonthlyCarMaintenance() {
+    return jbtnMonthlyCarMaintenance;
   }
 
   public JButton getJbtnLogout() {
     return jbtnLogout;
+  }
+
+  public JButton getJbtnUserRecallManage() {
+    return jbtnUserRecallManage;
   }
 
 

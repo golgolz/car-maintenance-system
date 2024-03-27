@@ -10,6 +10,9 @@ import kr.co.sist.FontSingleton;
 
 @SuppressWarnings("serial")
 public class RegisterUserView extends JFrame {
+
+  private RegisterUserEvent registerUserEvent;
+
   private JLabel jlRegisterUser;// 회원가입
   private JLabel jlID;// ID
   private JTextField jtfID;
@@ -29,11 +32,14 @@ public class RegisterUserView extends JFrame {
   private JTextField jtfAddr;
   private JButton jbtnRegisterCar;// 차량추가 버튼
   private JButton jbtnCancel;// 취소버튼
+  private JButton jbtnRegisterUserConfirm;// 가입신청 버튼
 
   public RegisterUserView() {
     super("회원가입");
     setLayout(null);
     this.getContentPane().setBackground(Color.decode("#002347"));
+
+    registerUserEvent = new RegisterUserEvent(this);
 
     jlRegisterUser = new JLabel("회원가입");
     jlID = new JLabel("ID");
@@ -54,6 +60,7 @@ public class RegisterUserView extends JFrame {
     jtfAddr = new JTextField();
     jbtnRegisterCar = new JButton("차량추가");
     jbtnCancel = new JButton("취소");
+    jbtnRegisterUserConfirm = new JButton("가입신청");
 
     jlRegisterUser.setBounds(20, 20, 150, 30);
     jlID.setBounds(20, 75, 160, 30);
@@ -74,26 +81,28 @@ public class RegisterUserView extends JFrame {
     jtfAddr.setBounds(170, 325, 350, 30);
     jbtnRegisterCar.setBounds(30, 385, 160, 35);
     jbtnCancel.setBounds(200, 385, 160, 35);
+    jbtnRegisterUserConfirm.setBounds(600, 385, 160, 35);
 
     jlRegisterUser.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 27f));
     jlID.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
     jtfID.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
     jlIDMsg.setFont(FontSingleton.getInstance().bonGodic.deriveFont(18f));
-    jbtnDoubleCheck.setFont(new Font("나눔고딕", Font.PLAIN, 18));
-    jlPW.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfPW.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jlPWMsg.setFont(new Font("나눔고딕", Font.BOLD, 18));
-    jlPWConfirm.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfPWConfirm.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jlPWConfirmMsg.setFont(new Font("나눔고딕", Font.PLAIN, 17));
-    jlName.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfName.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jlTel.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfTel.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jlAddr.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfAddr.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jbtnRegisterCar.setFont(new Font("나눔고딕", Font.BOLD, 23));
-    jbtnCancel.setFont(new Font("나눔고딕", Font.BOLD, 23));
+    jbtnDoubleCheck.setFont(FontSingleton.getInstance().bonGodic.deriveFont(18f));
+    jlPW.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfPW.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jlPWMsg.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 18f));
+    jlPWConfirm.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfPWConfirm.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jlPWConfirmMsg.setFont(FontSingleton.getInstance().bonGodic.deriveFont(17f));
+    jlName.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfName.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jlTel.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfTel.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jlAddr.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfAddr.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jbtnRegisterCar.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+    jbtnCancel.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+    jbtnRegisterUserConfirm.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
 
     jlRegisterUser.setForeground(Color.WHITE);
     jlID.setForeground(Color.WHITE);
@@ -111,6 +120,8 @@ public class RegisterUserView extends JFrame {
     jbtnRegisterCar.setBackground(Color.decode("#47C83E"));
     jbtnCancel.setForeground(Color.WHITE);
     jbtnCancel.setBackground(Color.decode("#5D5D5D"));
+    jbtnRegisterUserConfirm.setForeground(Color.WHITE);
+    jbtnRegisterUserConfirm.setBackground(Color.decode("#5586EB"));
 
     add(jlRegisterUser);
     add(jlID);
@@ -131,10 +142,95 @@ public class RegisterUserView extends JFrame {
     add(jtfAddr);
     add(jbtnRegisterCar);
     add(jbtnCancel);
+    add(jbtnRegisterUserConfirm);
+
+    jbtnRegisterCar.addActionListener(registerUserEvent);
+    jbtnCancel.addActionListener(registerUserEvent);
+    jbtnRegisterUserConfirm.addActionListener(registerUserEvent);
 
     setSize(840, 480);
     setVisible(true);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
+  }
+
+  public JLabel getJlRegisterUser() {
+    return jlRegisterUser;
+  }
+
+  public JLabel getJlID() {
+    return jlID;
+  }
+
+  public JTextField getJtfID() {
+    return jtfID;
+  }
+
+  public JLabel getJlIDMsg() {
+    return jlIDMsg;
+  }
+
+  public JButton getJbtnDoubleCheck() {
+    return jbtnDoubleCheck;
+  }
+
+  public JLabel getJlPW() {
+    return jlPW;
+  }
+
+  public JTextField getJtfPW() {
+    return jtfPW;
+  }
+
+  public JLabel getJlPWMsg() {
+    return jlPWMsg;
+  }
+
+  public JLabel getJlPWConfirm() {
+    return jlPWConfirm;
+  }
+
+  public JTextField getJtfPWConfirm() {
+    return jtfPWConfirm;
+  }
+
+  public JLabel getJlPWConfirmMsg() {
+    return jlPWConfirmMsg;
+  }
+
+  public JLabel getJlName() {
+    return jlName;
+  }
+
+  public JTextField getJtfName() {
+    return jtfName;
+  }
+
+  public JLabel getJlTel() {
+    return jlTel;
+  }
+
+  public JTextField getJtfTel() {
+    return jtfTel;
+  }
+
+  public JLabel getJlAddr() {
+    return jlAddr;
+  }
+
+  public JTextField getJtfAddr() {
+    return jtfAddr;
+  }
+
+  public JButton getJbtnRegisterCar() {
+    return jbtnRegisterCar;
+  }
+
+  public JButton getJbtnCancel() {
+    return jbtnCancel;
+  }
+
+  public JButton getJbtnRegisterUserConfirm() {
+    return jbtnRegisterUserConfirm;
   }
 
 

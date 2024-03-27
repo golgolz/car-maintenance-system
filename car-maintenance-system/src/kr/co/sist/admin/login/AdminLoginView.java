@@ -14,7 +14,7 @@ public class AdminLoginView extends JFrame {
   private AdminLoginView adminLoginView;
   private JTextField jtfId;// 아이디입력
   private JPasswordField jtfPw;// 비밀번호입력
-  private JButton jbtnRegistUser;// 회원가입버튼
+  // private JButton jbtnRegistUser;// 회원가입버튼
   private JButton jbtnUserView;// 관리자버튼
   private JButton jbtnLogin;// 로그인버튼
   private JLabel jlLogin;// 로그인라벨
@@ -31,7 +31,7 @@ public class AdminLoginView extends JFrame {
     jtfId = new JTextField("관리자ID");
     jtfPw = new JPasswordField("PASS");
     jbtnLogin = new JButton("로그인");
-    jbtnRegistUser = new JButton("회원가입");
+    // jbtnRegistUser = new JButton("회원가입");
     jbtnUserView = new JButton("사용자 로그인으로 전환");
 
     jlCarManagementSystem.setBounds(35, 240, 500, 150);
@@ -39,15 +39,15 @@ public class AdminLoginView extends JFrame {
     jlLogin.setBounds(420, 100, 350, 100);
     jtfId.setBounds(560, 135, 150, 35);
     jtfPw.setBounds(560, 180, 150, 35);
-    jbtnLogin.setBounds(500, 230, 100, 35);
-    jbtnRegistUser.setBounds(620, 230, 100, 35);
+    jbtnLogin.setBounds(580, 230, 100, 35);
+    // jbtnRegistUser.setBounds(620, 230, 100, 35);
     jbtnUserView.setBounds(580, 15, 215, 35);
 
     jlCarManagementSystem.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 35f));
     jlGolgolz.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
     jlLogin.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
     jbtnLogin.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
-    jbtnRegistUser.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
+    // jbtnRegistUser.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
     jbtnUserView.setFont(FontSingleton.getInstance().bonGodic.deriveFont(18f));
 
 
@@ -56,10 +56,10 @@ public class AdminLoginView extends JFrame {
     jlGolgolz.setForeground(Color.WHITE);
     jlLogin.setForeground(Color.WHITE);
     jbtnLogin.setForeground(Color.WHITE);
-    jbtnRegistUser.setForeground(Color.WHITE);
+    // jbtnRegistUser.setForeground(Color.WHITE);
     jbtnUserView.setForeground(Color.WHITE);
     jbtnLogin.setBackground(Color.decode("#47C83E"));
-    jbtnRegistUser.setBackground(Color.decode("#5586EB"));
+    // jbtnRegistUser.setBackground(Color.decode("#5586EB"));
     jbtnUserView.setBackground(Color.decode("#002347"));
 
     add(jlCarManagementSystem);
@@ -68,7 +68,7 @@ public class AdminLoginView extends JFrame {
     add(jtfId);
     add(jtfPw);
     add(jbtnLogin);
-    add(jbtnRegistUser);
+    // add(jbtnRegistUser);
     add(jbtnUserView);
 
     AdminLoginEvent adminLoginEvent = new AdminLoginEvent(this);
@@ -95,9 +95,9 @@ public class AdminLoginView extends JFrame {
     return jtfPw;
   }
 
-  public JButton getJbtnRegistUser() {
-    return jbtnRegistUser;
-  }
+  // public JButton getJbtnRegistUser() {
+  // return jbtnRegistUser;
+  // }
 
   public JButton getJbtnUserView() {
     return jbtnUserView;

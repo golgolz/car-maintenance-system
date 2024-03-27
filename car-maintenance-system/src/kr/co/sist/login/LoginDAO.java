@@ -9,7 +9,7 @@ import kr.co.sist.user.register.user.UserInfoVO;
 
 public class LoginDAO {
   private static LoginDAO loginDAO;
-  private UserInfoVO userInfoVO;
+  private UserInfoVO currentUserInfoVO;
 
   // 현재 로그인한 유저의 정보를 담을 수 있는 변수 currentUser
 
@@ -61,7 +61,7 @@ public class LoginDAO {
   // dbCon.dbClose(con, pstmt, rs);
   // }
   //
-  // }//end selectLogin
+  // }// end selectLogin
 
   /**
    * 유저의 로그인을 확인하는 메서드
