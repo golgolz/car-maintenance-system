@@ -2,6 +2,7 @@ package kr.co.sist.user.recall;
 
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -21,14 +22,14 @@ public class UserRecallDetailDialogView extends JDialog {
         JLabel jlblTitle = new JLabel(recallInfo.getCarModel() + " 리콜 발생");
         JTextArea jtaContent = new JTextArea(
                 recallInfo.getCarModel() + " 차량 모델에 대하여 리콜이 발생했습니다. \n대상 부품은 " + recallInfo.getPartName() + "입니다.");
-        JLabel jlblImage = new JLabel("[TODO]이미지 추가 예정");
+        JLabel jlblImage = new JLabel(new ImageIcon(recallInfo.getImgFile()));
         JButton jbtnReserve = new JButton("예약하기");
         JButton jbtnOk = new JButton("확인");
 
         jtaContent.setEditable(false);
         jlblTitle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 20f));
         jtaContent.setFont(FontSingleton.getInstance().bonGodic.deriveFont(12f));
-        jlblImage.setBorder(new TitledBorder("발생일"));
+        jlblImage.setBorder(new TitledBorder(recallInfo.getRecallDate().toString()));
 
         jbtnReserve.setForeground(Color.WHITE);
         jbtnOk.setForeground(Color.WHITE);
@@ -36,7 +37,7 @@ public class UserRecallDetailDialogView extends JDialog {
         jbtnOk.setBackground(Color.decode("#4ba5e9"));
 
         jlblTitle.setBounds(130, 10, 200, 30);
-        jtaContent.setBounds(20, 50, 300, 50);
+        jtaContent.setBounds(20, 50, 250, 50);
         jlblImage.setBounds(285, 10, 130, 100);
         jbtnReserve.setBounds(250, 115, 100, 30);
         jbtnOk.setBounds(85, 115, 100, 30);
