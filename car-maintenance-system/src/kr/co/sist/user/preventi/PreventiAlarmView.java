@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import kr.co.sist.FontSingleton;
 import kr.co.sist.admin.preventi.management.PreventiTargetDAO;
@@ -38,6 +40,13 @@ public class PreventiAlarmView extends JFrame {
         jbtnReservation.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 14f));
         jbtnCancle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 14f));
 
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        preventiAlarmTable.setDefaultRenderer(Object.class, centerRenderer);
+        preventiAlarmTable.getColumnModel().getColumn(0).setMaxWidth(100);
+        preventiAlarmTable.getColumnModel().getColumn(1).setMaxWidth(160);
+        preventiAlarmTable.getColumnModel().getColumn(1).setMinWidth(130);
+
         jbtnReservation.setBackground(Color.decode("#237bca"));
         jbtnReservation.setForeground(Color.WHITE);
         jbtnCancle.setBackground(Color.decode("#555555"));
@@ -60,6 +69,7 @@ public class PreventiAlarmView extends JFrame {
 
         setSize(840, 480);
         setVisible(true);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
