@@ -75,8 +75,9 @@ public class UserLoginView extends JFrame {
     add(jbtnAdminView);
 
     LoginEvent loginEvent = new LoginEvent(this);
-    jbtnLogin.addActionListener(loginEvent);
     jbtnAdminView.addActionListener(loginEvent);
+    jbtnLogin.addActionListener(loginEvent);
+    jbtnRegistUser.addActionListener(loginEvent);
     jtfId.addFocusListener(loginEvent);
     jtfPw.addFocusListener(loginEvent);
 

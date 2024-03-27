@@ -6,9 +6,12 @@ import java.awt.event.WindowAdapter;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import kr.co.sist.admin.manage.inventory.InventoryView;
+import kr.co.sist.admin.manage.reservation.common.CommonReservationView;
 import kr.co.sist.admin.manage.reservation.preventi.PreventiReservationView;
+import kr.co.sist.admin.manage.reserved_car.ReleasedCarView;
 import kr.co.sist.admin.manage.reserved_car.ReservedCarView;
 import kr.co.sist.admin.manage.user.AdminManageView;
+import kr.co.sist.admin.preventi.management.PreventiManagementView;
 import kr.co.sist.admin.recall.AdminRecallView;
 import kr.co.sist.admin.register.car.AdminRegisteredCarView;
 
@@ -25,7 +28,16 @@ public class AdminViewEvent extends WindowAdapter implements ActionListener {
     if (ae.getSource() == adminView.getJbtnReceivingManage()) {
       new ReservedCarView();
     }
-    if (ae.getSource() == adminView.getJbtnReservationManage()) {
+    if (ae.getSource() == adminView.getJbtnCommonReservation()) {
+      new CommonReservationView();
+    }
+    if (ae.getSource() == adminView.getJbtnReleasedCar()) {
+      new ReleasedCarView();
+    }
+    if (ae.getSource() == adminView.getJbtnPreventiManagement()) {
+      new PreventiManagementView();
+    }
+    if (ae.getSource() == adminView.getJbtnPreventiReservation()) {
       new PreventiReservationView();
     }
     if (ae.getSource() == adminView.getJbtnPartsManage()) {

@@ -4,7 +4,7 @@ import java.util.List;
 import kr.co.sist.admin.register.car.RegisteredCarVO;
 
 public class UserInfoVO {
-  private String id, pw, name, tel, addr;
+  private String id, pw, name, tel, addr, currentUser;
   private boolean isAdmin;
   private List<RegisteredCarVO> registeredCar;
 
@@ -22,6 +22,18 @@ public class UserInfoVO {
     this.registeredCar = registeredCar;
   }
 
+  public UserInfoVO(String currentUser) {
+    super();
+    this.currentUser = currentUser;
+  }
+
+  public String getCurrentUser() {
+    return currentUser;
+  }
+
+  public void setCurrentUser(String currentUser) {
+    this.currentUser = currentUser;
+  }
 
   public String getId() {
     return id;

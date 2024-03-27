@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import kr.co.sist.FontSingleton;
 
 @SuppressWarnings("serial")
 public class UserManageView extends JFrame {
@@ -71,24 +72,24 @@ public class UserManageView extends JFrame {
     jbtnCancel.setBounds(200, 385, 160, 35);
     jbtnDelete.setBounds(600, 385, 160, 35);
 
-    ManageUserInfo.setFont(new Font("나눔고딕", Font.BOLD, 27));
-    jlID.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfID.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jlPW.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfPW.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jlPWMsg.setFont(new Font("나눔고딕", Font.BOLD, 18));
-    jlPWConfirm.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfPWConfirm.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jlPWConfirmMsg.setFont(new Font("나눔고딕", Font.PLAIN, 17));
-    jlName.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfName.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jlTel.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfTel.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jlAddr.setFont(new Font("나눔고딕", Font.BOLD, 22));
-    jtfAddr.setFont(new Font("나눔고딕", Font.PLAIN, 22));
-    jbtnUpdateConfirm.setFont(new Font("나눔고딕", Font.BOLD, 23));
-    jbtnCancel.setFont(new Font("나눔고딕", Font.BOLD, 23));
-    jbtnDelete.setFont(new Font("나눔고딕", Font.BOLD, 23));
+    ManageUserInfo.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 27f));
+    jlID.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfID.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jlPW.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfPW.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jlPWMsg.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 18f));
+    jlPWConfirm.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfPWConfirm.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jlPWConfirmMsg.setFont(FontSingleton.getInstance().bonGodic.deriveFont(17f));
+    jlName.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfName.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jlTel.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfTel.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jlAddr.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
+    jtfAddr.setFont(FontSingleton.getInstance().bonGodic.deriveFont(22f));
+    jbtnUpdateConfirm.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+    jbtnCancel.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+    jbtnDelete.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
 
     ManageUserInfo.setForeground(Color.WHITE);
     jlID.setForeground(Color.WHITE);

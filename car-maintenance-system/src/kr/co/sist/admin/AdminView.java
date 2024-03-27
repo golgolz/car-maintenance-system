@@ -12,7 +12,10 @@ public class AdminView extends JFrame {// oven 9
   private AdminViewEvent adminViewEvent;
   private JLabel jlSelectFunctionMsg;// 원하시는 메뉴를 선택해주세요.
   private JButton jbtnReceivingManage;// 입고 차량 관리버튼
-  private JButton jbtnReservationManage;// 예약 관리버튼
+  private JButton jbtnCommonReservation;// 일반정비신청차량버튼
+  private JButton jbtnPreventiReservation;// 예방정비신청차량버튼
+  private JButton jbtnPreventiManagement;// 예방정비대상차량버튼
+  private JButton jbtnReleasedCar;// 출고차량관리버튼
   private JButton jbtnPartsManage;// 부품 재고 관리버튼
   private JButton jbtnRecallManage;// 리콜 정보 관리버튼
   private JButton jbtnRegisteredCarManage;// 등록 차량 관리버튼
@@ -28,7 +31,10 @@ public class AdminView extends JFrame {// oven 9
 
     jlSelectFunctionMsg = new JLabel("원하시는 메뉴를 선택해주세요.");
     jbtnReceivingManage = new JButton("입고 차량 관리");
-    jbtnReservationManage = new JButton("예약 관리");
+    jbtnCommonReservation = new JButton("일반정비 신청차량");
+    jbtnPreventiReservation = new JButton("예방정비 신청차량");
+    jbtnPreventiManagement = new JButton("예방정비 대상차량");
+    jbtnReleasedCar = new JButton("출고 차량 관리");
     jbtnPartsManage = new JButton("부품 재고 관리");
     jbtnRecallManage = new JButton("리콜 정보 관리");
     jbtnRegisteredCarManage = new JButton("등록 차량 관리");
@@ -36,17 +42,23 @@ public class AdminView extends JFrame {// oven 9
     jbtnLogout = new JButton("로그아웃");
 
     jlSelectFunctionMsg.setBounds(270, 10, 300, 50);
-    jbtnReceivingManage.setBounds(150, 100, 200, 40);
-    jbtnReservationManage.setBounds(450, 100, 200, 40);
-    jbtnPartsManage.setBounds(150, 200, 200, 40);
-    jbtnRecallManage.setBounds(450, 200, 200, 40);
-    jbtnRegisteredCarManage.setBounds(150, 300, 200, 40);
-    jbtnUserManage.setBounds(450, 300, 200, 40);
+    jbtnReceivingManage.setBounds(50, 100, 220, 40);
+    jbtnCommonReservation.setBounds(300, 100, 220, 40);
+    jbtnPreventiReservation.setBounds(550, 100, 220, 40);
+    jbtnPreventiManagement.setBounds(50, 200, 220, 40);
+    jbtnReleasedCar.setBounds(300, 200, 220, 40);
+    jbtnPartsManage.setBounds(550, 200, 220, 40);
+    jbtnRecallManage.setBounds(50, 300, 220, 40);
+    jbtnRegisteredCarManage.setBounds(300, 300, 220, 40);
+    jbtnUserManage.setBounds(550, 300, 220, 40);
     jbtnLogout.setBounds(700, 20, 90, 30);
 
     jlSelectFunctionMsg.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 20f));
     jbtnReceivingManage.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
-    jbtnReservationManage.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+    jbtnCommonReservation.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+    jbtnPreventiReservation.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+    jbtnPreventiManagement.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+    jbtnReleasedCar.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
     jbtnPartsManage.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
     jbtnRecallManage.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
     jbtnRegisteredCarManage.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
@@ -56,12 +68,18 @@ public class AdminView extends JFrame {// oven 9
     jlSelectFunctionMsg.setForeground(Color.WHITE);
     jbtnReceivingManage.setForeground(Color.WHITE);
     jbtnReceivingManage.setBackground(Color.decode("#5586EB"));
-    jbtnReservationManage.setForeground(Color.WHITE);
-    jbtnReservationManage.setBackground(Color.decode("#5586EB"));
+    jbtnCommonReservation.setForeground(Color.WHITE);
+    jbtnCommonReservation.setBackground(Color.decode("#5586EB"));
+    jbtnPreventiReservation.setForeground(Color.WHITE);
+    jbtnPreventiReservation.setBackground(Color.decode("#5586EB"));
+    jbtnPreventiManagement.setForeground(Color.WHITE);
+    jbtnPreventiManagement.setBackground(Color.decode("#47C83E"));
+    jbtnReleasedCar.setForeground(Color.WHITE);
+    jbtnReleasedCar.setBackground(Color.decode("#47C83E"));
     jbtnPartsManage.setForeground(Color.WHITE);
     jbtnPartsManage.setBackground(Color.decode("#47C83E"));
     jbtnRecallManage.setForeground(Color.WHITE);
-    jbtnRecallManage.setBackground(Color.decode("#47C83E"));
+    jbtnRecallManage.setBackground(Color.decode("#3DB7A0"));
     jbtnRegisteredCarManage.setForeground(Color.WHITE);
     jbtnRegisteredCarManage.setBackground(Color.decode("#3DB7A0"));
     jbtnUserManage.setForeground(Color.WHITE);
@@ -71,7 +89,10 @@ public class AdminView extends JFrame {// oven 9
 
     add(jlSelectFunctionMsg);
     add(jbtnReceivingManage);
-    add(jbtnReservationManage);
+    add(jbtnCommonReservation);
+    add(jbtnPreventiReservation);
+    add(jbtnPreventiManagement);
+    add(jbtnReleasedCar);
     add(jbtnPartsManage);
     add(jbtnRecallManage);
     add(jbtnRegisteredCarManage);
@@ -79,7 +100,10 @@ public class AdminView extends JFrame {// oven 9
     add(jbtnLogout);
 
     jbtnReceivingManage.addActionListener(adminViewEvent);
-    jbtnReservationManage.addActionListener(adminViewEvent);
+    jbtnCommonReservation.addActionListener(adminViewEvent);
+    jbtnPreventiReservation.addActionListener(adminViewEvent);
+    jbtnPreventiManagement.addActionListener(adminViewEvent);
+    jbtnReleasedCar.addActionListener(adminViewEvent);
     jbtnPartsManage.addActionListener(adminViewEvent);
     jbtnRecallManage.addActionListener(adminViewEvent);
     jbtnRegisteredCarManage.addActionListener(adminViewEvent);
@@ -103,10 +127,6 @@ public class AdminView extends JFrame {// oven 9
     return jbtnReceivingManage;
   }
 
-  public JButton getJbtnReservationManage() {
-    return jbtnReservationManage;
-  }
-
   public JButton getJbtnPartsManage() {
     return jbtnPartsManage;
   }
@@ -125,6 +145,22 @@ public class AdminView extends JFrame {// oven 9
 
   public JButton getJbtnLogout() {
     return jbtnLogout;
+  }
+
+  public JButton getJbtnCommonReservation() {
+    return jbtnCommonReservation;
+  }
+
+  public JButton getJbtnPreventiReservation() {
+    return jbtnPreventiReservation;
+  }
+
+  public JButton getJbtnPreventiManagement() {
+    return jbtnPreventiManagement;
+  }
+
+  public JButton getJbtnReleasedCar() {
+    return jbtnReleasedCar;
   }
 
 

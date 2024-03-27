@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import kr.co.sist.admin.login.AdminLoginView;
 import kr.co.sist.user.UserView;
 import kr.co.sist.user.login.UserLoginView;
+import kr.co.sist.user.register.user.RegisterUserView;
 
 public class LoginEvent extends WindowAdapter implements ActionListener, FocusListener {
 
@@ -29,9 +30,9 @@ public class LoginEvent extends WindowAdapter implements ActionListener, FocusLi
       String nowLoginName = userLoginView.getJtfId().getText();
       char[] passwordArr = userLoginView.getJtfPw().getPassword();
 
-      // secret_pw 배열에 저장된 암호의 자릿수 만큼 for문 돌리면서 cha 에 한 글자씩 저장
+      // secret_pw 배열에 저장된 암호의 자릿수 만큼 for문 돌리면서 char 에 한 글자씩 저장
       for (char passOne : passwordArr) {
-        Character.toString(passOne); // cha 에 저장된 값 string으로 변환
+        Character.toString(passOne); // char 에 저장된 값 string으로 변환
         // pw 에 저장하기, pw 에 값이 비어있으면 저장, 값이 있으면 이어서 저장하는 삼항연산자
         nowLoginPass += (passwordArr.equals("")) ? "" + passOne + "" : "" + passOne + "";
       }
@@ -52,6 +53,10 @@ public class LoginEvent extends WindowAdapter implements ActionListener, FocusLi
     }
     if (ae.getSource() == userLoginView.getJbtnAdminView()) {
       new AdminLoginView();
+      userLoginView.dispose();
+    }
+    if (ae.getSource() == userLoginView.getJbtnRegistUser()) {
+      new RegisterUserView();
       userLoginView.dispose();
     }
   }
