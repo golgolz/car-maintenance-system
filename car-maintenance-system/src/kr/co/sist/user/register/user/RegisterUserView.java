@@ -144,6 +144,7 @@ public class RegisterUserView extends JFrame {
     add(jbtnCancel);
     add(jbtnRegisterUserConfirm);
 
+    jbtnDoubleCheck.addActionListener(registerUserEvent);
     jbtnRegisterCar.addActionListener(registerUserEvent);
     jbtnCancel.addActionListener(registerUserEvent);
     jbtnRegisterUserConfirm.addActionListener(registerUserEvent);

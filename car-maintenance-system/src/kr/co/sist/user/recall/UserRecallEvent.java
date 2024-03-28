@@ -19,7 +19,7 @@ public class UserRecallEvent implements ActionListener {
         if (isRecallTarget(carId)) {
             JOptionPane.showMessageDialog(userRecallView, carId + "는 리콜 대상입니다.");
             try {
-                new UserRecallDetailDialogView(RecallDAO.getInstance().selectOneRecallInfo(carId));
+                new UserRecallDetailDialogView(RecallDAO.getInstance().selectOneRecallInfo(carId), false);
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }

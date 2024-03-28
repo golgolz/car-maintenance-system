@@ -5,7 +5,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -13,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class AdminRegisteredCarEvent extends WindowAdapter implements ActionListener, MouseListener {
     private AdminRegisteredCarView adminRegisteredCarView;
+    // private CarModifyDialog carModifydialog;
 
     public AdminRegisteredCarEvent(AdminRegisteredCarView adminRegisteredCarView) throws SQLException {
         this.adminRegisteredCarView = adminRegisteredCarView;
@@ -21,13 +25,46 @@ public class AdminRegisteredCarEvent extends WindowAdapter implements ActionList
     }// AdminRegisteredCarEvent
 
     public void actionPerformed(ActionEvent ae) {
+        int selectedRow = adminRegisteredCarView.getCarTable().getSelectedRow();
+        if (selectedRow != -1) { // 선택된 행이 있는지 확인
+            // 선택된 행의 데이터 가져오기
+            String column1Value = adminRegisteredCarView.getCarTable().getValueAt(selectedRow, 0).toString();
+            String column2Value = adminRegisteredCarView.getCarTable().getValueAt(selectedRow, 1).toString();
+            // 가져온 데이터 활용하기
+            System.out.println("Selected Row Data: " + column1Value + ", " + column2Value);
+        } else {
+            System.out.println("행이 선택되지 않았습니다.");
+        }
+
         if (ae.getSource() == adminRegisteredCarView.getJbtnAddCar()) {
-            new CarAddDialog();
+            new CarAddDialog(adminRegisteredCarView);
         }
 
         if (ae.getSource() == adminRegisteredCarView.getJbtnModify()) {
-            new CarModifyDialog();
+            // new CarModifyDialog(adminRegisteredCarView.getCarTable().getValueAt(selectedRow, 0).toString());
+            // new CarModifyDialog(adminRegisteredCarView.getCarTable().getValueAt(selectedRow, 1).toString());
+            // new CarModifyDialog(adminRegisteredCarView.getCarTable().getValueAt(selectedRow, 2).toString());
+            // new CarModifyDialog(adminRegisteredCarView.getCarTable().getValueAt(selectedRow, 3).toString());
+            // new CarModifyDialog(adminRegisteredCarView.getCarTable().getValueAt(selectedRow, 4).toString());
+
+            String ownerId = adminRegisteredCarView.getCarTable().getValueAt(selectedRow, 1).toString();
+            String carId = adminRegisteredCarView.getCarTable().getValueAt(selectedRow, 0).toString();
+            String carModel = adminRegisteredCarView.getCarTable().getValueAt(selectedRow, 2).toString();
+            int driveDistance =
+                    Integer.parseInt(adminRegisteredCarView.getCarTable().getValueAt(selectedRow, 4).toString());
+
+            Date productionDate = null;
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                productionDate = new Date(dateFormat
+                        .parse(adminRegisteredCarView.getCarTable().getValueAt(selectedRow, 3).toString()).getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            new CarModifyDialog(adminRegisteredCarView, ownerId, carId, carModel, driveDistance, productionDate);
         }
+
 
         if (ae.getSource() == adminRegisteredCarView.getJbtnSearch()) {
             selectCarInfo();
@@ -38,10 +75,7 @@ public class AdminRegisteredCarEvent extends WindowAdapter implements ActionList
             removeCarInfo();
         }
 
-
     }// end actionPerformed
-
-
 
     private void selectCarInfo() {
         RegisteredCarDAO rscDAO = RegisteredCarDAO.getInstance();
@@ -105,7 +139,7 @@ public class AdminRegisteredCarEvent extends WindowAdapter implements ActionList
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("------" + adminRegisteredCarView.getCarTable().getSelectedRow());
+        System.out.println(adminRegisteredCarView.getCarTable().getSelectedRow());
 
 
     }

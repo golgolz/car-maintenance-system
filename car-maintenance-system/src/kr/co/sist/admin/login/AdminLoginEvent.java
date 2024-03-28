@@ -20,6 +20,7 @@ public class AdminLoginEvent extends WindowAdapter implements ActionListener, Fo
     this.adminLoginView = adminLoginView;
   }
 
+  @SuppressWarnings("unlikely-arg-type")
   @Override
   public void actionPerformed(ActionEvent ae) {
     // 관리자 화면에서 로그인 버튼 클릭시 이벤트
@@ -29,9 +30,9 @@ public class AdminLoginEvent extends WindowAdapter implements ActionListener, Fo
       String nowLoginName = adminLoginView.getJtfId().getText();
       char[] passwordArr = adminLoginView.getJtfPw().getPassword();
 
-      // secret_pw 배열에 저장된 암호의 자릿수 만큼 for문 돌리면서 cha 에 한 글자씩 저장
+      // secret_pw 배열에 저장된 암호의 자릿수 만큼 for문 돌리면서 char 에 한 글자씩 저장
       for (char passOne : passwordArr) {
-        Character.toString(passOne); // cha 에 저장된 값 string으로 변환
+        Character.toString(passOne); // char 에 저장된 값 string으로 변환
         // pw 에 저장하기, pw 에 값이 비어있으면 저장, 값이 있으면 이어서 저장하는 삼항연산자
         nowLoginPass += (passwordArr.equals("")) ? "" + passOne + "" : "" + passOne + "";
       }

@@ -5,7 +5,11 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class CarAddDialog extends JDialog {
+
+    private JTextField jtfCarId, jtfCarModel, jtfDriveDistance, jtfCarProductionDate;
+    private JButton jbtnOk, jbtnCancel;
 
     public CarAddDialog() {
         super();
@@ -15,13 +19,15 @@ public class CarAddDialog extends JDialog {
         JLabel jlblDriveDistance = new JLabel("주행거리");
         JLabel jlblProductionDate = new JLabel("제조일자");
 
-        JTextField jtfCarId = new JTextField();
-        JTextField jtfCarModel = new JTextField();
-        JTextField jtfDriveDistance = new JTextField();
-        JTextField jtfCarProductionDate = new JTextField();
+        jtfCarId = new JTextField();
+        jtfCarModel = new JTextField();
+        jtfDriveDistance = new JTextField();
+        jtfCarProductionDate = new JTextField();
 
-        JButton jbtnOk = new JButton("확인");
-        JButton jbtnCancel = new JButton("취소");
+        jbtnOk = new JButton("확인");
+        jbtnCancel = new JButton("취소");
+
+
 
         setLayout(null);
 
@@ -59,4 +65,29 @@ public class CarAddDialog extends JDialog {
 
     }// CarAddDialog
 
+    public JTextField getJtfCarId() {
+        return jtfCarId;
+    }
+
+    public JTextField getJtfCarModel() {
+        return jtfCarModel;
+    }
+
+    public JTextField getJtfDriveDistance() {
+        return jtfDriveDistance;
+    }
+
+    public JTextField getJtfCarProductionDate() {
+        return jtfCarProductionDate;
+    }
+
+    public JButton getJbtnOk() {
+        return jbtnOk;
+    }
+
+    public JButton getJbtnCancel() {
+        return jbtnCancel;
+    }
+
 }
+

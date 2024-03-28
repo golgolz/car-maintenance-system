@@ -55,14 +55,10 @@ public class UserRecallView extends JFrame {
         setSize(840, 480);
         setVisible(true);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     public JComboBox<String> getCarIdComboBox() {
         return carIdComboBox;
-    }
-
-    public static void main(String[] args) {
-        new UserRecallView();
     }
 }
