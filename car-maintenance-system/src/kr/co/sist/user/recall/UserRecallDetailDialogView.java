@@ -32,6 +32,8 @@ public class UserRecallDetailDialogView extends JDialog {
         jtaContent.setEditable(false);
         jlblTitle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 20f));
         jtaContent.setFont(FontSingleton.getInstance().bonGodic.deriveFont(12f));
+        jbtnReserve.setFont(FontSingleton.getInstance().bonGodic.deriveFont(12f));
+        jbtnOk.setFont(FontSingleton.getInstance().bonGodic.deriveFont(12f));
         jlblImage.setBorder(new TitledBorder(recallInfo.getRecallDate().toString()));
 
         jbtnReserve.setForeground(Color.WHITE);

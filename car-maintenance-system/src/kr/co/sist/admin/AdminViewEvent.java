@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import kr.co.sist.admin.manage.inventory.InventoryView;
 import kr.co.sist.admin.manage.reservation.common.CommonReservationView;
 import kr.co.sist.admin.manage.reservation.preventi.PreventiReservationView;
@@ -19,42 +18,43 @@ public class AdminViewEvent extends WindowAdapter implements ActionListener {
 
     private AdminView adminView;
 
-  public AdminViewEvent(AdminView adminView) {
-    this.adminView = adminView;
-  }
+    public AdminViewEvent(AdminView adminView) {
+        this.adminView = adminView;
+    }
 
-  @Override
-  public void actionPerformed(ActionEvent ae) {
-    if (ae.getSource() == adminView.getJbtnReceivingManage()) {
-      new ReservedCarView();
-    }
-    if (ae.getSource() == adminView.getJbtnCommonReservation()) {
-      new CommonReservationView();
-    }
-    if (ae.getSource() == adminView.getJbtnReleasedCar()) {
-      new ReleasedCarView();
-    }
-    if (ae.getSource() == adminView.getJbtnPreventiManagement()) {
-      new PreventiManagementView();
-    }
-    if (ae.getSource() == adminView.getJbtnPreventiReservation()) {
-      new PreventiReservationView();
-    }
-    if (ae.getSource() == adminView.getJbtnPartsManage()) {
-      new InventoryView();
-    }
-    if (ae.getSource() == adminView.getJbtnRecallManage()) {
-      new AdminRecallView();
-    }
-    if (ae.getSource() == adminView.getJbtnRegisteredCarManage()) {
-      try {
-        new AdminRegisteredCarView();
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-    }
-    if (ae.getSource() == adminView.getJbtnUserManage()) {
-      new AdminManageView();
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == adminView.getJbtnReceivingManage()) {
+            new ReservedCarView();
+        }
+        if (ae.getSource() == adminView.getJbtnCommonReservation()) {
+            new CommonReservationView();
+        }
+        if (ae.getSource() == adminView.getJbtnReleasedCar()) {
+            new ReleasedCarView();
+        }
+        if (ae.getSource() == adminView.getJbtnPreventiManagement()) {
+            new PreventiManagementView();
+        }
+        if (ae.getSource() == adminView.getJbtnPreventiReservation()) {
+            new PreventiReservationView();
+        }
+        if (ae.getSource() == adminView.getJbtnPartsManage()) {
+            new InventoryView();
+        }
+        if (ae.getSource() == adminView.getJbtnRecallManage()) {
+            new AdminRecallView();
+        }
+        if (ae.getSource() == adminView.getJbtnRegisteredCarManage()) {
+            try {
+                new AdminRegisteredCarView();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        if (ae.getSource() == adminView.getJbtnUserManage()) {
+            new AdminManageView();
+        }
     }
 
     // @Override

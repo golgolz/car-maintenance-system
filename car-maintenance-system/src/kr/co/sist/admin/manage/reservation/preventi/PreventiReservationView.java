@@ -85,7 +85,7 @@ public class PreventiReservationView extends JFrame {
 
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
                 int row, int column) {
-            setText("정비중");
+            setText("정비대기");
             return this;
         }
     }
