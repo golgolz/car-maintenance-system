@@ -1,6 +1,8 @@
 package kr.co.sist.admin.manage.reserved_car;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -9,8 +11,12 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import kr.co.sist.FontSingleton;
 
 public class ReservedCarView extends JFrame {
+
+
+
   private ReservedCarEvent reservedCarEvent;
 
   private JLabel jlReservedCarView;
@@ -29,6 +35,11 @@ public class ReservedCarView extends JFrame {
   private String maintenanceStatusText;
 
   public ReservedCarView() {
+
+    super("입고차량관리");
+
+    this.getContentPane().setBackground(Color.decode("#002347"));
+
     this.reservedCarEvent = reservedCarEvent;
 
     jlReservedCarView = new JLabel("입고 차량 관리");
@@ -73,13 +84,27 @@ public class ReservedCarView extends JFrame {
     // Set layout
     setLayout(null);
 
-    jlReservedCarView.setBounds(20, 10, 100, 30);
+    jlReservedCarView.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+    jlCarId.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.PLAIN, 14f));
+    jlOwnerId.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.PLAIN, 14f));
+
+
+    jlReservedCarView.setBounds(20, 10, 200, 30);
     jlCarId.setBounds(20, 50, 100, 30);
     jlOwnerId.setBounds(150, 50, 100, 30);
     jtfCarId.setBounds(20, 90, 100, 30);
     jtfOwnerId.setBounds(150, 90, 100, 30);
     jbtnSearch.setBounds(280, 90, 80, 30);
     jspReservedCarData.setBounds(20, 140, 780, 280);
+
+    jlReservedCarView.setForeground(Color.WHITE);
+    jlCarId.setForeground(Color.WHITE);
+    jlOwnerId.setForeground(Color.WHITE);
+
+    jbtnSearch.setForeground(Color.WHITE);
+    jbtnSearch.setBackground(Color.decode("#47C832")); // 초록색
+    jbtnMaintenanceProgress.setBackground(Color.decode("#FF0000")); // 빨간색
+
 
 
     add(jlReservedCarView);
