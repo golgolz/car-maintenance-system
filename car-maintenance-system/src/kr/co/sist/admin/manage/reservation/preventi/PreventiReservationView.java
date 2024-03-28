@@ -66,7 +66,8 @@ public class PreventiReservationView extends JFrame {
 
         setSize(840, 480);
         setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     public void createMaintenanceDialog() {
@@ -78,7 +79,6 @@ public class PreventiReservationView extends JFrame {
     }
 
     static class ButtonRenderer extends JButton implements TableCellRenderer {
-
         public ButtonRenderer() {
             setOpaque(true);
         }

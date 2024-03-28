@@ -13,20 +13,11 @@ public class PreventiManagementEvent implements ActionListener {
 
     public PreventiManagementEvent(PreventiManagementView preventiManagementView) {
         this.preventiManagementView = preventiManagementView;
-        try {
-            PreventiTargetDAO.getInstance().deleteAllPreventiTargets();
-            PreventiTargetDAO.getInstance().createPreventiTargetsData();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-            case "보기":
-                System.out.println("보기");
-                break;
             case "검색":
                 try {
                     showSearchResult();
@@ -91,7 +82,6 @@ public class PreventiManagementEvent implements ActionListener {
             preventiTargetModel.addRow(preventiTargetData);
         }
         JOptionPane.showMessageDialog(preventiManagementView, "검색을 완료했습니다.");
-
 
         preventiManagementView.getJtfCarId().setText("");
         preventiManagementView.getJtfOwnerId().setText("");

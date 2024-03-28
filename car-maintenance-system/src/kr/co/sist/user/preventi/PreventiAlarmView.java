@@ -70,7 +70,11 @@ public class PreventiAlarmView extends JFrame {
         setSize(840, 480);
         setVisible(true);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+
+    public JTable getPreventiAlarmTable() {
+        return preventiAlarmTable;
     }
 
     public void createPersonalPreventi() {

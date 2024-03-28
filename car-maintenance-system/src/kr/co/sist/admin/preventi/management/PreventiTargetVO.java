@@ -75,9 +75,6 @@ public class PreventiTargetVO {
 
     public void addPart(String part) {
         maintenanceReason[numParts] = part;
-        for (int i = 0; i < numParts; i++) {
-            System.out.println(maintenanceReason[i]);
-        }
         numParts += 1;
     }
 

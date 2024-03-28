@@ -13,5 +13,6 @@ public class PreventiReservationEvent implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("검색 버튼 눌림");
+        // selectPreReservationByOwnerId->
     }
 }
