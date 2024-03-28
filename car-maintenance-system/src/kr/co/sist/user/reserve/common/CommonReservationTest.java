@@ -6,7 +6,7 @@ import kr.co.sist.user.reserve.dialog.ReservationDialogView;
 public class CommonReservationTest {
     @Test
     void testCommon() {
-        CommonReservationView crv = new CommonReservationView("일반 정비 예약", ReservationDialogView.COMMON, "부품 이름");
+        CommonReservationView crv = new CommonReservationView("일반 정비 예약", ReservationDialogView.COMMON);
         crv.setVisible(true);
 
         while (crv.isVisible()) {
@@ -17,7 +17,7 @@ public class CommonReservationTest {
     // @Test
     // void testPreventi() {
     // CommonReservationView crv = new CommonReservationView("예방 정비 예약", ReservationDialogView.PREVENTI,
-    // "부품 이름");
+    // "테스트");
     // crv.setVisible(true);
     //
     // while (crv.isVisible()) {

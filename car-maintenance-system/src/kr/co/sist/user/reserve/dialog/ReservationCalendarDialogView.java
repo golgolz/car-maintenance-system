@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import kr.co.sist.FontSingleton;
 
 public class ReservationCalendarDialogView extends JPanel {
 
@@ -64,6 +65,7 @@ public class ReservationCalendarDialogView extends JPanel {
         selectMonth = yearMonth.format(DateTimeFormatter.ofPattern("MM"));
 
         jlMonth.setText(yearMonth.format(DateTimeFormatter.ofPattern("MMMM")));
+        jlMonth.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
 
         jpCalendar.removeAll();
 
@@ -74,6 +76,7 @@ public class ReservationCalendarDialogView extends JPanel {
         String[] daysOfWeek = {"일", "월", "화", "수", "목", "금", "토"};
         for (String dayOfWeek : daysOfWeek) {
             JLabel label = new JLabel(dayOfWeek, SwingConstants.CENTER);
+            label.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
             label.setBorder(new TitledBorder(new LineBorder(Color.GRAY)));
             jpCalendar.add(label);
         }
@@ -89,6 +92,7 @@ public class ReservationCalendarDialogView extends JPanel {
         for (int day = 1; day <= daysInMonth; day++) {
             dayButton = new JButton(String.valueOf(day));
             dayButton.setFocusPainted(true);
+            dayButton.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
             dayButton.setBorder(new TitledBorder(new LineBorder(Color.GRAY)));
             // 각 날짜 버튼에 ActionListener 추가
             ReservationCalendarDialogEvent rcde = new ReservationCalendarDialogEvent(this, dayButton);

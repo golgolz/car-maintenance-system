@@ -32,57 +32,73 @@ public class ReservationDialogEvent implements ActionListener {
         if (e.getSource() == rdv.getJbtnConfirm()) { // 예약 요청 버튼
             if (rdv.getViewNum() == rdv.COMMON) { // 일반 정비 신청
                 try {
-                    insertCommonReservation();
+                    // 항목이 비어있거나 선택하지 않은 경우
+                    if (rdv.getBg().getSelection() == null || rdv.getJtaReservationReason().getText().isEmpty()
+                            || SelectDay.jtfDate.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(rdv, "선택 항목을 확인해주세요.");
+                        return;
+                    } // end if
                     checkFlag = checkDateDuplication(reserveDate + " " + selectTime);
                     if (checkFlag == true) {
                         JOptionPane.showMessageDialog(rdv, "신청하신 예약 일자는 이미 마감 되었습니다. 다른 날짜 혹은 시간을 선택해주세요.");
                     }
                     if (checkFlag == false) {
+                        insertCommonReservation();
                         JOptionPane.showMessageDialog(rdv, "일반 정비 예약이 신청 되었습니다.");
-                    }
+                    } // end if
                 } catch (SQLException e1) {
                     e1.printStackTrace();
-                }
+                } // end catch
                 rdv.getJtaReservationReason().setText("");
                 SelectDay.jtfDate.setText("");
                 rdv.getBg().clearSelection();
             } // end if
-            if (rdv.getViewNum() == rdv.PREVENTI) { // 예방 정비 신청
-                try {
-                    insertReservation();
-                    checkFlag = checkDateDuplication(reserveDate + " " + selectTime);
-                    if (checkFlag == true) {
-                        JOptionPane.showMessageDialog(rdv, "신청하신 예약 일자는 이미 마감 되었습니다. 다른 날짜 혹은 시간을 선택해주세요.");
-                    }
-                    if (checkFlag == false) {
-                        JOptionPane.showMessageDialog(rdv, "예방 정비 예약이 신청 되었습니다.");
-                    }
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }
-                SelectDay.jtfDate.setText("");
-                rdv.getBg().clearSelection();
-            }
-            // end if
 
-            if (rdv.getViewNum() == rdv.RECALL) {
+            if (rdv.getViewNum() == rdv.PREVENTI) { // 예방 정비 신청
+                // 항목이 비어있거나 선택하지 않은 경우
+                if (rdv.getBg().getSelection() == null || SelectDay.jtfDate.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(rdv, "선택 항목을 확인해주세요.");
+                    return;
+                } // end if
                 try {
-                    insertReservation();
                     checkFlag = checkDateDuplication(reserveDate + " " + selectTime);
                     if (checkFlag == true) {
                         JOptionPane.showMessageDialog(rdv, "신청하신 예약 일자는 이미 마감 되었습니다. 다른 날짜 혹은 시간을 선택해주세요.");
                     }
                     if (checkFlag == false) {
-                        JOptionPane.showMessageDialog(rdv,
-                                "리콜 정비 부품 재고 상태에 따라\n해당 예약일보다 일정이 늦어질 수 있습니다.\n추후 센터에서 예약 여부 문자가 발송될 예정입니다.");
-                    }
+                        insertReservation();
+                        JOptionPane.showMessageDialog(rdv, "예방 정비 예약이 신청 되었습니다.");
+                    } // end if
                 } catch (SQLException e1) {
                     e1.printStackTrace();
-                }
+                } // end catch
                 SelectDay.jtfDate.setText("");
                 rdv.getBg().clearSelection();
             } // end if
-        }
+
+            if (rdv.getViewNum() == rdv.RECALL) {
+                // 항목이 비어있거나 선택하지 않은 경우
+                if (rdv.getBg().getSelection() == null || SelectDay.jtfDate.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(rdv, "선택 항목을 확인해주세요.");
+                    return;
+                } // end if
+                try {
+                    checkFlag = checkDateDuplication(reserveDate + " " + selectTime);
+                    if (checkFlag == true) {
+                        JOptionPane.showMessageDialog(rdv, "신청하신 예약 일자는 이미 마감 되었습니다. 다른 날짜 혹은 시간을 선택해주세요.");
+                    }
+                    if (checkFlag == false) {
+                        insertReservation();
+                        JOptionPane.showMessageDialog(rdv,
+                                "리콜 정비 부품 재고 상태에 따라\n해당 예약일보다 일정이 늦어질 수 있습니다.\n추후 센터에서 예약 여부 문자가 발송될 예정입니다.");
+                    } // end if
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                } // end catch
+                SelectDay.jtfDate.setText("");
+                rdv.getBg().clearSelection();
+            } // end if
+        } // end if
 
         if (e.getSource() == rdv.getJbtnCancel()) { // 취소 버튼
             rdv.getCrv().dispose();
