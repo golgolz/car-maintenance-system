@@ -17,7 +17,7 @@ import kr.co.sist.admin.register.car.AdminRegisteredCarView;
 
 public class AdminViewEvent extends WindowAdapter implements ActionListener {
 
-  private AdminView adminView;
+    private AdminView adminView;
 
   public AdminViewEvent(AdminView adminView) {
     this.adminView = adminView;
@@ -56,24 +56,16 @@ public class AdminViewEvent extends WindowAdapter implements ActionListener {
     if (ae.getSource() == adminView.getJbtnUserManage()) {
       new AdminManageView();
     }
-    if (ae.getSource() == adminView.getJbtnLogout()) {
-      int flag = JOptionPane.showConfirmDialog(adminView, "로그아웃 하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
-      switch (flag) {
-        case JOptionPane.OK_OPTION:
-          adminView.dispose();
-      }
+
+    // @Override
+    // public void windowClosing(WindowEvent e) {
+    // if (e.getSource() == adminView.getJbtnLogout()) {
+    // adminView.dispose();
+    // }
+    // }
+
+    public static void main(String[] args) {
+        new AdminView();
     }
-  }
-
-  // @Override
-  // public void windowClosing(WindowEvent e) {
-  // if (e.getSource() == adminView.getJbtnLogout()) {
-  // adminView.dispose();
-  // }
-  // }
-
-  public static void main(String[] args) {
-    new AdminView();
-  }
 
 }

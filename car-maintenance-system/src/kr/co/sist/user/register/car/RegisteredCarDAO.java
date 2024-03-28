@@ -8,7 +8,7 @@ import kr.co.sist.admin.register.car.RegisteredCarVO;
 import kr.co.sist.dao.DBConnection;
 
 public class RegisteredCarDAO {
-    private static RegisteredCarDAO registeredCarDAO;
+    private static RegisteredCarDAO userRegisteredCarDAO;
     private Connection conn = null;
     private PreparedStatement pstmt = null;
     private ResultSet resultSet = null;
@@ -16,11 +16,13 @@ public class RegisteredCarDAO {
     private RegisteredCarDAO() {}
 
     public static RegisteredCarDAO getInstance() {
-        if (registeredCarDAO == null) {
-            registeredCarDAO = new RegisteredCarDAO();
+        if (userRegisteredCarDAO == null) {
+            userRegisteredCarDAO = new RegisteredCarDAO();
         }
-        return registeredCarDAO;
+        return userRegisteredCarDAO;
     }// getInstance
+
+
 
     public void insertCar(RegisteredCarVO rVO) throws SQLException {
         DBConnection dbCon = DBConnection.getInstance();
@@ -28,21 +30,19 @@ public class RegisteredCarDAO {
         Connection con = null;
         PreparedStatement pstmt = null;
         try {
-            String id = "car";
-            String pass = "golgol";
             con = dbCon.getConnection();
 
             String insertCar =
-                    "insert into resisted_car(car_Id, car_model, drive_Distance, car_year, production_date, registration_date ) "
+                    "insert into resisted_car(car_Id, caridentity_number,owner_id,  car_Model, car_year, drive_Distance) "
                             + "values(?, ?, ?, ?, ?, ?)";
             pstmt = con.prepareStatement(insertCar);
 
             pstmt.setString(1, rVO.getCarId());
-            pstmt.setString(2, rVO.getCarModel());
-            pstmt.setInt(3, rVO.getDriveDistance());
-            pstmt.setInt(4, rVO.getCarYear());
-            pstmt.setDate(5, rVO.getProductionDate());
-            pstmt.setDate(6, rVO.getRegistrationDate());
+            pstmt.setString(2, rVO.getCarIdentityNumber());
+            pstmt.setString(3, rVO.getOwnerId());
+            pstmt.setString(4, rVO.getCarModel());
+            pstmt.setInt(5, rVO.getCarYear());
+            pstmt.setInt(6, rVO.getDriveDistance());
 
             pstmt.executeUpdate();
         } finally {
