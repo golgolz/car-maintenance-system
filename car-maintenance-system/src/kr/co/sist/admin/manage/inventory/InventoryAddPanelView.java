@@ -64,6 +64,11 @@ public class InventoryAddPanelView extends JFrame {
     add(jbtnConfirm);
     add(jbtnCancel);
 
+    inventoryAddEvent = new InventoryAddEvent(this);
+
+    jbtnConfirm.addActionListener(inventoryAddEvent);
+    jbtnCancel.addActionListener(inventoryAddEvent);
+
     setBounds(200, 320, 285, 370);
 
 

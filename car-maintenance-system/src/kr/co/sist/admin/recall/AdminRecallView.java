@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.List;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -13,8 +15,12 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import kr.co.sist.FontSingleton;
+import kr.co.sist.user.recall.UserRecallDetailDialogView;
 
 @SuppressWarnings("serial")
 public class AdminRecallView extends JFrame {
@@ -34,20 +40,33 @@ public class AdminRecallView extends JFrame {
         JLabel jlblOwnerId = new JLabel("사용자 ID");
         jtfOwnerId = new JTextField(10);
         JButton jbtnSearch = new JButton("검색");
-        recallInfoModel = new DefaultTableModel();
-        createRecallInfoData();
+
+        String[] headerInfo = {"고객명", "ID", "연락처", "차량 번호", "모델", "리콜 상세 내역", "리콜 현황"};
+        try {
+            recallInfoModel = new DefaultTableModel(showAllRecallTargets(), headerInfo);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         recallInfoTable = new JTable(recallInfoModel);
         JScrollPane preventiTargetScroll = new JScrollPane(recallInfoTable);
 
-        jlblTitle.setFont(new Font("나눔고딕", Font.BOLD, 27));
-        jlblCarId.setFont(new Font("나눔고딕", Font.PLAIN, 17));
-        jlblOwnerId.setFont(new Font("나눔고딕", Font.PLAIN, 17));
-        jlblOwnerId.setFont(new Font("나눔고딕", Font.PLAIN, 17));
-        jbtnSearch.setFont(new Font("나눔고딕", Font.PLAIN, 14));
-        recallInfoTable.setFont(new Font("나눔고딕", Font.PLAIN, 14));
+        jlblTitle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 27f));
+        jlblTitle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 27f));
+        jlblCarId.setFont(FontSingleton.getInstance().bonGodic.deriveFont(17f));
+        jlblOwnerId.setFont(FontSingleton.getInstance().bonGodic.deriveFont(17f));
+        jbtnSearch.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
+        recallInfoTable.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
 
-        recallInfoTable.getColumnModel().getColumn(6).setCellRenderer(new ButtonRenderer());
-        recallInfoTable.getColumnModel().getColumn(6).setCellEditor(new ButtonEditor(new JCheckBox()));
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        recallInfoTable.setDefaultRenderer(Object.class, centerRenderer);
+        recallInfoTable.getTableHeader().setFont(FontSingleton.getInstance().bonGodic.deriveFont(12f));
+        recallInfoTable.getColumnModel().getColumn(0).setMaxWidth(70);
+        recallInfoTable.getColumnModel().getColumn(1).setMaxWidth(70);
+        recallInfoTable.getColumnModel().getColumn(2).setPreferredWidth(120);
+
+        recallInfoTable.getColumnModel().getColumn(5).setCellRenderer(new ButtonRenderer());
+        recallInfoTable.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(new JCheckBox()));
 
         jlblTitle.setBounds(17, 0, 250, 80);
         jlblCarId.setBounds(20, 87, 100, 30);
@@ -56,6 +75,8 @@ public class AdminRecallView extends JFrame {
         jtfOwnerId.setBounds(300, 87, 100, 30);
         jbtnSearch.setBounds(450, 87, 60, 30);
         preventiTargetScroll.setBounds(20, 140, 770, 280);
+
+        jbtnSearch.addActionListener(new AdminRecallEvent(this));
 
         jlblTitle.setForeground(Color.WHITE);
         jlblCarId.setForeground(Color.WHITE);
@@ -73,14 +94,38 @@ public class AdminRecallView extends JFrame {
 
         setSize(840, 480);
         setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
-    public void createRecallInfoData() {
-        String[] headerInfo = {"등록 번호", "고객명", "ID", "연락처", "차량 번호", "모델", "리콜 상세 내역", "리콜 현황"};
-        Object[][] recallInfoData = {{"1", "이명화", "lee", "010-1111-2222", "111가2222", "K5", "조회", "예약 완료"},
-                {"2", "이명화", "lee", "010-3333-4444", "333나4444", "K5", "조회", "예약 대기"}};
-        recallInfoModel = new DefaultTableModel(recallInfoData, headerInfo);
+    public JTextField getJtfCarId() {
+        return jtfCarId;
+    }
+
+    public JTextField getJtfOwnerId() {
+        return jtfOwnerId;
+    }
+
+    public DefaultTableModel getRecallInfoModel() {
+        return recallInfoModel;
+    }
+
+    public Object[][] showAllRecallTargets() throws SQLException {
+        List<RecallTargetVO> recallTargets = RecallDAO.getInstance().selectAllRecallTargets();
+        Object[][] recallTargetModel = new Object[recallTargets.size()][7];
+        int cnt = 0;
+        for (RecallTargetVO target : recallTargets) {
+            recallTargetModel[cnt][0] = target.getOwnerName();
+            recallTargetModel[cnt][1] = target.getOwnerId();
+            recallTargetModel[cnt][2] = target.getOwnerTel();
+            recallTargetModel[cnt][3] = target.getCarId();
+            recallTargetModel[cnt][4] = target.getCarModel();
+            recallTargetModel[cnt][5] = "";
+            recallTargetModel[cnt][6] = target.getRecallStatus();
+            cnt += 1;
+        }
+
+        return recallTargetModel;
     }
 
     static class ButtonRenderer extends JButton implements TableCellRenderer {
@@ -97,7 +142,7 @@ public class AdminRecallView extends JFrame {
 
     static class ButtonEditor extends DefaultCellEditor {
         private JButton button;
-        private String rowData;
+        private String carModel;
 
         public ButtonEditor(JCheckBox checkBox) {
             super(checkBox);
@@ -106,6 +151,18 @@ public class AdminRecallView extends JFrame {
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     fireEditingStopped();
+                    RecallInfoVO currentInfo = null;
+                    try {
+                        currentInfo = RecallDAO.getInstance().selectOneRecallInfoByModel(carModel);
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+
+                    if (currentInfo == null) {
+                        return;
+                    }
+
+                    new UserRecallDetailDialogView(currentInfo, true);
                 }
             });
         }
@@ -120,15 +177,14 @@ public class AdminRecallView extends JFrame {
                 button.setBackground(table.getBackground());
             }
 
-            rowData = getRowData(table, row);
+            carModel = getRowData(table, row);
             button.setText("조회");
             return button;
         }
 
         private String getRowData(JTable table, int row) {
             StringBuilder rowData = new StringBuilder();
-            rowData.append(table.getModel().getValueAt(row, 1)).append("/");
-            rowData.append(table.getModel().getValueAt(row, 5));
+            rowData.append(table.getModel().getValueAt(row, 4));
             return rowData.toString();
         }
 
