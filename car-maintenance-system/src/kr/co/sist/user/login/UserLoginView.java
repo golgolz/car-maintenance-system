@@ -2,6 +2,7 @@ package kr.co.sist.user.login;
 
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -27,6 +28,9 @@ public class UserLoginView extends JFrame {
     setLayout(null);
     this.getContentPane().setBackground(Color.decode("#002347"));
 
+    ImageIcon loginImage =
+        new ImageIcon("C:/Users/user/git/car-maintenance-system/car-maintenance-system/images/lo.jpeg");
+    JLabel jlLoginImage = new JLabel(loginImage);
     jlCarManagementSystem = new JLabel("차량 정비 관리 시스템");
     JLabel jlGolgolz = new JLabel("(주)골골즈");
     jlLogin = new JLabel("사용자 로그인");
@@ -36,6 +40,7 @@ public class UserLoginView extends JFrame {
     jbtnRegistUser = new JButton("회원가입");
     jbtnAdminView = new JButton("관리자 로그인으로 전환");
 
+    jlLoginImage.setBounds(1, 1, 400, 439);
     jlCarManagementSystem.setBounds(35, 240, 500, 150);
     jlGolgolz.setBounds(150, 300, 350, 100);
     jlLogin.setBounds(420, 100, 350, 100);
@@ -73,6 +78,7 @@ public class UserLoginView extends JFrame {
     add(jbtnLogin);
     add(jbtnRegistUser);
     add(jbtnAdminView);
+    add(jlLoginImage);
 
     LoginEvent loginEvent = new LoginEvent(this);
     jbtnAdminView.addActionListener(loginEvent);
