@@ -88,6 +88,67 @@ public class RegisteredCarVO {
         return deleteFlag;
     }
 
+
+    public void setCarId(String carId) {
+        this.carId = carId;
+    }
+
+
+
+    public void setCarIdentityNumber(String carIdentityNumber) {
+        this.carIdentityNumber = carIdentityNumber;
+    }
+
+
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
+
+
+    public void setCarModel(String carModel) {
+        this.carModel = carModel;
+    }
+
+
+
+    public void setProductionDate(Date productionDate) {
+        this.productionDate = productionDate;
+    }
+
+
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+
+
+    public void setCarYear(int carYear) {
+        this.carYear = carYear;
+    }
+
+
+
+    public void setDriveDistance(int driveDistance) {
+        this.driveDistance = driveDistance;
+    }
+
+
+
+    public void setRecallFlag(String recallFlag) {
+        this.recallFlag = recallFlag;
+    }
+
+
+
+    public void setDeleteFlag(String deleteFlag) {
+        this.deleteFlag = deleteFlag;
+    }
+
+
+
     @Override
     public String toString() {
         return "RegisteredCarVO [carId=" + carId + ", carIdentityNumber=" + carIdentityNumber + ", ownerId=" + ownerId

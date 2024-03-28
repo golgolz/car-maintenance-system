@@ -61,20 +61,20 @@ public class RegisteredCarDAO {
         // 1.드라이버 로딩
         Connection con = null;
         PreparedStatement pstmt = null;
+        ResultSet resultSet = null;
         try {
             con = dbCon.getConnection();
             // 인서트하려면 차량번호, 모델f, 주행거리, 제조일자가 필요, 누구의 차인가 ownerid(F), 쿼리문이랑 똑같이 쓰기!!
             String insertCar =
-                    "insert into resisted_car(car_Id, caridentity_number,owner_id,  car_Model, car_year, drive_Distance) "
-                            + "values(?, ?, ?, ?, ?, ?)";
+                    "insert into resisted_car (CAR_ID, OWNER_ID, CAR_MODEL, PRODUCTION_DATE, DRIVE_DISTANCE) "
+                            + "values(?, ?, ?, ?, ?)";
             pstmt = con.prepareStatement(insertCar);
 
             pstmt.setString(1, rVO.getCarId());
-            pstmt.setString(2, rVO.getCarIdentityNumber());
-            pstmt.setString(3, rVO.getOwnerId());
-            pstmt.setString(4, rVO.getCarModel());
-            pstmt.setInt(5, rVO.getCarYear());
-            pstmt.setInt(6, rVO.getDriveDistance());
+            pstmt.setString(2, rVO.getOwnerId());
+            pstmt.setString(3, rVO.getCarModel());
+            pstmt.setDate(4, rVO.getProductionDate());
+            pstmt.setInt(5, rVO.getDriveDistance());
 
 
             pstmt.executeUpdate();
@@ -90,20 +90,19 @@ public class RegisteredCarDAO {
         Connection con = null;
         PreparedStatement pstmt = null;
         try {
-            String id = "car";
-            String pass = "golgol";
+
             con = dbCon.getConnection();
 
             StringBuilder updateCar = new StringBuilder();
-            updateCar.append("update    resisted_car")
-                    .append(" set car_id=?, car_model=?, drive_distance=?, production_date=?").append("where car_id=?");
+            updateCar.append("update    resisted_car").append("   set drive_distance=?  ").append("   where car_id=? ");
 
             pstmt = con.prepareStatement(updateCar.toString());
 
             pstmt.setString(1, rVO.getCarId());
-            pstmt.setString(2, rVO.getCarModel());
-            pstmt.setInt(3, rVO.getDriveDistance());
+            pstmt.setString(2, rVO.getOwnerId());
+            pstmt.setString(3, rVO.getCarModel());
             pstmt.setDate(4, rVO.getProductionDate());
+            pstmt.setInt(5, rVO.getDriveDistance());
 
             pstmt.executeUpdate();
         } finally {
@@ -132,8 +131,7 @@ public class RegisteredCarDAO {
             }
             return false;
         } finally {
-            dbCon.dbClose(con, pstmt, resultSet);
+            dbCon.dbClose(con, pstmt, null);
         }
     }// deleteCar
-
 }// class
