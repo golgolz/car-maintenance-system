@@ -23,7 +23,7 @@ public class ReleasedCarView extends JFrame {
         jtfCarId = new JTextField();
         jtfId = new JTextField();
 
-        jbtnSearch = new JButton("조회");
+        jbtnSearch = new JButton("검색");
 
         String[] Header = {"차량번호", "연식", "주행거리", "정비입고일", "정비출고일", "고객명"};
         String[][] dumpData = null;
@@ -58,10 +58,12 @@ public class ReleasedCarView extends JFrame {
 
         setSize(840, 480);
         setVisible(true);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
-    public static void main(String[] args) {
-        new ReleasedCarView();
-    }
+    // public static void main(String[] args) {
+    // new ReleasedCarView();
+    // }
 }
 

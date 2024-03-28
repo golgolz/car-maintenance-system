@@ -17,134 +17,135 @@ public class ReservedCarView extends JFrame {
 
 
 
-  private ReservedCarEvent reservedCarEvent;
+    private ReservedCarEvent reservedCarEvent;
 
-  private JLabel jlReservedCarView;
-  private JLabel jlCarId;
-  private JLabel jlOwnerId;
+    private JLabel jlReservedCarView;
+    private JLabel jlCarId;
+    private JLabel jlOwnerId;
 
-  private JTextField jtfCarId;
-  private JTextField jtfOwnerId;
-  private JButton jbtnSearch;
-  private JButton jbtnMaintenanceProgress;
+    private JTextField jtfCarId;
+    private JTextField jtfOwnerId;
+    private JButton jbtnSearch;
+    private JButton jbtnMaintenanceProgress;
 
-  private DefaultTableModel dtmReservedCar;
-  private JTable jtReservedCar;
-  private JScrollPane jspReservedCarData;
+    private DefaultTableModel dtmReservedCar;
+    private JTable jtReservedCar;
+    private JScrollPane jspReservedCarData;
 
-  private String maintenanceStatusText;
+    private String maintenanceStatusText;
 
-  public ReservedCarView() {
+    public ReservedCarView() {
 
-    super("입고차량관리");
+        super("입고차량관리");
 
-    this.getContentPane().setBackground(Color.decode("#002347"));
+        this.getContentPane().setBackground(Color.decode("#002347"));
 
-    this.reservedCarEvent = reservedCarEvent;
+        this.reservedCarEvent = reservedCarEvent;
 
-    jlReservedCarView = new JLabel("입고 차량 관리");
-    jlCarId = new JLabel("차량 번호");
-    jlOwnerId = new JLabel("ID");
+        jlReservedCarView = new JLabel("입고 차량 관리");
+        jlCarId = new JLabel("차량 번호");
+        jlOwnerId = new JLabel("ID");
 
-    jtfCarId = new JTextField();
-    jtfOwnerId = new JTextField();
-    jbtnSearch = new JButton("조회");
-    jbtnMaintenanceProgress = new JButton("정비 대기");
-
-
-    maintenanceStatusText = jbtnMaintenanceProgress.getText();
-
-    dtmReservedCar = new DefaultTableModel();
-    jtReservedCar = new JTable(dtmReservedCar);
-    jspReservedCarData = new JScrollPane(jtReservedCar);
-
-    dtmReservedCar.addColumn("차량번호");
-    dtmReservedCar.addColumn("연식");
-    dtmReservedCar.addColumn("주행거리");
-    dtmReservedCar.addColumn("정비입고일");
-    dtmReservedCar.addColumn("정비출고일");
-    dtmReservedCar.addColumn("사용자ID");
-    dtmReservedCar.addColumn("정비분류");
-    dtmReservedCar.addColumn("정비상태");
-
-    showAllReservedcarData();
-
-    jtReservedCar.getColumnModel().getColumn(7).setCellRenderer(new ButtonRenderer());
-
-    jtReservedCar.getColumnModel().getColumn(0).setPreferredWidth(100);
-    jtReservedCar.getColumnModel().getColumn(1).setPreferredWidth(100);
-    jtReservedCar.getColumnModel().getColumn(2).setPreferredWidth(100);
-    jtReservedCar.getColumnModel().getColumn(3).setPreferredWidth(100);
-    jtReservedCar.getColumnModel().getColumn(4).setPreferredWidth(100);
-    jtReservedCar.getColumnModel().getColumn(5).setPreferredWidth(100);
-    jtReservedCar.getColumnModel().getColumn(6).setPreferredWidth(100);
-    jtReservedCar.getColumnModel().getColumn(7).setPreferredWidth(100);
+        jtfCarId = new JTextField();
+        jtfOwnerId = new JTextField();
+        jbtnSearch = new JButton("검색");
+        jbtnMaintenanceProgress = new JButton("정비 대기");
 
 
-    // Set layout
-    setLayout(null);
+        maintenanceStatusText = jbtnMaintenanceProgress.getText();
 
-    jlReservedCarView.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
-    jlCarId.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.PLAIN, 14f));
-    jlOwnerId.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.PLAIN, 14f));
+        dtmReservedCar = new DefaultTableModel();
+        jtReservedCar = new JTable(dtmReservedCar);
+        jspReservedCarData = new JScrollPane(jtReservedCar);
+
+        dtmReservedCar.addColumn("차량번호");
+        dtmReservedCar.addColumn("연식");
+        dtmReservedCar.addColumn("주행거리");
+        dtmReservedCar.addColumn("정비입고일");
+        dtmReservedCar.addColumn("정비출고일");
+        dtmReservedCar.addColumn("사용자ID");
+        dtmReservedCar.addColumn("정비분류");
+        dtmReservedCar.addColumn("정비상태");
+
+        showAllReservedcarData();
+
+        jtReservedCar.getColumnModel().getColumn(7).setCellRenderer(new ButtonRenderer());
+
+        jtReservedCar.getColumnModel().getColumn(0).setPreferredWidth(100);
+        jtReservedCar.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jtReservedCar.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jtReservedCar.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jtReservedCar.getColumnModel().getColumn(4).setPreferredWidth(100);
+        jtReservedCar.getColumnModel().getColumn(5).setPreferredWidth(100);
+        jtReservedCar.getColumnModel().getColumn(6).setPreferredWidth(100);
+        jtReservedCar.getColumnModel().getColumn(7).setPreferredWidth(100);
 
 
-    jlReservedCarView.setBounds(20, 10, 200, 30);
-    jlCarId.setBounds(20, 50, 100, 30);
-    jlOwnerId.setBounds(150, 50, 100, 30);
-    jtfCarId.setBounds(20, 90, 100, 30);
-    jtfOwnerId.setBounds(150, 90, 100, 30);
-    jbtnSearch.setBounds(280, 90, 80, 30);
-    jspReservedCarData.setBounds(20, 140, 780, 280);
+        // Set layout
+        setLayout(null);
 
-    jlReservedCarView.setForeground(Color.WHITE);
-    jlCarId.setForeground(Color.WHITE);
-    jlOwnerId.setForeground(Color.WHITE);
-
-    jbtnSearch.setForeground(Color.WHITE);
-    jbtnSearch.setBackground(Color.decode("#47C832")); // 초록색
-    jbtnMaintenanceProgress.setBackground(Color.decode("#FF0000")); // 빨간색
+        jlReservedCarView.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+        jlCarId.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.PLAIN, 14f));
+        jlOwnerId.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.PLAIN, 14f));
 
 
+        jlReservedCarView.setBounds(20, 10, 200, 30);
+        jlCarId.setBounds(20, 50, 100, 30);
+        jlOwnerId.setBounds(150, 50, 100, 30);
+        jtfCarId.setBounds(20, 90, 100, 30);
+        jtfOwnerId.setBounds(150, 90, 100, 30);
+        jbtnSearch.setBounds(280, 90, 80, 30);
+        jspReservedCarData.setBounds(20, 140, 780, 280);
 
-    add(jlReservedCarView);
-    add(jlCarId);
-    add(jtfCarId);
-    add(jlOwnerId);
-    add(jtfOwnerId);
-    add(jbtnSearch);
-    add(jbtnMaintenanceProgress);
-    add(jspReservedCarData);
+        jlReservedCarView.setForeground(Color.WHITE);
+        jlCarId.setForeground(Color.WHITE);
+        jlOwnerId.setForeground(Color.WHITE);
 
-    setBounds(200, 320, 840, 480);
-    setVisible(true);
-    setResizable(false);
-  }
+        jbtnSearch.setForeground(Color.WHITE);
+        jbtnSearch.setBackground(Color.decode("#065535")); // 초록색
+        jbtnMaintenanceProgress.setBackground(Color.decode("#FF0000")); // 빨간색
 
-  public void showAllReservedcarData() {
-    Object[][] exampleData =
-        {{"ABC123", "2018", "10000", "2024-03-24", "2024-03-25", "user1", "일반", jbtnMaintenanceProgress.getText()}};
 
-    for (Object[] rowData : exampleData) {
-      dtmReservedCar.addRow(rowData);
+
+        add(jlReservedCarView);
+        add(jlCarId);
+        add(jtfCarId);
+        add(jlOwnerId);
+        add(jtfOwnerId);
+        add(jbtnSearch);
+        add(jbtnMaintenanceProgress);
+        add(jspReservedCarData);
+
+        setBounds(200, 320, 840, 480);
+        setVisible(true);
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
-  }
+    public void showAllReservedcarData() {
+        Object[][] exampleData = {{"ABC123", "2018", "10000", "2024-03-24", "2024-03-25", "user1", "일반",
+                jbtnMaintenanceProgress.getText()}};
 
-  // Button renderer class
-  class ButtonRenderer extends JButton implements TableCellRenderer {
-    public ButtonRenderer() {
-      setOpaque(true);
+        for (Object[] rowData : exampleData) {
+            dtmReservedCar.addRow(rowData);
+        }
+
     }
 
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-        int row, int column) {
-      setText((value == null) ? "" : value.toString());
-      return this;
-    }
-  }
+    // Button renderer class
+    class ButtonRenderer extends JButton implements TableCellRenderer {
+        public ButtonRenderer() {
+            setOpaque(true);
+        }
 
-  public static void main(String[] args) {
-    new ReservedCarView();
-  }
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+                int row, int column) {
+            setText((value == null) ? "" : value.toString());
+            return this;
+        }
+    }
+
+    // public static void main(String[] args) {
+    // new ReservedCarView();
+    // }
 }

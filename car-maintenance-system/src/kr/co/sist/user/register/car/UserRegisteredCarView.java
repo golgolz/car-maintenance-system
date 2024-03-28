@@ -54,7 +54,7 @@ public class UserRegisteredCarView extends JFrame {
         jbtnModify.setForeground(Color.WHITE);
         jbtnRemove.setForeground(Color.WHITE);
 
-        jbtnAddCar.setBackground(Color.decode("#47C83E"));
+        jbtnAddCar.setBackground(Color.decode("#065535"));
         jbtnModify.setBackground(Color.decode("#5586EB"));
         jbtnRemove.setBackground(Color.decode("#4C4C4C"));
 

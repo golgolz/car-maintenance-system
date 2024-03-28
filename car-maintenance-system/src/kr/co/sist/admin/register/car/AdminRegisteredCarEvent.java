@@ -31,9 +31,9 @@ public class AdminRegisteredCarEvent extends WindowAdapter implements ActionList
             String column1Value = adminRegisteredCarView.getCarTable().getValueAt(selectedRow, 0).toString();
             String column2Value = adminRegisteredCarView.getCarTable().getValueAt(selectedRow, 1).toString();
             // 가져온 데이터 활용하기
-            System.out.println("Selected Row Data: " + column1Value + ", " + column2Value);
+            // System.out.println("Selected Row Data: " + column1Value + ", " + column2Value);
         } else {
-            System.out.println("행이 선택되지 않았습니다.");
+            // System.out.println("행이 선택되지 않았습니다.");
         }
 
         if (ae.getSource() == adminRegisteredCarView.getJbtnAddCar()) {
@@ -108,7 +108,7 @@ public class AdminRegisteredCarEvent extends WindowAdapter implements ActionList
         DefaultTableModel carRegist = adminRegisteredCarView.getCarRegist();
         JTable table = adminRegisteredCarView.getCarTable(); // 테이블 가져오기
 
-        System.out.println(adminRegisteredCarView.getCarTable().getRowCount());
+        // System.out.println(adminRegisteredCarView.getCarTable().getRowCount());
 
         int selectedRow = table.getSelectedRow(); // 선택된 행의 인덱스 가져오기
 
@@ -139,7 +139,7 @@ public class AdminRegisteredCarEvent extends WindowAdapter implements ActionList
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println(adminRegisteredCarView.getCarTable().getSelectedRow());
+        // System.out.println(adminRegisteredCarView.getCarTable().getSelectedRow());
 
 
     }

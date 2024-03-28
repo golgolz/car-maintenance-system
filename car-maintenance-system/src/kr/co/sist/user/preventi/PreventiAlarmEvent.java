@@ -20,7 +20,7 @@ public class PreventiAlarmEvent implements ActionListener {
             case "예약하기":
                 preventiAlarmTable = preventiAlarmView.getPreventiAlarmTable();
                 int selectedRow = preventiAlarmTable.getSelectedRow();
-                System.out.println(preventiAlarmTable.getValueAt(selectedRow, 2).toString());
+                // System.out.println(preventiAlarmTable.getValueAt(selectedRow, 2).toString());
                 new CommonReservationView("예방 정비 예약", ReservationDialogView.PREVENTI,
                         preventiAlarmTable.getValueAt(selectedRow, 2).toString());
                 break;
