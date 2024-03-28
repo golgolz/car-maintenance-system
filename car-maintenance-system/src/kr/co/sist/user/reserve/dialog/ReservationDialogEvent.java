@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import kr.co.sist.admin.register.car.RegisteredCarVO;
 import kr.co.sist.user.reserve.common.ReservationManagementVO;
+import kr.co.sist.user.reserve.common.SelectDay;
 import kr.co.sist.user.reserve.dao.ReservationManagementDAO;
 
 public class ReservationDialogEvent implements ActionListener {
@@ -14,6 +15,8 @@ public class ReservationDialogEvent implements ActionListener {
     private ReservationCalendarDialogView rcdv;
     private ReservationCalendarDialogEvent rcde;
     private String selectTime;
+    private String reserveDate;
+    private boolean checkFlag;
 
     public ReservationDialogEvent(ReservationDialogView rdv) {
         this.rdv = rdv;
@@ -27,20 +30,60 @@ public class ReservationDialogEvent implements ActionListener {
         }
 
         if (e.getSource() == rdv.getJbtnConfirm()) { // 예약 요청 버튼
-            if (rdv.getViewNum() == rdv.COMMON) {
-                insertCommonReservation();
-                JOptionPane.showMessageDialog(rdv, "일반 정비 예약이 신청 되었습니다.");
+            if (rdv.getViewNum() == rdv.COMMON) { // 일반 정비 신청
+                try {
+                    insertCommonReservation();
+                    checkFlag = checkDateDuplication(reserveDate + " " + selectTime);
+                    if (checkFlag == true) {
+                        JOptionPane.showMessageDialog(rdv, "신청하신 예약 일자는 이미 마감 되었습니다. 다른 날짜 혹은 시간을 선택해주세요.");
+                    }
+                    if (checkFlag == false) {
+                        JOptionPane.showMessageDialog(rdv, "일반 정비 예약이 신청 되었습니다.");
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
                 rdv.getJtaReservationReason().setText("");
+                SelectDay.jtfDate.setText("");
+                rdv.getBg().clearSelection();
             } // end if
-            if (rdv.getViewNum() == rdv.PREVENTI) {
-                insertPreventiReservation();
-                JOptionPane.showMessageDialog(rdv, "예방 정비 예약이 신청 되었습니다.");
-            } // end if
+            if (rdv.getViewNum() == rdv.PREVENTI) { // 예방 정비 신청
+                try {
+                    insertReservation();
+                    checkFlag = checkDateDuplication(reserveDate + " " + selectTime);
+                    if (checkFlag == true) {
+                        JOptionPane.showMessageDialog(rdv, "신청하신 예약 일자는 이미 마감 되었습니다. 다른 날짜 혹은 시간을 선택해주세요.");
+                    }
+                    if (checkFlag == false) {
+                        JOptionPane.showMessageDialog(rdv, "예방 정비 예약이 신청 되었습니다.");
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+                SelectDay.jtfDate.setText("");
+                rdv.getBg().clearSelection();
+            }
+            // end if
+
             if (rdv.getViewNum() == rdv.RECALL) {
-                JOptionPane.showMessageDialog(rdv,
-                        "리콜 정비 부품 재고 상태에 따라\n해당 예약일보다 일정이 늦어질 수 있습니다.\n추후 센터에서 예약 여부 문자가 발송될 예정입니다.");
+                try {
+                    insertReservation();
+                    checkFlag = checkDateDuplication(reserveDate + " " + selectTime);
+                    if (checkFlag == true) {
+                        JOptionPane.showMessageDialog(rdv, "신청하신 예약 일자는 이미 마감 되었습니다. 다른 날짜 혹은 시간을 선택해주세요.");
+                    }
+                    if (checkFlag == false) {
+                        JOptionPane.showMessageDialog(rdv,
+                                "리콜 정비 부품 재고 상태에 따라\n해당 예약일보다 일정이 늦어질 수 있습니다.\n추후 센터에서 예약 여부 문자가 발송될 예정입니다.");
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+                SelectDay.jtfDate.setText("");
+                rdv.getBg().clearSelection();
             } // end if
-        } // end if
+        }
+
         if (e.getSource() == rdv.getJbtnCancel()) { // 취소 버튼
             rdv.getCrv().dispose();
             JOptionPane.showMessageDialog(rdv, "취소 되었습니다.");
@@ -49,7 +92,7 @@ public class ReservationDialogEvent implements ActionListener {
 
 
 
-    public void insertCommonReservation() {
+    public void insertCommonReservation() throws SQLException {
         rcdv = new ReservationCalendarDialogView();
         ReservationManagementDAO rmDAO = ReservationManagementDAO.getInstance();
         rcde = new ReservationCalendarDialogEvent(rcdv, rcdv.getDayButton());
@@ -66,31 +109,29 @@ public class ReservationDialogEvent implements ActionListener {
         String carModel = "K7";
         String reserveTime = selectTime;
         String reserveReason = rdv.getJtaReservationReason().getText(); // 사유
-        String reserveDate = rcdv.getSelectYear() + "-" + rcdv.getSelectMonth() + "-" + rcde.getDayButton().getText(); // 날짜
+        reserveDate = rcdv.getSelectYear() + "-" + rcdv.getSelectMonth() + "-" + SelectDay.selectDay; // 날짜
         // CommDate.day
-        String maintenanceClassification = null; // 정비 분류
-        if (rdv.getViewNum() == rdv.COMMON) {
-            maintenanceClassification = "일반";
-        }
-        if (rdv.getViewNum() == rdv.PREVENTI) {
-            maintenanceClassification = "정기";
-        }
-        if (rdv.getViewNum() == rdv.RECALL) {
-            maintenanceClassification = "리콜";
-        }
+        String maintenanceClassification = "일반"; // 정비 분류
 
         rmVO = new ReservationManagementVO(ownerId, tel, carId, carModel, reserveReason, reserveDate, reserveTime,
                 maintenanceClassification);
 
+        boolean duplicationFlag = checkDateDuplication(reserveDate + " " + selectTime);
         try {
-            rmDAO.insertReservationManagement(rmVO);
+            if (duplicationFlag == false) { // 중복되지 않을 경우 실행
+                rmDAO.insertReservationManagement(rmVO);
+            } else { // 중복될 경우
+                checkFlag = duplicationFlag;
+                return;
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }// insertCommonReservation
 
 
-    public void insertPreventiReservation() {
+    public void insertReservation() throws SQLException {
         rcdv = new ReservationCalendarDialogView();
         ReservationManagementDAO rmDAO = ReservationManagementDAO.getInstance();
         rcde = new ReservationCalendarDialogEvent(rcdv, rcdv.getDayButton());
@@ -107,12 +148,9 @@ public class ReservationDialogEvent implements ActionListener {
         String carModel = "K7";
         String reserveTime = selectTime;
         String reserveReason = rdv.getCrv().getParts(); // 어떤 부품에 대한 예방인지 부품의 정보를 받아와야 한다.
-        String reserveDate = rcdv.getSelectYear() + "-" + rcdv.getSelectMonth() + "-" + rcde.getDayButton().getText(); // 날짜
+        reserveDate = rcdv.getSelectYear() + "-" + rcdv.getSelectMonth() + "-" + SelectDay.selectDay; // 날짜
         // CommDate.day
         String maintenanceClassification = null; // 정비 분류
-        if (rdv.getViewNum() == rdv.COMMON) {
-            maintenanceClassification = "일반";
-        }
         if (rdv.getViewNum() == rdv.PREVENTI) {
             maintenanceClassification = "정기";
         }
@@ -123,12 +161,39 @@ public class ReservationDialogEvent implements ActionListener {
         rmVO = new ReservationManagementVO(ownerId, tel, carId, carModel, reserveReason, reserveDate, reserveTime,
                 maintenanceClassification);
 
+        boolean duplicationFlag = checkDateDuplication(reserveDate + " " + selectTime);
         try {
-            rmDAO.insertReservationManagement(rmVO);
+            if (duplicationFlag == false) { // 중복되지 않을 경우 실행
+                rmDAO.insertReservationManagement(rmVO);
+            } else { // 중복될 경우
+                checkFlag = duplicationFlag;
+                return;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }// insertPreventiReservation
+
+
+    /**
+     * 예약일자 중복 체크 method
+     * 
+     * @param selectDay
+     * @return
+     * @throws SQLException
+     */
+    public boolean checkDateDuplication(String date) throws SQLException {
+        ReservationManagementDAO rmDAO = ReservationManagementDAO.getInstance();
+        boolean duplicationFlag = false;
+
+        String checkDate = date;
+
+        duplicationFlag = rmDAO.checkDateDuplication(checkDate);
+
+
+        return duplicationFlag;
+    }
+
 
     public void searchReservationByOwnerId() { // 성강님 view 구현 필요
         ReservationManagementDAO rmDAO = ReservationManagementDAO.getInstance();
@@ -150,5 +215,10 @@ public class ReservationDialogEvent implements ActionListener {
     public ReservationCalendarDialogEvent getRcde() {
         return rcde;
     }
+
+    public boolean isCheckFlag() {
+        return checkFlag;
+    }
+
 
 }
