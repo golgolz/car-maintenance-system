@@ -22,6 +22,15 @@ public class UserInfoVO {
     this.registeredCar = registeredCar;
   }
 
+  public UserInfoVO(String id, String name, String tel, String addr, List<RegisteredCarVO> registeredCar) {
+    super();
+    this.id = id;
+    this.name = name;
+    this.tel = tel;
+    this.addr = addr;
+    this.registeredCar = registeredCar;
+  }
+
   public UserInfoVO(String currentUser) {
     super();
     this.currentUser = currentUser;
