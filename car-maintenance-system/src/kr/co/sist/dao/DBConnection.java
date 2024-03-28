@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -60,6 +61,23 @@ public class DBConnection {
     } finally {
       if (conn != null) {
         conn.close();
+      }
+    }
+  }
+
+  public void close(Connection conn, PreparedStatement pstmt) {
+    if (pstmt != null) {
+      try {
+        pstmt.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+    if (conn != null) {
+      try {
+        conn.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
       }
     }
   }
