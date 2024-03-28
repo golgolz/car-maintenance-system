@@ -23,7 +23,7 @@ public class ReservationManagementDAO {
     }
 
     /**
-     * 정비 분류를 매개변수로 받아 해당 정비의 예약 차량 리스트 전체를 조회하는 method
+     * 정비 분류를 매개변수로 받아 해당 정비의 예약 차량 리스트 전체를 조회하는 method 정비 분류는 일반,정기,리콜 로 분류됨
      * 
      * @param maintenanceClassification
      * @return
@@ -123,7 +123,7 @@ public class ReservationManagementDAO {
     }// selectReservationByOwnerId
 
     /**
-     * 사용자 ID를 입력받아 해당 ID의 정비 분류가 '정기(예방)'인 차량의 리스트를 조회하는 method(진행중)
+     * 사용자 ID를 입력받아 해당 ID의 정비 분류가 '정기(예방)'인 차량의 리스트를 조회하는 method
      * 
      * @param ownerId
      * @return
@@ -219,6 +219,48 @@ public class ReservationManagementDAO {
 
     }// insertReservationManagement
 
+
+    /**
+     * 예약 시간 중복 체크를 위해 시간을 조회하는 method
+     * 
+     * @return
+     * @throws SQLException
+     */
+    public boolean checkDateDuplication(String date) throws SQLException {
+        boolean checkDateFlag = false;
+
+        // 1.드라이버 로딩
+        DBConnection dbCon = DBConnection.getInstance();
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        // 2.Connection 얻기
+        try {
+            con = dbCon.getConnection();
+
+            // 3. 쿼리문 생성 객체 얻기
+            StringBuilder checkDate = new StringBuilder();
+
+            checkDate.append("select reservation_date").append(" from reservation").append(" where reservation_date=?");
+
+            pstmt = con.prepareStatement(checkDate.toString());
+
+            // 바인드 변수 값 설정
+            pstmt.setString(1, date);
+            // 쿼리문 실행 객체 얻기
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                checkDateFlag = true;
+            }
+
+        } finally {
+            dbCon.dbClose(con, pstmt, rs);
+        }
+
+        return checkDateFlag;
+    }
 
 
     /**

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -18,8 +17,6 @@ public class CommonReservationView extends JFrame {
 
     private JLabel jlReservationManagement;
     private String parts;
-    private JTextField jtfDate;
-
 
     public CommonReservationView(String label, int viewNum, String parts) {
         super(label);
@@ -36,15 +33,14 @@ public class CommonReservationView extends JFrame {
 
         SwingUtilities.updateComponentTreeUI(this);
 
-
         jlReservationManagement = new JLabel(label);
         jlReservationManagement.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 27f));
         ReservationDialogView rdv = new ReservationDialogView(viewNum, this); // 1은 일반 정비 예약
 
-
         Font font = FontSingleton.getInstance().bonGodic.deriveFont(16f);
         jlReservationManagement.setFont(font);
         jlReservationManagement.setForeground(Color.WHITE);
+
 
         setLayout(null);
         jlReservationManagement.setBounds(320, 50, 400, 60);
@@ -68,11 +64,12 @@ public class CommonReservationView extends JFrame {
         return parts;
     }
 
+
     // public static void main(String[] args) {
-    // new CommonReservationView("일반 정비 예약", ReservationDialogView.COMMON);
+    // new CommonReservationView("일반 정비 예약", ReservationDialogView.COMMON, "부품 이름");
     // new CommonReservationView("예방 정비 예약",ReservationDialogView.PREVENTI);
     // new CommonReservationView("리콜 예약",ReservationDialogView.RECALL);
-    //
+
     // }
 
 

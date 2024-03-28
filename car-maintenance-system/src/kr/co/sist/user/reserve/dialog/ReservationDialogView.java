@@ -8,10 +8,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import kr.co.sist.FontSingleton;
 import kr.co.sist.user.reserve.common.CommonReservationView;
+import kr.co.sist.user.reserve.common.SelectDay;
 
 @SuppressWarnings("serial")
 public class ReservationDialogView extends JPanel {
@@ -31,6 +33,7 @@ public class ReservationDialogView extends JPanel {
     private JRadioButton jrbPM;
     private JButton jbtnConfirm;
     private JButton jbtnCancel;
+    private ButtonGroup bg;
 
     private CommonReservationView crv;
 
@@ -70,7 +73,7 @@ public class ReservationDialogView extends JPanel {
         // 라디오 버튼
         jrbAM = new JRadioButton("오전");
         jrbPM = new JRadioButton("오후");
-        ButtonGroup bg = new ButtonGroup();
+        bg = new ButtonGroup();
         bg.add(jrbAM);
         bg.add(jrbPM);
 
@@ -95,9 +98,14 @@ public class ReservationDialogView extends JPanel {
         rcdv.setBorder(new TitledBorder(new LineBorder(Color.BLACK)));
         jlReservationDate.add(rcdv);
 
+        SelectDay.jtfDate = new JTextField(15);
+        SelectDay.jtfDate.setEnabled(false);
+
+
         // 컴포넌트 배치
         jlReservationDate.setBounds(10, 20, 230, 220);
         rcdv.setBounds(0, 0, 230, 220);
+        SelectDay.jtfDate.setBounds(10, 250, 150, 30);
         jrbAM.setBounds(290, 30, 20, 20);
         jlAM.setBounds(320, 30, 40, 20);
         jrbPM.setBounds(360, 30, 20, 20);
@@ -108,6 +116,7 @@ public class ReservationDialogView extends JPanel {
         jbtnCancel.setBounds(300, 270, 90, 30);
 
         add(jlReservationDate);
+        add(SelectDay.jtfDate);
         add(jrbAM);
         add(jlAM);
         add(jrbPM);
@@ -128,7 +137,7 @@ public class ReservationDialogView extends JPanel {
         // 라디오 버튼
         jrbAM = new JRadioButton("오전");
         jrbPM = new JRadioButton("오후");
-        ButtonGroup bg = new ButtonGroup();
+        bg = new ButtonGroup();
         bg.add(jrbAM);
         bg.add(jrbPM);
 
@@ -148,9 +157,13 @@ public class ReservationDialogView extends JPanel {
         rcdv.setBorder(new TitledBorder(new LineBorder(Color.BLACK)));
         jlReservationDate.add(rcdv);
 
+        SelectDay.jtfDate = new JTextField(15);
+        SelectDay.jtfDate.setEnabled(false);
+
         // 컴포넌트 배치
         jlReservationDate.setBounds(10, 20, 230, 220);
         rcdv.setBounds(0, 0, 230, 220);
+        SelectDay.jtfDate.setBounds(10, 250, 150, 30);
         jrbAM.setBounds(290, 120, 20, 20);
         jlAM.setBounds(320, 120, 40, 20);
         jrbPM.setBounds(360, 120, 20, 20);
@@ -159,6 +172,7 @@ public class ReservationDialogView extends JPanel {
         jbtnCancel.setBounds(300, 270, 90, 30);
 
         add(jlReservationDate);
+        add(SelectDay.jtfDate);
         add(jrbAM);
         add(jlAM);
         add(jrbPM);
@@ -177,7 +191,7 @@ public class ReservationDialogView extends JPanel {
         // 라디오 버튼
         jrbAM = new JRadioButton("오전");
         jrbPM = new JRadioButton("오후");
-        ButtonGroup bg = new ButtonGroup();
+        bg = new ButtonGroup();
         bg.add(jrbAM);
         bg.add(jrbPM);
 
@@ -197,9 +211,13 @@ public class ReservationDialogView extends JPanel {
         rcdv.setBorder(new TitledBorder(new LineBorder(Color.BLACK)));
         jlReservationDate.add(rcdv);
 
+        SelectDay.jtfDate = new JTextField(15);
+        SelectDay.jtfDate.setEnabled(false);
+
         // 컴포넌트 배치
         jlReservationDate.setBounds(10, 20, 230, 220);
         rcdv.setBounds(0, 0, 230, 220);
+        SelectDay.jtfDate.setBounds(10, 250, 150, 30);
         jrbAM.setBounds(290, 120, 20, 20);
         jlAM.setBounds(320, 120, 40, 20);
         jrbPM.setBounds(360, 120, 20, 20);
@@ -208,6 +226,7 @@ public class ReservationDialogView extends JPanel {
         jbtnCancel.setBounds(300, 270, 90, 30);
 
         add(jlReservationDate);
+        add(SelectDay.jtfDate);
         add(jrbAM);
         add(jlAM);
         add(jrbPM);
@@ -253,5 +272,8 @@ public class ReservationDialogView extends JPanel {
         return crv;
     }
 
+    public ButtonGroup getBg() {
+        return bg;
+    }
 
 }
