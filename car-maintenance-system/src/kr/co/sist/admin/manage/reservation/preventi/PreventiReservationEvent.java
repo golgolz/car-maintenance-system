@@ -64,9 +64,9 @@ public class PreventiReservationEvent implements ActionListener {
                 reservationTargetData[7] = "";
                 reservationModel.addRow(reservationTargetData);
             }
+
             JOptionPane.showMessageDialog(preventiReservationView, "검색을 완료했습니다.");
         }
-
         preventiReservationView.getJtfOwnerId().setText("");
     }
 }

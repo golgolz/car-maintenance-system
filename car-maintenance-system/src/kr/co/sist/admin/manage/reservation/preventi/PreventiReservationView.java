@@ -110,7 +110,6 @@ public class PreventiReservationView extends JFrame {
         List<ReservationManagementVO> reservations = null;
         reservations = ReservationManagementDAO.getInstance().selectReservation("정기");
         Object[][] reservationData = new String[reservations.size()][8];
-
         ReservationManagementVO tempVO = null;
 
         for (int i = 0; i < reservationData.length; i++) {
