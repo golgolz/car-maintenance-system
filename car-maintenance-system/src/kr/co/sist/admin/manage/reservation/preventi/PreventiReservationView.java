@@ -61,6 +61,7 @@ public class PreventiReservationView extends JFrame {
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         preventiReservationTable.setDefaultRenderer(Object.class, centerRenderer);
 
+
         preventiReservationTable.getColumnModel().getColumn(0).setPreferredWidth(40);
         preventiReservationTable.getColumnModel().getColumn(1).setPreferredWidth(40);
         preventiReservationTable.getColumnModel().getColumn(2).setPreferredWidth(120);
