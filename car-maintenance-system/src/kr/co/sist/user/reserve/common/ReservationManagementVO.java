@@ -33,6 +33,7 @@ public class ReservationManagementVO {
             String reserveReason) {
         super();
         this.carId = carId;
+        this.tel = tel;
         this.name = name;
         this.ownerId = ownerId;
         this.carModel = carModel;

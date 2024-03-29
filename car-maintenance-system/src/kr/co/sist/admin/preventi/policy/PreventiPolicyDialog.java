@@ -14,6 +14,8 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import kr.co.sist.FontSingleton;
@@ -45,6 +47,10 @@ public class PreventiPolicyDialog extends JDialog {
         dtmPolicies = new DefaultTableModel(policyData, policyHeader);
         jtblPolicies = new JTable(dtmPolicies);
         jsp = new JScrollPane(jtblPolicies);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        jtblPolicies.setDefaultRenderer(Object.class, centerRenderer);
 
         jbtnCancle.setBounds(20, 250, 200, 40);
         jbtnOk.setBounds(330, 250, 200, 40);
