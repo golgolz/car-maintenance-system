@@ -1,5 +1,7 @@
 package kr.co.sist.admin.manage.reservation.common;
 
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -7,7 +9,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import kr.co.sist.FontSingleton;
 
 public class MaintenanceProgressView extends JFrame {
 
@@ -32,6 +37,7 @@ public class MaintenanceProgressView extends JFrame {
 
     public MaintenanceProgressView(String carId, String maintenanceStatus) {
         super("차량정비관리시스템");
+        this.getContentPane().setBackground(Color.decode("#002347"));
         jlMaintenanceProgressViewTitle = new JLabel("정비 진행");
         jlPartCode = new JLabel("부품코드");
         jlPartName = new JLabel("부품명");
@@ -56,6 +62,24 @@ public class MaintenanceProgressView extends JFrame {
 
         setLayout(null);
 
+        // 테이블 헤더 폰트 설정 방법
+        maintenanceProgressTable.getTableHeader().setFont(FontSingleton.getInstance().bonGodic.deriveFont(12f));
+        // 테이블 정렬
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        maintenanceProgressTable.setDefaultRenderer(Object.class, centerRenderer);
+
+        jlMaintenanceProgressViewTitle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 23f));
+        jlPartCode.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.PLAIN, 14f));
+        jlPartName.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.PLAIN, 14f));
+        jlPartCnt.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.PLAIN, 14f));
+        jlTotalPrice.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.PLAIN, 14f));
+        jbtnInsert.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.PLAIN, 14f));
+        jbtnDelete.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.PLAIN, 14f));
+        jbtnCancel.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.PLAIN, 14f));
+        jbtnConfirm.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.PLAIN, 14f));
+
+
         jlMaintenanceProgressViewTitle.setBounds(20, 10, 100, 30);
         jlPartCode.setBounds(20, 40, 100, 30);
         jtfPartCode.setBounds(80, 40, 100, 30);// 60 이격
@@ -70,6 +94,21 @@ public class MaintenanceProgressView extends JFrame {
         jtaTotalPrice.setBounds(530, 200, 100, 30);
         jbtnCancel.setBounds(20, 235, 100, 30);
         jbtnConfirm.setBounds(530, 235, 100, 30);
+
+        jlMaintenanceProgressViewTitle.setForeground(Color.WHITE);
+        jlPartCode.setForeground(Color.WHITE);
+        jlPartName.setForeground(Color.WHITE);
+        jlPartCnt.setForeground(Color.WHITE);
+        jbtnInsert.setForeground(Color.WHITE);
+        jbtnDelete.setForeground(Color.WHITE);
+        jbtnCancel.setForeground(Color.WHITE);
+        jbtnConfirm.setForeground(Color.WHITE);
+        jlTotalPrice.setForeground(Color.WHITE);
+
+        jbtnInsert.setBackground(Color.decode("#5586EB")); // 파란색
+        jbtnDelete.setBackground(Color.decode("#5586EB")); // 파란색
+        jbtnCancel.setBackground(Color.decode("#5586EB")); // 파란색
+        jbtnConfirm.setBackground(Color.decode("#5586EB")); // 파란색
 
         add(jlMaintenanceProgressViewTitle);
         add(jlPartCode);
