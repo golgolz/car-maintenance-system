@@ -36,8 +36,7 @@ public class PreventiMaintenanceDAO {
     // 재작성
     try {
       conn = DBConnection.getInstance().getConnection();
-      String query =
-          "SELECT CAR_MAINTENANCE_ID, CAR_MAINTENANCE_DATE, maintenance_reason FROM car_maintenance_settlement";
+      String query = "SELECT CAR_ID, CAR_MAINTENANCE_DATE, maintenance_reason FROM car_maintenance_settlement";
       pstmt = conn.prepareStatement(query);
       rs = pstmt.executeQuery();
 
@@ -45,7 +44,7 @@ public class PreventiMaintenanceDAO {
       // dtmPreventiData.addColumn("정비 일자");
       // dtmPreventiData.addColumn("정비 내역");
       while (rs.next()) {
-        String carId = rs.getString("CAR_MAINTENANCE_ID");
+        String carId = rs.getString("CAR_ID");
         Date carMaintenaceDate = rs.getDate("CAR_MAINTENANCE_DATE");
         String maintenanceReason = rs.getString("maintenance_reason");
 
@@ -73,7 +72,7 @@ public class PreventiMaintenanceDAO {
     try {
       conn = DBConnection.getInstance().getConnection();
       String query =
-          "SELECT CAR_MAINTENANCE_ID, CAR_MAINTENANCE_DATE, MAINTENANCE_REASON FROM car_maintenance_settlement WHERE MAINTENANCE_CLASSIFICATION = ?";
+          "SELECT CAR_ID, CAR_MAINTENANCE_DATE, MAINTENANCE_REASON FROM car_maintenance_settlement WHERE MAINTENANCE_CLASSIFICATION = ?";
       pstmt = conn.prepareStatement(query);
       pstmt.setString(1, "일반");
       rs = pstmt.executeQuery();
@@ -82,7 +81,7 @@ public class PreventiMaintenanceDAO {
       // System.out.println("Debugging: Printing data retrieved from the database for '일반'
       // maintenance...");
       while (rs.next()) {
-        String carId = rs.getString("CAR_MAINTENANCE_ID");
+        String carId = rs.getString("CAR_ID");
         Date carMaintenaceDate = rs.getDate("CAR_MAINTENANCE_DATE");
         String maintenanceReason = rs.getString("MAINTENANCE_REASON");
 
