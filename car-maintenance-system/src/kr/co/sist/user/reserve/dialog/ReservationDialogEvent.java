@@ -3,7 +3,10 @@ package kr.co.sist.user.reserve.dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import kr.co.sist.admin.manage.reserved_car.ReservedCarDAO;
+import kr.co.sist.admin.manage.reserved_car.ReservedCarVO;
 import kr.co.sist.admin.register.car.RegisteredCarVO;
 import kr.co.sist.user.reserve.common.ReservationManagementVO;
 import kr.co.sist.user.reserve.common.SelectDay;
@@ -16,7 +19,7 @@ public class ReservationDialogEvent implements ActionListener {
     private ReservationCalendarDialogEvent rcde;
     private String selectTime;
     private String reserveDate;
-    private boolean checkFlag;
+    private boolean checkFlag, deleteFlag;
 
     public ReservationDialogEvent(ReservationDialogView rdv) {
         this.rdv = rdv;
@@ -151,7 +154,7 @@ public class ReservationDialogEvent implements ActionListener {
         rcdv = new ReservationCalendarDialogView();
         ReservationManagementDAO rmDAO = ReservationManagementDAO.getInstance();
         rcde = new ReservationCalendarDialogEvent(rcdv, rcdv.getDayButton());
-        ReservationManagementVO rmVO = new ReservationManagementVO();
+        ReservationManagementVO rmVO = null;
         RegisteredCarVO rVO = rmVO.getRegisteredCarVO();
 
         // String ownerId = rVO.getOwnerId();
@@ -177,8 +180,8 @@ public class ReservationDialogEvent implements ActionListener {
         rmVO = new ReservationManagementVO(ownerId, tel, carId, carModel, reserveReason, reserveDate, reserveTime,
                 maintenanceClassification);
 
-        boolean duplicationFlag = checkDateDuplication(reserveDate + " " + selectTime);
         try {
+            boolean duplicationFlag = checkDateDuplication(reserveDate + " " + selectTime);
             if (duplicationFlag == false) { // 중복되지 않을 경우 실행
                 rmDAO.insertReservationManagement(rmVO);
             } else { // 중복될 경우
@@ -188,7 +191,36 @@ public class ReservationDialogEvent implements ActionListener {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }// insertPreventiReservation
+    }// insertReservation
+
+
+    public void addReservedCar() throws SQLException {
+        ReservedCarDAO rcDAO = ReservedCarDAO.getInstance();
+        ReservedCarVO rcVO = null;
+
+        String carId = "사용자 차량번호";
+        String ownerId = "사용자 ID";
+        String carModel = "사용자 차량 모델";
+        Date reservedDate = new Date();
+        Date releasedDate = new Date();
+        int carYear = 2024;
+        int driveDistance = 3333;
+        String maintenanceStatus = "x";
+
+        rcVO = new ReservedCarVO(carId, ownerId, carModel, reservedDate, releasedDate, carYear, driveDistance,
+                maintenanceStatus);
+
+        boolean duplicationFlag = rcDAO.checkCarIdDuplication(carId);
+
+        if (duplicationFlag == true) {
+            // 삭제하는 method 실행
+        }
+
+        if (duplicationFlag == false) {
+            rcDAO.insertReservedCar(rcVO);
+        }
+
+    }// addReservedCar
 
 
     /**
@@ -206,12 +238,12 @@ public class ReservationDialogEvent implements ActionListener {
 
         duplicationFlag = rmDAO.checkDateDuplication(checkDate);
 
-
         return duplicationFlag;
     }
 
 
-    public void searchReservationByOwnerId() { // 성강님 view 구현 필요
+
+    public void searchReservationByOwnerId() { // view 구현 필요
         ReservationManagementDAO rmDAO = ReservationManagementDAO.getInstance();
     }// searchReservationByOwnerId
 
@@ -234,6 +266,10 @@ public class ReservationDialogEvent implements ActionListener {
 
     public boolean isCheckFlag() {
         return checkFlag;
+    }
+
+    public boolean isDeleteFlag() {
+        return deleteFlag;
     }
 
 
