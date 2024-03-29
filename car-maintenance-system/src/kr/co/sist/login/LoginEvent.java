@@ -46,6 +46,7 @@ public class LoginEvent extends WindowAdapter implements ActionListener, FocusLi
                     return;
                 } else {
                     userLoginView.dispose();
+                    loginDAO.setCurrentUserInfo(nowLoginName);
                     new UserView();
                 }
             } catch (SQLException e) {
