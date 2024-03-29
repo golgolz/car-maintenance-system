@@ -2,12 +2,6 @@ package kr.co.sist.admin.manage.reservation.preventi;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import kr.co.sist.user.reserve.common.ReservationManagementVO;
-import kr.co.sist.user.reserve.dao.ReservationManagementDAO;
 
 public class PreventiReservationEvent implements ActionListener {
     private PreventiReservationView preventiReservationView;

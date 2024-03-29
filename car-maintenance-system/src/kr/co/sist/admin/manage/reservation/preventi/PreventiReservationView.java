@@ -5,8 +5,6 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.util.List;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -15,14 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import kr.co.sist.FontSingleton;
-import kr.co.sist.admin.manage.reservation.common.MaintenanceProgressView;
-import kr.co.sist.user.reserve.common.ReservationManagementVO;
-import kr.co.sist.user.reserve.dao.ReservationManagementDAO;
 
 @SuppressWarnings("serial")
 public class PreventiReservationView extends JFrame {
@@ -40,13 +33,7 @@ public class PreventiReservationView extends JFrame {
         jtfOwnerId = new JTextField(10);
         JButton jbtnSearch = new JButton("검색");
         preventiReservations = new DefaultTableModel();
-
-        String[] headerInfo = {"고객명", "ID", "연락처", "차량 번호", "모델", "예약일", "예약 사유", "정비 상태"};
-        try {
-            preventiReservations = new DefaultTableModel(createReservationData(), headerInfo);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        createMaintenanceDialog();
         preventiReservationTable = new JTable(preventiReservations);
         JScrollPane preventiTargetScroll = new JScrollPane(preventiReservationTable);
 
@@ -55,12 +42,6 @@ public class PreventiReservationView extends JFrame {
         jlblOwnerId.setFont(FontSingleton.getInstance().bonGodic.deriveFont(17f));
         jbtnSearch.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
         preventiReservationTable.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
-        preventiReservationTable.getTableHeader().setFont(FontSingleton.getInstance().bonGodic.deriveFont(12f));
-
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        preventiReservationTable.setDefaultRenderer(Object.class, centerRenderer);
-
 
         preventiReservationTable.getColumnModel().getColumn(0).setPreferredWidth(40);
         preventiReservationTable.getColumnModel().getColumn(1).setPreferredWidth(40);
@@ -150,7 +131,6 @@ public class PreventiReservationView extends JFrame {
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     fireEditingStopped();
-                    new MaintenanceProgressView(rowData, "정기");
                 }
             });
         }
@@ -173,7 +153,8 @@ public class PreventiReservationView extends JFrame {
 
         private String getRowData(JTable table, int row) {
             StringBuilder rowData = new StringBuilder();
-            rowData.append(table.getModel().getValueAt(row, 3));
+            rowData.append(table.getModel().getValueAt(row, 1)).append("/");
+            rowData.append(table.getModel().getValueAt(row, 5));
             return rowData.toString();
         }
 
