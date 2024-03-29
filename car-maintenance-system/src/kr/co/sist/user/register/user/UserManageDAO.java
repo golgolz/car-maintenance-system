@@ -40,7 +40,7 @@ public class UserManageDAO {
 
             if (rs.next()) {
                 boolId = true;
-                System.out.println(boolId);
+                // System.out.println(boolId);
                 // 중복검사 통과하는 코드
             }
         } finally {

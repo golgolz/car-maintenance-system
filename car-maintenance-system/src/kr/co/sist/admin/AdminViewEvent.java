@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import kr.co.sist.admin.manage.inventory.InventoryView;
 import kr.co.sist.admin.manage.reservation.common.CommonReservationView;
 import kr.co.sist.admin.manage.reservation.preventi.PreventiReservationView;
@@ -55,6 +56,13 @@ public class AdminViewEvent extends WindowAdapter implements ActionListener {
         if (ae.getSource() == adminView.getJbtnUserManage()) {
             new AdminManageView();
         }
+        if (ae.getSource() == adminView.getJbtnLogout()) {
+            int flag = JOptionPane.showConfirmDialog(adminView, "로그아웃 하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
+            switch (flag) {
+                case JOptionPane.OK_OPTION:
+                    adminView.dispose();
+            }
+        }
     }
 
     // @Override
@@ -64,8 +72,8 @@ public class AdminViewEvent extends WindowAdapter implements ActionListener {
     // }
     // }
 
-    public static void main(String[] args) {
-        new AdminView();
-    }
+    // public static void main(String[] args) {
+    // new AdminView();
+    // }
 
 }

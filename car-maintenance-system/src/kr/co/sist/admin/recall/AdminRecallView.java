@@ -135,7 +135,7 @@ public class AdminRecallView extends JFrame {
 
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
                 int row, int column) {
-            setText("조회");
+            setText("검색");
             return this;
         }
     }
@@ -178,7 +178,7 @@ public class AdminRecallView extends JFrame {
             }
 
             carModel = getRowData(table, row);
-            button.setText("조회");
+            button.setText("검색");
             return button;
         }
 

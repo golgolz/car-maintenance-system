@@ -61,7 +61,7 @@ public class CarModifyDialog extends JDialog {
         jbtnCancel.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
 
         jbtnOk.setBackground(Color.decode("#002347"));
-        jbtnCancel.setBackground(Color.decode("#47C83E"));
+        jbtnCancel.setBackground(Color.decode("#065535"));
 
         CarModifyDialogEvent carModifyDialogEvent = new CarModifyDialogEvent(this);
         jbtnOk.addActionListener(carModifyDialogEvent);

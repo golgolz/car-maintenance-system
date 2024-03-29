@@ -40,7 +40,7 @@ public class AdminRegisteredCarView extends JFrame {
         jtfId = new JTextField();
         jtfId.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
 
-        jbtnSearch = new JButton("조회");
+        jbtnSearch = new JButton("검색");
         jbtnSearch.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
         jbtnAddCar = new JButton("추가");
         jbtnAddCar.setFont(FontSingleton.getInstance().bonGodic.deriveFont(16f));
@@ -94,8 +94,8 @@ public class AdminRegisteredCarView extends JFrame {
         jbtnRemove.setForeground(Color.WHITE);
         jbtnSearch.setForeground(Color.WHITE);
 
-        jbtnSearch.setBackground(Color.decode("#47C83E"));
-        jbtnAddCar.setBackground(Color.decode("#47C83E"));
+        jbtnSearch.setBackground(Color.decode("#065535"));
+        jbtnAddCar.setBackground(Color.decode("#065535"));
         jbtnModify.setBackground(Color.decode("#5586EB"));
         jbtnRemove.setBackground(Color.decode("#FF0000"));
 

@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import kr.co.sist.FontSingleton;
 
 @SuppressWarnings("serial")
 public class PreventiReservationView extends JFrame {
@@ -27,7 +28,7 @@ public class PreventiReservationView extends JFrame {
         setLayout(null);
         this.getContentPane().setBackground(Color.decode("#002347"));
 
-        JLabel jlblTitle = new JLabel("예방 정비 예약");
+        JLabel jlblTitle = new JLabel("예방 정비 신청 차량");
         JLabel jlblOwnerId = new JLabel("사용자 ID");
         jtfOwnerId = new JTextField(10);
         JButton jbtnSearch = new JButton("검색");
@@ -36,11 +37,11 @@ public class PreventiReservationView extends JFrame {
         preventiReservationTable = new JTable(preventiReservations);
         JScrollPane preventiTargetScroll = new JScrollPane(preventiReservationTable);
 
-        jlblTitle.setFont(new Font("나눔고딕", Font.BOLD, 27));
-        jlblOwnerId.setFont(new Font("나눔고딕", Font.PLAIN, 17));
-        jlblOwnerId.setFont(new Font("나눔고딕", Font.PLAIN, 17));
-        jbtnSearch.setFont(new Font("나눔고딕", Font.PLAIN, 14));
-        preventiReservationTable.setFont(new Font("나눔고딕", Font.PLAIN, 14));
+        jlblTitle.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 27f));
+        jlblOwnerId.setFont(FontSingleton.getInstance().bonGodic.deriveFont(17f));
+        jlblOwnerId.setFont(FontSingleton.getInstance().bonGodic.deriveFont(17f));
+        jbtnSearch.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
+        preventiReservationTable.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
 
         preventiReservationTable.getColumnModel().getColumn(8).setCellRenderer(new ButtonRenderer());
         preventiReservationTable.getColumnModel().getColumn(8).setCellEditor(new ButtonEditor(new JCheckBox()));
