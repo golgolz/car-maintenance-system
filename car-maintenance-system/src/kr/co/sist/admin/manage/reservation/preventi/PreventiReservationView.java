@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.List;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -13,9 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import kr.co.sist.FontSingleton;
+import kr.co.sist.user.reserve.common.ReservationManagementVO;
+import kr.co.sist.user.reserve.dao.ReservationManagementDAO;
 
 @SuppressWarnings("serial")
 public class PreventiReservationView extends JFrame {
@@ -33,7 +39,13 @@ public class PreventiReservationView extends JFrame {
         jtfOwnerId = new JTextField(10);
         JButton jbtnSearch = new JButton("검색");
         preventiReservations = new DefaultTableModel();
-        createMaintenanceDialog();
+
+        String[] headerInfo = {"고객명", "ID", "연락처", "차량 번호", "모델", "예약일", "예약 사유", "정비 상태"};
+        try {
+            preventiReservations = new DefaultTableModel(createReservationData(), headerInfo);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         preventiReservationTable = new JTable(preventiReservations);
         JScrollPane preventiTargetScroll = new JScrollPane(preventiReservationTable);
 
@@ -42,9 +54,18 @@ public class PreventiReservationView extends JFrame {
         jlblOwnerId.setFont(FontSingleton.getInstance().bonGodic.deriveFont(17f));
         jbtnSearch.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
         preventiReservationTable.setFont(FontSingleton.getInstance().bonGodic.deriveFont(14f));
+        preventiReservationTable.getTableHeader().setFont(FontSingleton.getInstance().bonGodic.deriveFont(12f));
 
-        preventiReservationTable.getColumnModel().getColumn(8).setCellRenderer(new ButtonRenderer());
-        preventiReservationTable.getColumnModel().getColumn(8).setCellEditor(new ButtonEditor(new JCheckBox()));
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        preventiReservationTable.setDefaultRenderer(Object.class, centerRenderer);
+
+        preventiReservationTable.getColumnModel().getColumn(0).setPreferredWidth(40);
+        preventiReservationTable.getColumnModel().getColumn(1).setPreferredWidth(40);
+        preventiReservationTable.getColumnModel().getColumn(2).setPreferredWidth(120);
+
+        preventiReservationTable.getColumnModel().getColumn(7).setCellRenderer(new ButtonRenderer());
+        preventiReservationTable.getColumnModel().getColumn(7).setCellEditor(new ButtonEditor(new JCheckBox()));
 
         jlblTitle.setBounds(17, 0, 250, 80);
         jlblOwnerId.setBounds(20, 87, 100, 30);
@@ -71,12 +92,38 @@ public class PreventiReservationView extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
-    public void createMaintenanceDialog() {
-        String[] headerInfo = {"등록 번호", "고객명", "ID", "연락처", "차량 번호", "모델", "예약일", "예약 사유", "정비 상태"};
-        Object[][] preventiReservationData =
-                {{"1", "이명화", "lee", "010-1111-2222", "111가2222", "K5", "20-09-09", "엔진 오일", "정비대기"},
-                        {"2", "이명화", "lee", "010-3333-4444", "333나4444", "K5", "20-09-09", "와이퍼", "정비완료"}};
-        preventiReservations = new DefaultTableModel(preventiReservationData, headerInfo);
+    public JTextField getJtfOwnerId() {
+        return jtfOwnerId;
+    }
+
+    public DefaultTableModel getPreventiReservations() {
+        return preventiReservations;
+    }
+
+    public JTable getPreventiReservationTable() {
+        return preventiReservationTable;
+    }
+
+    public Object[][] createReservationData() throws SQLException {
+        List<ReservationManagementVO> reservations = null;
+        reservations = ReservationManagementDAO.getInstance().selectReservation("정기");
+        Object[][] reservationData = new String[reservations.size()][8];
+
+        ReservationManagementVO tempVO = null;
+
+        for (int i = 0; i < reservationData.length; i++) {
+            tempVO = reservations.get(i);
+            reservationData[i][0] = tempVO.getTel();
+            reservationData[i][1] = tempVO.getOwnerId();
+            reservationData[i][2] = tempVO.getName();
+            reservationData[i][3] = tempVO.getCarId();
+            reservationData[i][4] = tempVO.getCarModel();
+            reservationData[i][5] = tempVO.getReservationDate();
+            reservationData[i][6] = tempVO.getReserveReason();
+            reservationData[i][7] = "정비대기";
+        }
+
+        return reservationData;
     }
 
     static class ButtonRenderer extends JButton implements TableCellRenderer {
