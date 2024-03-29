@@ -99,7 +99,7 @@ public class ReservationDialogView extends JPanel {
         jlReservationDate.add(rcdv);
 
         SelectDay.jtfDate = new JTextField(15);
-        SelectDay.jtfDate.setEnabled(false);
+        SelectDay.jtfDate.setEditable(false);
 
 
         // 컴포넌트 배치
@@ -158,7 +158,7 @@ public class ReservationDialogView extends JPanel {
         jlReservationDate.add(rcdv);
 
         SelectDay.jtfDate = new JTextField(15);
-        SelectDay.jtfDate.setEnabled(false);
+        SelectDay.jtfDate.setEditable(false);
 
         // 컴포넌트 배치
         jlReservationDate.setBounds(10, 20, 230, 220);
@@ -212,7 +212,7 @@ public class ReservationDialogView extends JPanel {
         jlReservationDate.add(rcdv);
 
         SelectDay.jtfDate = new JTextField(15);
-        SelectDay.jtfDate.setEnabled(false);
+        SelectDay.jtfDate.setEditable(false);
 
         // 컴포넌트 배치
         jlReservationDate.setBounds(10, 20, 230, 220);
