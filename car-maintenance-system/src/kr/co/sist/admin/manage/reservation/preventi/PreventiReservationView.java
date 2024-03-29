@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import kr.co.sist.FontSingleton;
+import kr.co.sist.admin.manage.reservation.common.MaintenanceProgressView;
 import kr.co.sist.user.reserve.common.ReservationManagementVO;
 import kr.co.sist.user.reserve.dao.ReservationManagementDAO;
 
@@ -149,6 +150,7 @@ public class PreventiReservationView extends JFrame {
             button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     fireEditingStopped();
+                    new MaintenanceProgressView(rowData, "정기");
                 }
             });
         }
@@ -171,8 +173,7 @@ public class PreventiReservationView extends JFrame {
 
         private String getRowData(JTable table, int row) {
             StringBuilder rowData = new StringBuilder();
-            rowData.append(table.getModel().getValueAt(row, 1)).append("/");
-            rowData.append(table.getModel().getValueAt(row, 5));
+            rowData.append(table.getModel().getValueAt(row, 3));
             return rowData.toString();
         }
 
