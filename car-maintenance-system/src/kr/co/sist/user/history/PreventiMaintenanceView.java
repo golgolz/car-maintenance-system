@@ -29,7 +29,7 @@ public class PreventiMaintenanceView extends JFrame {
     this.getContentPane().setBackground(Color.decode("#002347"));
     jlPreventiMaintenance = new JLabel("예방 정비 내역");
 
-    String[] Header = {"정비 번호", "정비 일자", "부품 코드"};
+    String[] Header = {"차량 번호", "정비 일자", "부품 코드"};
     dtmPreventiData = new DefaultTableModel();
     jtPreventiTable = new JTable(dtmPreventiData);
     jspPreventiData = new JScrollPane(jtPreventiTable);
@@ -42,7 +42,7 @@ public class PreventiMaintenanceView extends JFrame {
     jtPreventiTable.setDefaultRenderer(Object.class, centerRenderer);
 
     // Set up the table model
-    dtmPreventiData.addColumn("정비 번호");
+    dtmPreventiData.addColumn("차량 번호");
     dtmPreventiData.addColumn("정비 일자");
     dtmPreventiData.addColumn("정비 내역");
 

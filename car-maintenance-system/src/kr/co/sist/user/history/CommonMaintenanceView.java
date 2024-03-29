@@ -41,7 +41,7 @@ public class CommonMaintenanceView extends JFrame {
     jtCommonTable = new JTable(dtmCommon);
     JScrollPane scrollPane = new JScrollPane(jtCommonTable);
 
-    dtmCommon.addColumn("정비 번호");
+    dtmCommon.addColumn("차량 번호");
     dtmCommon.addColumn("정비 일자");
     dtmCommon.addColumn("정비 내역");
 

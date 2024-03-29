@@ -77,14 +77,17 @@ public class MaintenanceProgressDAO {
     try {
       conn = DBConnection.getInstance().getConnection();
       String insertPartInfoQuery =
-          "INSERT INTO car_maintenance_settlement(CAR_MAINTENANCE_ID, part_code, part_cnt, MAINTENANCE_CLASSIFICATION, maintenance_reason, CAR_MAINTENANCE_DATE) "
-              + "VALUES (?, ?, ?, ?, ?, ?)";
+          "INSERT INTO car_maintenance_settlement(car_id, CAR_MAINTENANCE_ID, part_code, part_cnt, MAINTENANCE_CLASSIFICATION, maintenance_reason, CAR_MAINTENANCE_DATE) "
+              + "VALUES (?, ?, ?, ?, ?, ?, ?)";
       // for (int row = 0; row < model.getRowCount(); row++) { // 각 행을 반복하면서
       // String partCode = (String) model.getValueAt(row, 0); // 부품 코드 가져오기
       // int partCnt = (int) model.getValueAt(row, 2); // 수량 가져오기
       // String partName = (String) model.getValueAt(row, 1); // 부품명 가져오기
 
       pstmt = conn.prepareStatement(insertPartInfoQuery);
+      String carid = "234오6789";
+
+      pstmt.setString(1, carid);
 
       // Random 객체 생성
       Random random = new Random();
@@ -92,7 +95,8 @@ public class MaintenanceProgressDAO {
       // CAR_MAINTENANCE_ID 값을 5부터 999 사이의 랜덤한 정수로 설정
       int carMaintenanceId = random.nextInt(995) + 6;
 
-      pstmt.setInt(1, carMaintenanceId);
+
+      pstmt.setInt(2, carMaintenanceId);
 
       // 정수1 생성 (100부터 999 사이의 랜덤한 정수)
       int num1 = random.nextInt(900) + 100;
@@ -107,16 +111,16 @@ public class MaintenanceProgressDAO {
       String carId = num1 + character + num2;
       // pstmt.setString(2, carId);
 
-      pstmt.setString(2, partCode);
-      pstmt.setInt(3, partCnt);
-      pstmt.setString(4, maintenanceClassification);
-      pstmt.setString(5, partName);
+      pstmt.setString(3, partCode);
+      pstmt.setInt(4, partCnt);
+      pstmt.setString(5, maintenanceClassification);
+      pstmt.setString(6, partName);
 
       // 현재 시간을 가져와서 포맷팅
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
       String currentDate = sdf.format(new Date());
 
-      pstmt.setString(6, currentDate);
+      pstmt.setString(7, currentDate);
 
       pstmt.executeUpdate(); // 실행
 
