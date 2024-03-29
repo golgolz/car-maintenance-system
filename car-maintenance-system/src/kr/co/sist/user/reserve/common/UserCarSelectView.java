@@ -1,4 +1,4 @@
-package kr.co.sist.user.recall;
+package kr.co.sist.user.reserve.common;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -11,18 +11,19 @@ import kr.co.sist.FontSingleton;
 import kr.co.sist.admin.recall.RecallDAO;
 import kr.co.sist.login.LoginDAO;
 
-public class UserRecallView extends JFrame {
+@SuppressWarnings("serial")
+public class UserCarSelectView extends JFrame {
     private JComboBox<String> carIdComboBox;
 
-    public UserRecallView() {
-        super("리콜 대상 확인");
-        UserRecallEvent userRecallEvent = new UserRecallEvent(this);
+    public UserCarSelectView() {
+        super("일반 정비 신청");
+        UserCarSelectEvent userCarSelectEvent = new UserCarSelectEvent(this);
 
         setLayout(null);
 
         this.getContentPane().setBackground(Color.decode("#002347"));
 
-        JLabel jlblTitle = new JLabel("리콜 대상 확인");
+        JLabel jlblTitle = new JLabel("소유 차량 확인");
         JLabel jlblCarId = new JLabel("차량 번호");
         JButton jbtnSearch = new JButton("검색");
         try {
@@ -47,7 +48,7 @@ public class UserRecallView extends JFrame {
         jbtnSearch.setForeground(Color.BLACK);
         jbtnSearch.setBackground(Color.WHITE);
 
-        jbtnSearch.addActionListener(userRecallEvent);
+        jbtnSearch.addActionListener(userCarSelectEvent);
 
         add(jlblTitle);
         add(jlblCarId);

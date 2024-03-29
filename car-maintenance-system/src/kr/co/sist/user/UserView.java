@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import kr.co.sist.FontSingleton;
+import kr.co.sist.login.LoginDAO;
 
 @SuppressWarnings("serial")
 public class UserView extends JFrame {// oven 74
@@ -30,7 +31,7 @@ public class UserView extends JFrame {// oven 74
         userViewEvent = new UserViewEvent(this);
 
         jlSelectFunctionMsg = new JLabel("원하시는 메뉴를 선택해주세요.");
-        jlUserName = new JLabel(getName());// 로그인한 사용자 이름을 받고싶음
+        jlUserName = new JLabel(LoginDAO.getInstance().getCurrentUserId() + "님");// 로그인한 사용자 이름을 받고싶음
         jlReport = new JLabel("");// 알림을 받고싶음
         jbtnMaintenance = new JButton("정비 관리");
         jbtnReservation = new JButton("일반 정비 예약");
@@ -42,7 +43,7 @@ public class UserView extends JFrame {// oven 74
         jbtnLogout = new JButton("로그아웃");
 
         jlSelectFunctionMsg.setBounds(270, 10, 300, 50);
-        jlUserName.setBounds(20, 50, 150, 50);
+        jlUserName.setBounds(30, 20, 150, 50);
         jlReport.setBounds(650, 175, 50, 50);
         jbtnMaintenance.setBounds(150, 100, 210, 40);
         jbtnReservation.setBounds(450, 100, 210, 40);
@@ -54,7 +55,7 @@ public class UserView extends JFrame {// oven 74
         jbtnLogout.setBounds(700, 20, 90, 30);
 
         jlSelectFunctionMsg.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 20f));
-        jlUserName.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 15f));
+        jlUserName.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 20f));
         jlReport.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 20f));
         jbtnMaintenance.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
         jbtnReservation.setFont(FontSingleton.getInstance().bonGodic.deriveFont(Font.BOLD, 22f));
