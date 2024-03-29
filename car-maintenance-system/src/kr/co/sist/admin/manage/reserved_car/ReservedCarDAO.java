@@ -47,8 +47,8 @@ public class ReservedCarDAO {
             StringBuilder selectReservedAll = new StringBuilder();
 
             selectReservedAll.append(
-                    "select rc.car_id,rc.car_year,rc.drive_distance,rc.reserved_date,rc.released_date,rc.owner_id,rs.maintenance_classification,rc.maintenance_status ")
-                    .append("from reserved_car rc, reservation rs ").append("where rc.car_id=rs.car_id");
+                    "select rc.car_id,rc.car_year,rc.drive_distance,rc.reserved_date,rc.released_date,rc.owner_id,rs.maintenance_classification,rc.maintenance_status, rc.car_model ")
+                    .append("from reserved_car rc, reservation rs ").append("where rc.car_id=rs.car_id ");
 
             pstmt = con.prepareStatement(selectReservedAll.toString());
 
@@ -58,7 +58,7 @@ public class ReservedCarDAO {
             while (rs.next()) {
                 rcVO = new ReservedCarVO(rs.getString("car_id"), rs.getString("owner_id"), rs.getString("car_model"),
                         rs.getDate("reserved_date"), rs.getDate("released_date"), rs.getInt("car_year"),
-                        rs.getInt("drive_distance"), rs.getString("maintenance_status"));
+                        rs.getInt("drive_distance"), rs.getString("maintenance_classification"));
 
                 reservedList.add(rcVO);
             } // end while
@@ -78,7 +78,7 @@ public class ReservedCarDAO {
      * @return
      * @throws SQLException
      */
-    public List<ReservedCarVO> selectReservedCarByOwnerId() throws SQLException {
+    public List<ReservedCarVO> selectSomeReservedCar(String carId, String ownerId) throws SQLException {
         List<ReservedCarVO> reservedList = new ArrayList<ReservedCarVO>();
         ReservedCarVO rcVO = null;
 
@@ -94,18 +94,39 @@ public class ReservedCarDAO {
             StringBuilder selectReservedById = new StringBuilder();
 
             selectReservedById.append(
-                    "select rc.car_id,rc.car_year,rc.drive_distance,rc.reserved_date,rc.released_date,rc.owner_id,rs.maintenance_classification,rc.maintenance_status ")
-                    .append("from reserved_car rc, reservation rs ")
-                    .append("where (rc.car_id=rs.car_id) and rc.owner_id=?");
+                    "select rc.car_id,rc.car_year,rc.drive_distance,rc.reserved_date,rc.released_date,rc.owner_id,rs.maintenance_classification,rc.maintenance_status, rc.car_model ")
+                    .append("from reserved_car rc, reservation rs ").append("where (rc.car_id=rs.car_id) ");
 
             pstmt = con.prepareStatement(selectReservedById.toString());
+
+            boolean carExist = false;
+            boolean ownerExist = false;
+
+            if (!carId.isEmpty()) {
+                selectReservedById.append(" and rc.car_id = ? ");
+                carExist = true;
+            }
+            if (!ownerId.isEmpty()) {
+                selectReservedById.append(" and rc.owner_id = ? ");
+                ownerExist = true;
+            }
+
+            if (carExist && !ownerExist) {
+                pstmt.setString(1, carId);
+            } else if (!carExist && ownerExist) {
+                pstmt.setString(1, ownerId);
+            } else if (carExist && ownerExist) {
+                pstmt.setString(1, carId);
+                pstmt.setString(2, ownerId);
+            }
 
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
+                System.out.println(rs.getString("maintenance_classification"));
                 rcVO = new ReservedCarVO(rs.getString("car_id"), rs.getString("owner_id"), rs.getString("car_model"),
                         rs.getDate("reserved_date"), rs.getDate("released_date"), rs.getInt("car_year"),
-                        rs.getInt("drive_distance"), rs.getString("maintenance_status"));
+                        rs.getInt("drive_distance"), rs.getString("maintenance_classification"));
 
                 reservedList.add(rcVO);
             } // end while
