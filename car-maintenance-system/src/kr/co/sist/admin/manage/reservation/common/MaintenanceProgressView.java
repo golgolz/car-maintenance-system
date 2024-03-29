@@ -28,6 +28,8 @@ public class MaintenanceProgressView extends JFrame {
   private JTable maintenanceProgressTable;
   private JScrollPane jsp;
 
+  private MaintenanceProgressEvent maintenanceProgressEvent;
+
   public MaintenanceProgressView() {
     super("차량정비관리시스템");
 
@@ -87,8 +89,18 @@ public class MaintenanceProgressView extends JFrame {
     add(maintenanceProgressTable);
     add(jsp);
 
+    MaintenanceProgressDAO dao = new MaintenanceProgressDAO(this);
+    MaintenanceProgressEvent event = new MaintenanceProgressEvent(this, dao);
+    jbtnInsert.addActionListener(maintenanceProgressEvent);
+    jbtnConfirm.addActionListener(maintenanceProgressEvent);
+
+
     setSize(655, 315);
     setVisible(true);
+  }
+
+  public void updateTotalPriceInTextArea(String totalPrice) {
+    jtaTotalPrice.setText(totalPrice);
   }
 
   public JLabel getJlMaintenanceProgressViewTitle() {
