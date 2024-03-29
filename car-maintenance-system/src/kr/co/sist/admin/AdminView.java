@@ -114,7 +114,7 @@ public class AdminView extends JFrame {// oven 9
         setSize(840, 480);
         setVisible(true);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     public JLabel getJlSelectFunctionMsg() {
