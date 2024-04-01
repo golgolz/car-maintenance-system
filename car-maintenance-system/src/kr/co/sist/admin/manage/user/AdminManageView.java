@@ -94,7 +94,8 @@ public class AdminManageView extends JFrame {
         try {
             userList = userManageDAO.selectAllUser();
             for (UserInfoVO uVO : userList) {
-                Object[] rowData = {uVO.getId(), uVO.getName(), uVO.getAddr(), uVO.getTel(), uVO.getRegisteredCar()};
+                Object[] rowData = {uVO.getId(), uVO.getName(), uVO.getAddr(), uVO.getTel(),
+                        uVO.getRegisteredCar().get(0).getCarId()};
                 dtm.addRow(rowData);
             }
         } catch (SQLException e) {

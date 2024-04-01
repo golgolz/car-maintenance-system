@@ -154,7 +154,7 @@ public class ReservationDialogEvent implements ActionListener {
         rcdv = new ReservationCalendarDialogView();
         ReservationManagementDAO rmDAO = ReservationManagementDAO.getInstance();
         rcde = new ReservationCalendarDialogEvent(rcdv, rcdv.getDayButton());
-        ReservationManagementVO rmVO = null;
+        ReservationManagementVO rmVO = new ReservationManagementVO();
         RegisteredCarVO rVO = rmVO.getRegisteredCarVO();
 
         // String ownerId = rVO.getOwnerId();

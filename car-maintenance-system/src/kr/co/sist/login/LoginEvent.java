@@ -55,11 +55,11 @@ public class LoginEvent extends WindowAdapter implements ActionListener, FocusLi
         }
         if (ae.getSource() == userLoginView.getJbtnAdminView()) {
             new AdminLoginView();
-            userLoginView.dispose();
+            // userLoginView.dispose();
         }
         if (ae.getSource() == userLoginView.getJbtnRegistUser()) {
             new RegisterUserView();
-            userLoginView.dispose();
+            // userLoginView.dispose();
         }
     }
 

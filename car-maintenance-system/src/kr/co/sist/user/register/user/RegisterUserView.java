@@ -151,7 +151,7 @@ public class RegisterUserView extends JFrame {
 
         setSize(840, 480);
         setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     public JLabel getJlRegisterUser() {

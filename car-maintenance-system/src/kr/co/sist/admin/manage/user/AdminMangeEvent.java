@@ -22,13 +22,14 @@ public class AdminMangeEvent extends WindowAdapter implements ActionListener {
             UserInfoVO uiVO = null;
             try {
                 uiVO = userManageDAO.selectOneUser(adminManageView.getJtfUserID().getText());
-                Object[] objectRow =
-                        {uiVO.getId(), uiVO.getName(), uiVO.getAddr(), uiVO.getTel(), uiVO.getRegisteredCar()};
+                Object[] objectRow = {uiVO.getId(), uiVO.getName(), uiVO.getAddr(), uiVO.getTel(),
+                        uiVO.getRegisteredCar().get(0).getCarId()};
                 adminManageView.getDtm().setRowCount(0);
                 adminManageView.getDtm().addRow(objectRow);
                 // for (int i = 0; i < 5; i++) {
                 // System.out.println(objectRow[i]);
                 // }
+                System.out.println(uiVO.getRegisteredCar().get(0).getCarId());
             } catch (SQLException e) {
                 e.printStackTrace();
             }

@@ -14,7 +14,9 @@ public class RegisteredCarVO {
     private String recallFlag;
     private String deleteFlag;
 
-
+    public RegisteredCarVO(String carId) {
+        this.carId = carId;
+    }
 
     public RegisteredCarVO(String carId, String carIdentityNumber, String ownerId, String carModel, Date productionDay,
             Date registrationDay, int carYear, int driveDistance, String recallFlag, String dedeteFlag) {

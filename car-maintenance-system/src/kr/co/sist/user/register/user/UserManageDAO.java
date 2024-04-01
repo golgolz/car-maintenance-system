@@ -114,7 +114,7 @@ public class UserManageDAO {
             UserInfoVO uiVO = null;
             RegisteredCarVO rcVO = null;
             while (rs.next()) {
-                // rcVO = new RegisteredCarVO(rs.getString("car_id"));
+                rcVO = new RegisteredCarVO(rs.getString("car_id"));
                 uiVO = new UserInfoVO(rs.getString("owner_id"), rs.getString("name"), rs.getString("tel"),
                         rs.getString("addr"), new ArrayList<RegisteredCarVO>(Arrays.asList(rcVO)));
                 user.add(uiVO);
